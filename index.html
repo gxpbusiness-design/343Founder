@@ -15,6 +15,7 @@
   --c1-rgb:26,86,219;
   --c1-l:#3B72F6;
   --c1-d:rgba(26,86,219,.14);
+  --c1-glow:rgba(26,86,219,.20);
   --c2:#00C9A7;
   --c2-rgb:0,201,167;
   --c2-d:rgba(0,201,167,.12);
@@ -24,79 +25,119 @@
   --red-d:rgba(231,76,60,.12);
   --ease:cubic-bezier(.4,0,.2,1);
   --ease-spring:cubic-bezier(.34,1.56,.64,1);
-  --r:14px;
-  --r-sm:8px;
+  --ease-out:cubic-bezier(0,0,.2,1);
+  --r:16px;
+  --r-sm:10px;
   --r-pill:999px;
+  --sidebar-w:196px;
+  --sidebar-gap:12px;
+  --transition-page:380ms;
 }
 
-[data-theme="dark"]{
-  --bg:#0C0C0E;
-  --bg2:#111113;
-  --bg3:#1C1C20;
-  --bg4:#242428;
-  --panel:#141416;
-  --text:#F2F2F4;
-  --text2:#A1A1AA;
-  --text3:#52525B;
-  --border:rgba(255,255,255,.07);
-  --border2:rgba(255,255,255,.12);
-  --hover:rgba(255,255,255,.04);
-  --shadow:0 8px 40px rgba(0,0,0,.7);
-}
+/* ── THEMES ── */
 [data-theme="light"]{
-  --bg:#F0EEF0;
-  --bg2:#FAFAFA;
-  --bg3:#E8E6E8;
-  --bg4:#D8D6D8;
+  --bg:#ECEAF0;
+  --bg2:#F4F2F8;
+  --bg3:#E4E2E8;
+  --bg4:#D8D6DC;
   --panel:#FFFFFF;
-  --text:#111111;
-  --text2:#444444;
-  --text3:#888888;
-  --border:rgba(0,0,0,.09);
-  --border2:rgba(0,0,0,.16);
+  --text:#111118;
+  --text2:#44444C;
+  --text3:#888896;
+  --border:rgba(0,0,0,.08);
+  --border2:rgba(0,0,0,.14);
   --hover:rgba(0,0,0,.04);
   --shadow:0 4px 24px rgba(0,0,0,.10);
+  /* Glass */
+  --glass-bg:rgba(255,255,255,.72);
+  --glass-border:rgba(255,255,255,.9);
+  --glass-shadow:0 8px 32px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+  --glass-blur:saturate(180%) blur(20px);
+  /* bg mesh */
+  --mesh-1:radial-gradient(ellipse 60% 50% at 20% 20%, rgba(var(--c1-rgb),.08) 0%, transparent 60%);
+  --mesh-2:radial-gradient(ellipse 50% 60% at 80% 80%, rgba(var(--c2-rgb),.07) 0%, transparent 60%);
+  --mesh-3:radial-gradient(ellipse 40% 40% at 60% 10%, rgba(245,166,35,.06) 0%, transparent 60%);
+}
+[data-theme="dark"]{
+  --bg:#0A0A0F;
+  --bg2:#111118;
+  --bg3:#1C1C24;
+  --bg4:#242430;
+  --panel:#16161E;
+  --text:#F2F2F8;
+  --text2:#A1A1B8;
+  --text3:#52525F;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.13);
+  --hover:rgba(255,255,255,.05);
+  --shadow:0 8px 40px rgba(0,0,0,.7);
+  --glass-bg:rgba(22,22,30,.75);
+  --glass-border:rgba(255,255,255,.10);
+  --glass-shadow:0 8px 32px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.3);
+  --glass-blur:saturate(160%) blur(20px);
+  --mesh-1:radial-gradient(ellipse 60% 50% at 20% 20%, rgba(var(--c1-rgb),.12) 0%, transparent 60%);
+  --mesh-2:radial-gradient(ellipse 50% 60% at 80% 80%, rgba(var(--c2-rgb),.09) 0%, transparent 60%);
+  --mesh-3:radial-gradient(ellipse 40% 40% at 60% 10%, rgba(245,166,35,.07) 0%, transparent 60%);
 }
 
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;}
+html,body{
+  height:100%;color:var(--text);font-family:var(--font);font-size:14px;
+  line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;
+}
+/* Animated mesh background */
+body{
+  background:var(--bg);
+  background-image:var(--mesh-1),var(--mesh-2),var(--mesh-3);
+  background-attachment:fixed;
+}
 ::selection{background:var(--c1);color:#fff;}
 button{cursor:pointer;border:none;background:none;font-family:var(--font);}
 input,textarea,select{font-family:var(--font);font-size:14px;}
 a{text-decoration:none;color:inherit;}
 
-/* 
-   LOGIN SCREEN
- */
+/* ── LOGIN ── */
 #loginScreen{
-  position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;
-  z-index:9999;flex-direction:column;gap:0;
-  background-image:radial-gradient(ellipse 60% 50% at 50% 0%, var(--c1-glow) 0%, transparent 70%);
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  z-index:9999;flex-direction:column;
+  background:var(--bg);
+  background-image:var(--mesh-1),var(--mesh-2),var(--mesh-3);
+  animation:loginIn .6s var(--ease-out);
 }
-#loginScreen.out{animation:loginOut .5s var(--ease) forwards;}
-@keyframes loginOut{to{opacity:0;transform:scale(1.03);}}
+@keyframes loginIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+#loginScreen.out{animation:loginOut .45s var(--ease) forwards;}
+@keyframes loginOut{to{opacity:0;transform:scale(1.04);filter:blur(4px);}}
 
 .login-logo{
   font-family:var(--display);font-size:13px;font-weight:800;letter-spacing:.25em;
-  color:var(--text3);text-transform:uppercase;margin-bottom:48px;
+  color:var(--text3);text-transform:uppercase;margin-bottom:40px;
 }
 .login-logo span{color:var(--c1);}
 
 .login-card{
-  background:var(--panel);border:1px solid var(--border2);border-radius:20px;
-  padding:40px;width:360px;
-  box-shadow:0 0 0 1px var(--c1-d), var(--shadow);
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:24px;padding:40px;width:360px;
+  box-shadow:var(--glass-shadow);
+  animation:cardIn .5s var(--ease-spring);
 }
+@keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+
 .login-title{font-family:var(--display);font-size:26px;font-weight:800;margin-bottom:4px;letter-spacing:-.5px;}
 .login-sub{font-size:13px;color:var(--text3);margin-bottom:32px;}
 
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
 .field label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);}
 .field input{
-  background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+  background:rgba(255,255,255,.5);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid var(--border2);color:var(--text);
   padding:10px 14px;border-radius:var(--r-sm);outline:none;font-size:14px;
-  transition:border-color .15s;
+  transition:border-color .2s, box-shadow .2s, background .2s;
 }
-.field input:focus{border-color:var(--c1);}
+[data-theme="dark"] .field input{background:rgba(255,255,255,.06);}
+.field input:focus{border-color:var(--c1);box-shadow:0 0 0 3px var(--c1-d);}
 
 .login-err{font-size:12px;color:var(--red);margin-bottom:12px;display:none;}
 .login-err.show{display:block;}
@@ -104,67 +145,235 @@ a{text-decoration:none;color:inherit;}
 .btn-primary{
   width:100%;padding:12px;border-radius:var(--r-sm);
   background:var(--c1);color:#fff;font-size:14px;font-weight:600;
-  transition:opacity .15s, transform .1s;
-  margin-top:8px;
+  transition:opacity .15s, transform .12s, box-shadow .15s;margin-top:8px;
+  box-shadow:0 4px 16px rgba(var(--c1-rgb),.35);
 }
-.btn-primary:hover{opacity:.9;}
+.btn-primary:hover{opacity:.92;box-shadow:0 6px 20px rgba(var(--c1-rgb),.45);}
 .btn-primary:active{transform:scale(.98);}
 
-/* 
-   APP SHELL
- */
-#app{display:none;height:100%;flex-direction:row;}
-#app.visible{display:flex;}
+/* ── APP SHELL ── */
+#app{display:none;height:100%;position:relative;}
+#app.visible{display:block;}
 
-/* SIDEBAR */
+/* ── FLOATING PILL SIDEBAR ── */
 .sidebar{
-  width:200px;min-width:200px;height:100%;background:var(--panel);
-  border-right:1px solid var(--border);display:flex;flex-direction:column;
-  padding:20px 10px;gap:4px;flex-shrink:0;
+  position:fixed;
+  left:var(--sidebar-gap);
+  top:var(--sidebar-gap);
+  bottom:var(--sidebar-gap);
+  width:var(--sidebar-w);
+  z-index:200;
+
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  box-shadow:var(--glass-shadow);
+
+  display:flex;flex-direction:column;
+  padding:20px 10px;gap:2px;
+  overflow:hidden;
+
+  animation:sidebarIn .5s var(--ease-spring);
 }
+@keyframes sidebarIn{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
+
 .sidebar-logo{
   font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.2em;
-  color:var(--text3);text-transform:uppercase;padding:4px 8px 20px;
+  color:var(--text3);text-transform:uppercase;padding:4px 8px 18px;
 }
 .sidebar-logo span{color:var(--c1);}
 
 .nav-item{
   display:flex;align-items:center;gap:10px;padding:9px 10px;
   border-radius:var(--r-sm);color:var(--text2);font-size:13px;font-weight:500;
-  transition:background .12s, color .12s;cursor:pointer;
+  transition:background .18s var(--ease), color .18s var(--ease), transform .15s var(--ease-spring);
+  cursor:pointer;position:relative;
 }
-.nav-item:hover{background:var(--hover);color:var(--text);}
-.nav-item.active{background:var(--c1-d);color:var(--c1-l);}
-.nav-item svg{flex-shrink:0;opacity:.7;}
-.nav-item.active svg{opacity:1;}
+.nav-item:hover{
+  background:rgba(var(--c1-rgb),.08);
+  color:var(--text);
+  transform:translateX(2px);
+}
+.nav-item.active{
+  background:var(--c1-d);
+  color:var(--c1-l);
+  box-shadow:0 2px 12px rgba(var(--c1-rgb),.15);
+}
+.nav-item svg{flex-shrink:0;opacity:.6;transition:opacity .15s;}
+.nav-item:hover svg,.nav-item.active svg{opacity:1;}
+
+/* Active indicator bar */
+.nav-item.active::before{
+  content:'';position:absolute;left:-10px;top:25%;bottom:25%;
+  width:3px;background:var(--c1);border-radius:0 3px 3px 0;
+}
 
 .sidebar-section{
-  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--text3);padding:16px 10px 6px;
+  font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text3);padding:14px 10px 5px;font-family:var(--mono);
 }
 
-.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:12px;}
-.sidebar-user{
-  display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);
-}
+.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:10px;}
+.sidebar-user{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r-sm);}
 .avatar{
-  width:32px;height:32px;border-radius:50%;background:var(--c1-d);
+  width:30px;height:30px;border-radius:50%;background:var(--c1-d);
   border:1px solid rgba(var(--c1-rgb),.3);display:flex;align-items:center;justify-content:center;
   font-family:var(--display);font-size:12px;font-weight:800;color:var(--c1-l);flex-shrink:0;
 }
 .sidebar-user-info{flex:1;min-width:0;}
 .sidebar-user-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sidebar-user-role{font-size:10px;color:var(--text3);font-family:var(--mono);}
+.sidebar-user-role{font-size:9px;color:var(--text3);font-family:var(--mono);}
 
-/* MAIN CONTENT */
-.main{flex:1;height:100%;overflow-y:auto;overflow-x:hidden;background:var(--bg);min-width:0;}
-.page{display:none;padding:24px 28px;width:100%;min-width:0;animation:fadeUp .3s var(--ease);}
-.page.active{display:block;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+/* ── MAIN CONTENT ── */
+.main{
+  position:absolute;
+  top:0;right:0;bottom:0;
+  left:calc(var(--sidebar-w) + var(--sidebar-gap) * 2);
+  overflow-y:auto;overflow-x:hidden;
+  min-width:0;
+}
 
-/* PAGE HEADER */
-.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;}
-.page-title{font-family:var(--display);font-size:28px;font-weight:800;letter-spacing:-.5px;}
+.page{
+  display:none;
+  padding:20px 24px 24px;
+  min-width:0;
+  /* Transitions handled by JS class toggling */
+}
+.page.active{display:block;animation:pageIn var(--transition-page) var(--ease-out) both;}
+.page.page-exit{animation:pageOut 200ms var(--ease) both;}
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes pageOut{
+  from{opacity:1;transform:translateY(0);}
+  to{opacity:0;transform:translateY(-8px);}
+}
+
+/* ── GLASS CARD ── */
+.card,.card-sm{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r);
+  box-shadow:var(--glass-shadow);
+  transition:box-shadow .2s var(--ease), transform .2s var(--ease), border-color .2s;
+}
+.card{padding:20px;}
+.card-sm{padding:14px;}
+.card:hover{
+  box-shadow:0 12px 40px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
+  transform:translateY(-1px);
+}
+[data-theme="dark"] .card:hover{
+  box-shadow:0 12px 40px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.3);
+}
+
+/* Panel (used in email client etc) */
+.panel-glass{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r);
+  box-shadow:var(--glass-shadow);
+}
+
+/* ── MODAL ── */
+.modal-backdrop{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(12px) saturate(120%);
+  -webkit-backdrop-filter:blur(12px) saturate(120%);
+  z-index:1000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .22s var(--ease);
+}
+.modal-backdrop.open{opacity:1;pointer-events:all;}
+.modal{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  box-shadow:0 24px 80px rgba(0,0,0,.2), var(--glass-shadow);
+  padding:28px;width:460px;max-width:calc(100vw - 32px);
+  transform:translateY(20px) scale(.97);
+  transition:transform .3s var(--ease-spring), opacity .22s var(--ease);
+  max-height:90vh;overflow-y:auto;
+  opacity:0;
+}
+.modal-backdrop.open .modal{transform:translateY(0) scale(1);opacity:1;}
+.modal-title{font-family:var(--display);font-size:20px;font-weight:800;margin-bottom:4px;}
+.modal-sub{font-size:12px;color:var(--text3);margin-bottom:24px;}
+.modal-row{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;}
+.modal-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.modal-field label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);}
+.modal-cancel{
+  padding:9px 18px;border-radius:var(--r-sm);
+  background:rgba(0,0,0,.06);color:var(--text2);
+  font-size:13px;font-weight:600;border:1px solid var(--border2);cursor:pointer;
+  transition:background .15s;
+}
+[data-theme="dark"] .modal-cancel{background:rgba(255,255,255,.06);}
+.modal-cancel:hover{background:rgba(0,0,0,.1);}
+.modal-confirm{
+  padding:9px 18px;border-radius:var(--r-sm);
+  background:var(--c1);color:#fff;
+  font-size:13px;font-weight:600;cursor:pointer;
+  transition:opacity .15s, transform .12s;
+  box-shadow:0 2px 12px rgba(var(--c1-rgb),.3);
+}
+.modal-confirm:hover{opacity:.9;}
+.modal-confirm:active{transform:scale(.97);}
+
+/* ── INPUTS (glass) ── */
+.input{
+  background:rgba(255,255,255,.5);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid var(--border2);color:var(--text);
+  padding:9px 12px;border-radius:var(--r-sm);outline:none;font-size:13px;width:100%;
+  transition:border-color .2s, box-shadow .2s, background .2s;font-family:var(--font);
+}
+[data-theme="dark"] .input{background:rgba(255,255,255,.07);}
+.input:focus{border-color:var(--c1);box-shadow:0 0 0 3px var(--c1-d);}
+.textarea{resize:vertical;min-height:80px;}
+select.input{cursor:pointer;}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 14px;
+  border-radius:var(--r-sm);font-size:13px;font-weight:600;
+  transition:all .18s var(--ease);cursor:pointer;
+}
+.btn:active{transform:scale(.96);}
+.btn-blue{
+  background:var(--c1);color:#fff;
+  box-shadow:0 2px 12px rgba(var(--c1-rgb),.28);
+}
+.btn-blue:hover{opacity:.9;box-shadow:0 4px 18px rgba(var(--c1-rgb),.38);transform:translateY(-1px);}
+.btn-ghost{
+  background:rgba(255,255,255,.5);color:var(--text2);
+  border:1px solid var(--border2);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+[data-theme="dark"] .btn-ghost{background:rgba(255,255,255,.06);}
+.btn-ghost:hover{color:var(--text);background:rgba(255,255,255,.7);transform:translateY(-1px);}
+[data-theme="dark"] .btn-ghost:hover{background:rgba(255,255,255,.1);}
+.btn-teal{background:var(--c2-d);color:var(--c2);border:1px solid rgba(var(--c2-rgb),.2);}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(128,128,128,.2);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(128,128,128,.35);}
+
+/* ── PAGE HEADER ── */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;}
+.page-title{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.5px;}
 .page-sub{font-size:13px;color:var(--text3);margin-top:2px;}
 .page-actions{display:flex;gap:8px;align-items:center;}
 
@@ -796,7 +1005,94 @@ select.input{cursor:pointer;}
 .gcal-cell.today .gcal-day-num{background:var(--c1);color:#fff;}
 .gcal-event{font-size:10px;font-weight:600;padding:2px 5px;border-radius:3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;background:var(--c1-d);color:var(--c1-l);border-left:2px solid var(--c1-l);}
 .gcal-event:hover{opacity:.8;}
-.gcal-more{font-size:10px;color:var(--text3);font-family:var(--mono);padding:1px 4px;}
+/* ═══ EMAIL CLIENT ═══ */
+.email-sidebar-btn{
+  display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r-sm);
+  font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;
+  transition:background .1s, color .1s;width:100%;background:none;border:none;
+  font-family:var(--font);text-align:left;
+}
+.email-sidebar-btn:hover{background:var(--hover);color:var(--text);}
+.email-sidebar-btn.active{background:var(--c1-d);color:var(--c1-l);font-weight:700;}
+.email-sidebar-btn .badge-count{
+  margin-left:auto;font-size:10px;font-weight:700;
+  background:var(--c1);color:#fff;border-radius:var(--r-pill);
+  padding:1px 7px;min-width:18px;text-align:center;
+}
+
+.email-label-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+.email-row{
+  display:flex;align-items:flex-start;gap:10px;padding:12px 14px;
+  border-bottom:1px solid var(--border);cursor:pointer;
+  transition:background .1s;position:relative;
+}
+.email-row:hover{background:var(--hover);}
+.email-row.active{background:var(--c1-d);}
+.email-row.unread .email-row-subject{font-weight:700;color:var(--text);}
+.email-row.unread::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c1);}
+.email-row-av{
+  width:34px;height:34px;border-radius:50%;background:var(--bg4);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:13px;flex-shrink:0;color:var(--text2);
+}
+.email-row-body{flex:1;min-width:0;}
+.email-row-from{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.email-row-subject{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.email-row-preview{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.email-row-time{font-size:10px;color:var(--text3);font-family:var(--mono);flex-shrink:0;margin-top:2px;}
+.email-row-actions{display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%);gap:4px;}
+.email-row:hover .email-row-actions{display:flex;}
+
+/* Compose pane */
+.compose-pane{
+  height:100%;display:flex;flex-direction:column;
+}
+.compose-field{
+  display:flex;align-items:center;gap:10px;padding:8px 16px;
+  border-bottom:1px solid var(--border);
+}
+.compose-field-label{font-size:11px;font-weight:700;color:var(--text3);width:32px;flex-shrink:0;}
+.compose-field input{
+  flex:1;border:none;background:none;outline:none;font-size:13px;
+  color:var(--text);font-family:var(--font);
+}
+.compose-toolbar{
+  display:flex;align-items:center;gap:4px;padding:8px 14px;
+  border-bottom:1px solid var(--border);flex-wrap:wrap;
+}
+.compose-tool{
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  border-radius:var(--r-sm);border:none;background:none;color:var(--text3);
+  cursor:pointer;font-size:13px;font-weight:700;transition:background .1s;
+}
+.compose-tool:hover{background:var(--hover);color:var(--text);}
+.compose-body{
+  flex:1;padding:14px 16px;outline:none;font-size:13px;color:var(--text);
+  line-height:1.7;resize:none;border:none;background:none;font-family:var(--font);
+  overflow-y:auto;
+}
+.compose-footer{
+  padding:10px 14px;border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+
+/* Read view */
+.email-read-header{padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.email-read-subject{font-size:20px;font-weight:800;margin-bottom:10px;line-height:1.3;}
+.email-read-from{display:flex;align-items:center;gap:10px;}
+.email-read-av{width:36px;height:36px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;}
+.email-read-body{font-size:13px;color:var(--text2);line-height:1.8;white-space:pre-wrap;}
+
+/* Template cards */
+.template-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px;margin-bottom:10px;transition:border-color .12s;
+}
+.template-card:hover{border-color:var(--border2);}
+.template-card-name{font-size:14px;font-weight:700;margin-bottom:4px;}
+.template-card-preview{font-size:12px;color:var(--text3);line-height:1.5;margin-bottom:10px;}
+.template-card-actions{display:flex;gap:6px;}
 </style>
 </head>
 <body>
@@ -889,8 +1185,8 @@ select.input{cursor:pointer;}
       Productions
     </div>
     <div class="nav-item" onclick="nav('outreach')" id="nav-outreach">
-      <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Outreach
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Emails
     </div>
     <div class="nav-item" onclick="nav('calendar')" id="nav-calendar">
       <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1211,29 +1507,68 @@ select.input{cursor:pointer;}
       <div id="productionsList"></div>
     </div>
 
-    <!--  OUTREACH  -->
+    <!--  EMAILS  -->
     <div class="page" id="page-outreach">
-      <div class="page-header">
+
+      <!-- Top bar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap;">
         <div>
-          <div class="page-title">Outreach</div>
-          <div class="page-sub">Contacts, follow-ups, and message templates</div>
+          <div class="page-title">Emails</div>
+          <div class="page-sub">Send outreach, manage templates, track follow-ups</div>
         </div>
-        <button class="btn btn-blue" onclick="openAddOutreach()">+ Log Contact</button>
-      </div>
-      <div class="grid-2" style="margin-bottom:20px;">
-        <div class="card">
-          <div class="section-head"><div class="section-title">Follow-Up Queue</div></div>
-          <div id="followUpList"></div>
-        </div>
-        <div class="card">
-          <div class="section-head">
-            <div class="section-title">Message Templates</div>
-            <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="openAddTemplate()">+ Add</button>
+        <div style="display:flex;gap:8px;">
+          <div id="gmailConnBadge" style="display:none;align-items:center;gap:6px;padding:5px 12px;background:var(--c2-d);border:1px solid rgba(var(--c2-rgb),.25);border-radius:var(--r-pill);font-size:12px;font-weight:600;color:var(--c2);">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--c2);"></div>
+            Gmail connected
           </div>
-          <div id="templateList"></div>
+          <button class="btn btn-ghost" onclick="openGmailSetup()" id="gmailConnectBtn">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Connect Gmail
+          </button>
+          <button class="btn btn-blue" onclick="openCompose()">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            New Message
+          </button>
         </div>
       </div>
-    </div>
+
+      <!-- Main 3-column layout -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;height:calc(100vh - 220px);min-height:500px;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+
+        <!-- LEFT: sidebar labels -->
+        <div style="border-right:1px solid var(--border);display:flex;flex-direction:column;background:var(--bg2);">
+          <!-- Label buttons -->
+          <div style="padding:12px 8px;flex:1;overflow-y:auto;">
+            <div id="emailSidebarItems"></div>
+
+            <!-- Labels section -->
+            <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);padding:14px 10px 6px;font-family:var(--mono);">Labels</div>
+            <div id="emailLabels"></div>
+          </div>
+        </div>
+
+        <!-- MIDDLE: email list -->
+        <div style="border-right:1px solid var(--border);display:flex;flex-direction:column;min-width:0;">
+          <!-- Search -->
+          <div style="padding:10px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center;">
+            <div style="flex:1;display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-pill);padding:6px 12px;">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input id="emailSearch" placeholder="Search..." style="border:none;background:none;outline:none;font-size:12px;color:var(--text);width:100%;font-family:var(--font);" oninput="filterEmails()">
+            </div>
+            <div style="font-size:10px;color:var(--text3);font-family:var(--mono);white-space:nowrap;" id="emailCount"></div>
+          </div>
+          <!-- Email list -->
+          <div style="flex:1;overflow-y:auto;" id="emailList"></div>
+        </div>
+
+        <!-- RIGHT: email reader / composer -->
+        <div style="display:flex;flex-direction:column;min-width:0;" id="emailReaderPane">
+          <div id="emailReader" style="flex:1;overflow-y:auto;padding:24px;"></div>
+        </div>
+
+      </div>
+
+    </div><!-- /emails -->
 
     <!--  DECISIONS  -->
     <div class="page" id="page-decisions">
@@ -1698,7 +2033,7 @@ select.input{cursor:pointer;}
               <div class="integration-name">Gmail</div>
               <div class="integration-desc">Send outreach messages directly from 343Founder</div>
             </div>
-            <span class="badge badge-gold">Coming Soon</span>
+            <button class="btn btn-ghost" onclick="nav('outreach')" style="font-size:12px;flex-shrink:0;">Open Emails</button>
           </div>
 
           <div class="integration-card">
@@ -1709,7 +2044,7 @@ select.input{cursor:pointer;}
               <div class="integration-name">Notion</div>
               <div class="integration-desc">Pull your member database directly from a Notion DB</div>
             </div>
-            <span class="badge badge-gold">Coming Soon</span>
+            <button class="btn btn-ghost" onclick="nav('members');setTimeout(openNotionImport,200);" style="font-size:12px;flex-shrink:0;">Import</button>
           </div>
         </div>
       </div><!-- /stab-panel-integrations -->
@@ -1719,12 +2054,24 @@ select.input{cursor:pointer;}
         <div class="settings-section">
           <div class="settings-section-title">Backup &amp; Export</div>
           <div class="setting-row">
-            <div><div class="setting-name">Export All Data</div><div class="setting-desc">Download everything as a JSON file for backup</div></div>
+            <div><div class="setting-name">Export All Data</div><div class="setting-desc">Download everything as a JSON backup file</div></div>
             <button class="btn btn-ghost" onclick="exportData()">
               <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               Export
             </button>
           </div>
+          <div class="setting-row" style="border-bottom:none;">
+            <div><div class="setting-name">Import Data</div><div class="setting-desc">Restore from a previously exported JSON backup — merges with existing data</div></div>
+            <button class="btn btn-ghost" onclick="document.getElementById('importFileInput').click()">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Import
+            </button>
+            <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)">
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Appearance</div>
           <div class="setting-row" style="border-bottom:none;">
             <div><div class="setting-name">Reset Settings</div><div class="setting-desc">Restore theme, colors, and font to defaults</div></div>
             <button class="btn btn-ghost" onclick="resetSettings()">Reset</button>
@@ -2037,35 +2384,111 @@ select.input{cursor:pointer;}
   </div>
 </div>
 
-<!-- ADD OUTREACH -->
-<div class="modal-backdrop" id="modalOutreach">
+<!-- GMAIL SETUP -->
+<div class="modal-backdrop" id="modalGmailSetup">
   <div class="modal">
-    <div class="modal-title">Log Contact / Follow-Up</div>
-    <div class="modal-sub"></div>
-    <div class="modal-field"><label>Contact Name / Company</label><input class="input" id="orName" placeholder="Name or org"></div>
-    <div class="modal-field"><label>Purpose</label><input class="input" id="orPurpose" placeholder="e.g. Music video gig, sponsorship, crew hire"></div>
-    <div class="modal-field"><label>Follow-Up Date</label><input class="input" id="orDate" type="date"></div>
-    <div class="modal-field"><label>Notes</label><textarea class="input textarea" id="orNotes" placeholder="Context, last touchpoint..."></textarea></div>
+    <div class="modal-title">Connect Gmail</div>
+    <div class="modal-sub">Send emails directly from 343Founder using your Gmail account</div>
+    <div class="modal-field">
+      <label>OAuth Client ID</label>
+      <input class="input" id="gmailClientId" placeholder="xxxx.apps.googleusercontent.com" style="font-family:var(--mono);font-size:12px;" autocomplete="off">
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Use the same Client ID from your Google Calendar setup. Add the Gmail send scope in your OAuth consent screen.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;margin-bottom:14px;font-size:12px;color:var(--text2);line-height:1.7;">
+      In Google Cloud Console → OAuth consent screen → Scopes → add:<br>
+      <code style="background:var(--bg4);padding:2px 6px;border-radius:3px;font-family:var(--mono);font-size:11px;">https://www.googleapis.com/auth/gmail.send</code>
+    </div>
+    <span id="gmailConnectStatus" style="font-size:12px;color:var(--text3);display:none;margin-bottom:8px;display:block;"></span>
     <div class="modal-row">
-      <button class="modal-cancel" onclick="closeModal('modalOutreach')">Cancel</button>
-      <button class="modal-confirm" onclick="saveOutreach()">Save</button>
+      <button class="modal-cancel" onclick="closeModal('modalGmailSetup')">Cancel</button>
+      <button class="modal-confirm" onclick="gmailSaveAndConnect()">Connect Gmail</button>
     </div>
   </div>
 </div>
 
-<!-- ADD TEMPLATE -->
+<!-- ADD / EDIT TEMPLATE -->
 <div class="modal-backdrop" id="modalTemplate">
-  <div class="modal">
-    <div class="modal-title">Message Template</div>
-    <div class="modal-sub">Reusable text for common outreach moments</div>
+  <div class="modal" style="width:520px;">
+    <div class="modal-title" id="tmplModalTitle">New Template</div>
+    <div class="modal-sub">Reusable message for common outreach moments</div>
+    <input type="hidden" id="tmplEditId">
     <div class="modal-field"><label>Template Name</label><input class="input" id="tmplName" placeholder="e.g. Availability Check-in"></div>
-    <div class="modal-field"><label>Message</label><textarea class="input textarea" style="min-height:120px;" id="tmplBody" placeholder="Hey [NAME], just checking in on your availability for..."></textarea></div>
+    <div class="modal-field"><label>Subject Line</label><input class="input" id="tmplSubject" placeholder="e.g. Quick Check-in — Sincerely 343"></div>
+    <div class="modal-field"><label>Label</label>
+      <select class="input" id="tmplLabel">
+        <option value="personal">Personal</option>
+        <option value="work">Work</option>
+        <option value="outreach">Outreach</option>
+        <option value="followup">Follow-Up</option>
+      </select>
+    </div>
+    <div class="modal-field"><label>Message Body</label>
+      <textarea class="input textarea" style="min-height:140px;" id="tmplBody" placeholder="Hey [NAME], just checking in on your availability for [PROJECT]...&#10;&#10;[YOUR SIGNATURE]"></textarea>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-top:-8px;margin-bottom:12px;">Use [NAME], [PROJECT], [DATE] as placeholders — they'll be editable when you compose.</div>
     <div class="modal-row">
       <button class="modal-cancel" onclick="closeModal('modalTemplate')">Cancel</button>
       <button class="modal-confirm" onclick="saveTemplate()">Save Template</button>
     </div>
   </div>
 </div>
+
+<!-- COMPOSE / SEND -->
+<div class="modal-backdrop" id="modalCompose">
+  <div class="modal" style="width:600px;padding:0;overflow:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);">
+      <div style="font-size:15px;font-weight:700;" id="composeTitle">New Message</div>
+      <button onclick="closeModal('modalCompose')" style="background:none;border:none;cursor:pointer;color:var(--text3);">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="compose-field">
+      <div class="compose-field-label">To</div>
+      <input class="compose-field" id="composeTo" placeholder="recipient@email.com" style="flex:1;border:none;background:none;outline:none;font-size:13px;color:var(--text);font-family:var(--font);">
+      <span style="font-size:11px;color:var(--c1-l);cursor:pointer;font-weight:600;" onclick="toggleCcBcc()">Cc Bcc</span>
+    </div>
+    <div class="compose-field" id="ccRow" style="display:none;">
+      <div class="compose-field-label">Cc</div>
+      <input id="composeCc" placeholder="cc@email.com" style="flex:1;border:none;background:none;outline:none;font-size:13px;color:var(--text);font-family:var(--font);">
+    </div>
+    <div class="compose-field" id="bccRow" style="display:none;">
+      <div class="compose-field-label">Bcc</div>
+      <input id="composeBcc" placeholder="bcc@email.com" style="flex:1;border:none;background:none;outline:none;font-size:13px;color:var(--text);font-family:var(--font);">
+    </div>
+    <div class="compose-field">
+      <div class="compose-field-label">Re</div>
+      <input id="composeSubject" placeholder="Subject" style="flex:1;border:none;background:none;outline:none;font-size:13px;font-weight:600;color:var(--text);font-family:var(--font);">
+    </div>
+    <!-- Formatting toolbar -->
+    <div class="compose-toolbar">
+      <button class="compose-tool" onclick="fmt('bold')" title="Bold"><strong>B</strong></button>
+      <button class="compose-tool" onclick="fmt('italic')" title="Italic"><em>I</em></button>
+      <button class="compose-tool" onclick="fmt('underline')" title="Underline"><u>U</u></button>
+      <div style="width:1px;height:18px;background:var(--border2);margin:0 4px;"></div>
+      <button class="compose-tool" onclick="fmt('insertUnorderedList')" title="List">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="3" cy="6" r="1" fill="currentColor"/><circle cx="3" cy="12" r="1" fill="currentColor"/><circle cx="3" cy="18" r="1" fill="currentColor"/></svg>
+      </button>
+      <div style="flex:1;"></div>
+      <!-- Template picker -->
+      <select id="composeTemplateSelect" class="input" style="font-size:11px;padding:4px 8px;width:auto;" onchange="applyTemplateToCompose(this.value)">
+        <option value="">Use template...</option>
+      </select>
+    </div>
+    <div id="composeBody" contenteditable="true" class="compose-body" style="min-height:160px;" placeholder="Write your message..."></div>
+    <div class="compose-footer">
+      <button class="btn btn-blue" onclick="sendEmail()" id="composeSendBtn">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Send
+      </button>
+      <span id="sendStatus" style="font-size:12px;color:var(--text3);"></span>
+      <div style="flex:1;"></div>
+      <button onclick="closeModal('modalCompose')" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:12px;">Discard</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD OUTREACH (kept for data compatibility) -->
+<div class="modal-backdrop" id="modalOutreach" style="display:none;"></div>
 
 <!-- ADD PERSONAL PROJECT -->
 <div class="modal-backdrop" id="modalPersonal">
@@ -2295,12 +2718,28 @@ if(!getCreds()){
 //  NAVIGATION
 // 
 function nav(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const currentPage=document.querySelector('.page.active');
+  const nextPage=document.getElementById('page-'+id);
+  if(!nextPage) return;
+
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const page=document.getElementById('page-'+id);
   const navEl=document.getElementById('nav-'+id);
-  if(page){page.classList.add('active');renderPage(id);}
-  if(navEl)navEl.classList.add('active');
+  if(navEl) navEl.classList.add('active');
+
+  if(currentPage===nextPage) return;
+
+  if(currentPage){
+    currentPage.style.animation='pageOut 160ms var(--ease) both';
+    setTimeout(()=>{
+      currentPage.classList.remove('active');
+      currentPage.style.animation='';
+      nextPage.classList.add('active');
+      renderPage(id);
+    },150);
+  } else {
+    nextPage.classList.add('active');
+    renderPage(id);
+  }
 }
 
 function renderPage(id){
@@ -2321,23 +2760,36 @@ function renderPage(id){
 //  INIT
 // 
 function initApp(){
-  // Set date
+  // Set founder name
+  const fn=getFounderName();
+  const heroNameEl=document.getElementById('heroName');
+  const sidebarNameEl=document.getElementById('sidebarName');
+  const sidebarInitEl=document.getElementById('sidebarInitial');
+  if(heroNameEl) heroNameEl.textContent=`Hey, ${fn}.`;
+  if(sidebarNameEl) sidebarNameEl.textContent=fn;
+  if(sidebarInitEl) sidebarInitEl.textContent=fn.charAt(0).toUpperCase();
+
+  // Set date in hero
   const now=new Date();
   const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('heroDate').innerHTML=
-    `${days[now.getDay()]}<br>${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
-
-  // Set founder name
-  const fn=getFounderName();
-  document.getElementById('heroName').textContent=`Hey, ${fn}.`;
-  document.getElementById('sidebarName').textContent=fn;
-  document.getElementById('sidebarInitial').textContent=fn.charAt(0).toUpperCase();
+  const heroDate=document.getElementById('heroDate');
+  if(heroDate) heroDate.textContent=`${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()} ${now.getFullYear()}`;
 
   renderHome();
-
-  // Seed demo data if empty
   seedDemo();
+
+  // Stagger sidebar nav items in
+  const navItems=document.querySelectorAll('.nav-item, .sidebar-section, .sidebar-logo');
+  navItems.forEach((el,i)=>{
+    el.style.opacity='0';
+    el.style.transform='translateX(-10px)';
+    setTimeout(()=>{
+      el.style.transition='opacity .3s var(--ease), transform .35s var(--ease-spring)';
+      el.style.opacity='1';
+      el.style.transform='translateX(0)';
+    }, 80 + i * 35);
+  });
 }
 
 function seedDemo(){
@@ -2729,17 +3181,45 @@ function renderMembers(){
       <td><span class="badge ${statusBadge[m.status]||'badge-gray'}">${esc(m.status||'—')}</span></td>
       <td style="font-size:12px;color:var(--text3);">${esc(m.offers||'—')}</td>
       <td style="font-size:12px;color:var(--text3);">${esc(m.needs||'—')}</td>
-      <td><button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="deleteMember('${m.id}')">Remove</button></td>
+      <td><div style="display:flex;gap:4px;"><button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="openEditMember('${m.id}')">Edit</button><button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;color:var(--red);" onclick="deleteMember('${m.id}')">Remove</button></div></td>
     </tr>
   `).join('');
 }
 
 function tierLabel(t){return{core:'Core',active:'Active Bench',community:'Community',paused:'On Pause'}[t]||t;}
 
-function openAddMember(){openModal('modalMember');}
+function openAddMember(){
+  document.getElementById('mName').dataset.editId='';
+  ['mName','mRole','mEmail','mPhone','mOffers','mNeeds','mNotes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mTier').value='community';
+  document.getElementById('mStatus').value='available';
+  openModal('modalMember');
+}
+function deleteMember(id){
+  if(!confirm('Remove this member?'))return;
+  saveMembers(getMembers().filter(m=>m.id!==id));
+  renderMembers();
+}
+function openEditMember(id){
+  const m=getMembers().find(m=>m.id===id);
+  if(!m) return;
+  document.getElementById('mName').value=m.name||'';
+  document.getElementById('mRole').value=m.role||'';
+  document.getElementById('mEmail').value=m.email||'';
+  document.getElementById('mPhone').value=m.phone||'';
+  document.getElementById('mOffers').value=m.offers||'';
+  document.getElementById('mNeeds').value=m.needs||'';
+  document.getElementById('mTier').value=m.tier||'community';
+  document.getElementById('mStatus').value=m.status||'available';
+  document.getElementById('mNotes').value=m.notes||'';
+  // Tag modal as edit mode
+  document.getElementById('mName').dataset.editId=id;
+  openModal('modalMember');
+}
 function saveMember(){
+  const editId=document.getElementById('mName').dataset.editId||'';
   const m={
-    id:uid(),
+    id:editId||uid(),
     name:document.getElementById('mName').value.trim(),
     role:document.getElementById('mRole').value.trim(),
     email:document.getElementById('mEmail').value.trim(),
@@ -2751,16 +3231,16 @@ function saveMember(){
     notes:document.getElementById('mNotes').value.trim(),
   };
   if(!m.name)return;
-  const arr=getMembers();arr.push(m);saveMembers(arr);
-  logActivity(`${m.name} added to ${tierLabel(m.tier)}`,'member');
+  const arr=getMembers();
+  if(editId){const i=arr.findIndex(x=>x.id===editId);if(i>=0)arr[i]=m;else arr.push(m);}
+  else arr.push(m);
+  saveMembers(arr);
+  if(!editId) logActivity(`${m.name} added to ${tierLabel(m.tier)}`,'member');
+  else logActivity(`${m.name} updated`,'member');
   closeModal('modalMember');
   renderMembers();
+  document.getElementById('mName').dataset.editId='';
   ['mName','mRole','mEmail','mPhone','mOffers','mNeeds','mNotes'].forEach(id=>document.getElementById(id).value='');
-}
-function deleteMember(id){
-  if(!confirm('Remove this member?'))return;
-  saveMembers(getMembers().filter(m=>m.id!==id));
-  renderMembers();
 }
 
 function openNotionImport(){openModal('modalNotion');}
@@ -2791,8 +3271,85 @@ function importCSV(e){
   reader.readAsText(file);
 }
 function importNotion(){
-  alert('Notion API integration requires a backend proxy. For now, export your Notion database as CSV and use the CSV import above. This will be fully integrated when hosted.');
+  const token=document.getElementById('notionToken').value.trim();
+  const dbId=document.getElementById('notionDB').value.trim();
+  if(!token||!dbId){showToast('Enter both the token and database ID.');return;}
+
+  // Notion API requires a backend proxy due to CORS — we use a public CORS proxy for demo
+  // In production, replace with your own proxy endpoint
+  const PROXY='https://api.allorigins.win/raw?url=';
+  const endpoint=encodeURIComponent(`https://api.notion.com/v1/databases/${dbId}/query`);
+
+  showToast('Connecting to Notion...');
   closeModal('modalNotion');
+
+  fetch(PROXY+endpoint,{
+    method:'POST',
+    headers:{
+      'Authorization':'Bearer '+token,
+      'Notion-Version':'2022-06-28',
+      'Content-Type':'application/json',
+    },
+    body:JSON.stringify({page_size:100}),
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.status===401){showToast('Invalid Notion token. Check your integration key.');return;}
+    if(data.object==='error'){showToast('Notion error: '+data.message);return;}
+    if(!data.results){showToast('No results from Notion database.');return;}
+
+    const members=getMembers();
+    let added=0;
+    data.results.forEach(page=>{
+      const props=page.properties||{};
+      // Try to extract common field names from Notion schema
+      const getName=()=>{
+        for(const key of['Name','name','Full Name','full_name','Member']){
+          const p=props[key];
+          if(p?.title?.[0]?.plain_text) return p.title[0].plain_text;
+        }
+        return null;
+      };
+      const getProp=(keys,type='rich_text')=>{
+        for(const key of keys){
+          const p=props[key];
+          if(!p) continue;
+          if(type==='rich_text'&&p.rich_text?.[0]?.plain_text) return p.rich_text[0].plain_text;
+          if(type==='email'&&p.email) return p.email;
+          if(type==='phone'&&p.phone_number) return p.phone_number;
+          if(type==='select'&&p.select?.name) return p.select.name;
+          if(type==='multi_select') return p.multi_select?.map(s=>s.name).join(', ')||'';
+        }
+        return '';
+      };
+
+      const name=getName();
+      if(!name) return;
+      if(members.find(m=>m.name===name)) return; // skip duplicates
+
+      members.push({
+        id:uid(),
+        name,
+        role:getProp(['Role','role','Title','Job Title'],'rich_text')||getProp(['Role','role'],'select'),
+        email:getProp(['Email','email'],'email'),
+        phone:getProp(['Phone','phone','Phone Number'],'phone'),
+        tier:(getProp(['Tier','tier','Type','type'],'select')||'community').toLowerCase(),
+        status:'available',
+        offers:getProp(['Offers','Skills','skills','What they offer'],'rich_text')||getProp(['Skills'],'multi_select'),
+        needs:getProp(['Needs','What they need'],'rich_text'),
+        notes:getProp(['Notes','notes','Bio'],'rich_text'),
+      });
+      added++;
+    });
+
+    saveMembers(members);
+    showToast(`Imported ${added} new members from Notion.`);
+    if(document.getElementById('page-members').classList.contains('active')) renderMembers();
+  })
+  .catch(err=>{
+    showToast('Notion fetch failed. The CORS proxy may be rate-limited — try again or use CSV export instead.');
+    console.error(err);
+  });
 }
 
 // 
@@ -2821,6 +3378,7 @@ function renderPipeline(){
             ${stages.filter(ss=>ss.key!==s.key).map(ss=>`
               <button onclick="movePipeline('${item.id}','${ss.key}')" style="font-size:10px;padding:3px 8px;background:var(--bg4);border:1px solid var(--border);border-radius:4px;color:var(--text3);cursor:pointer;">→ ${ss.label}</button>
             `).join('')}
+            <button onclick="openEditPipeline('${item.id}')" style="font-size:10px;padding:3px 8px;background:var(--c1-d);border:1px solid rgba(var(--c1-rgb),.2);border-radius:4px;color:var(--c1-l);cursor:pointer;">Edit</button>
             <button onclick="deletePipelineItem('${item.id}')" style="font-size:10px;padding:3px 8px;background:var(--red-d);border:1px solid rgba(231,76,60,.2);border-radius:4px;color:var(--red);cursor:pointer;">Remove</button>
           </div>
         </div>
@@ -2829,10 +3387,26 @@ function renderPipeline(){
   `).join('');
 }
 function typeBadgeText(t){return{gig:'Gig',grant:'Grant',partnership:'Partnership',collab:'Collab',other:'Other'}[t]||t;}
-function openAddPipeline(){openModal('modalPipeline');}
+function openAddPipeline(){
+  document.getElementById('pTitle').dataset.editId='';
+  ['pTitle','pValue','pNotes'].forEach(id=>document.getElementById(id).value='');
+  openModal('modalPipeline');
+}
+function openEditPipeline(id){
+  const item=getPipeline().find(i=>i.id===id);
+  if(!item)return;
+  document.getElementById('pTitle').value=item.title||'';
+  document.getElementById('pTitle').dataset.editId=id;
+  document.getElementById('pType').value=item.type||'gig';
+  document.getElementById('pStage').value=item.stage||'lead';
+  document.getElementById('pValue').value=item.value||'';
+  document.getElementById('pNotes').value=item.notes||'';
+  openModal('modalPipeline');
+}
 function savePipeline(){
+  const editId=document.getElementById('pTitle').dataset.editId||'';
   const item={
-    id:uid(),
+    id:editId||uid(),
     title:document.getElementById('pTitle').value.trim(),
     type:document.getElementById('pType').value,
     stage:document.getElementById('pStage').value,
@@ -2840,10 +3414,13 @@ function savePipeline(){
     notes:document.getElementById('pNotes').value.trim(),
   };
   if(!item.title)return;
-  const arr=getPipeline();arr.push(item);savePipeline2(arr);
-  logActivity(`Added pipeline: ${item.title}`,'gig');
+  const arr=getPipeline();
+  if(editId){const i=arr.findIndex(x=>x.id===editId);if(i>=0)arr[i]=item;else arr.push(item);}
+  else{arr.push(item);logActivity(`Added pipeline: ${item.title}`,'gig');}
+  savePipeline2(arr);
   closeModal('modalPipeline');
   renderPipeline();
+  document.getElementById('pTitle').dataset.editId='';
   ['pTitle','pValue','pNotes'].forEach(id=>document.getElementById(id).value='');
 }
 function movePipeline(id,stage){
@@ -2874,7 +3451,11 @@ function renderBarter(){
       </div>
       <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
         <span class="badge ${b.status==='active'?'badge-teal':b.status==='stalled'?'badge-gold':'badge-gray'}">${b.status}</span>
-        ${b.status!=='complete'?`<button onclick="completeBarter('${b.id}')" style="font-size:10px;padding:2px 8px;background:var(--c2-d);border:1px solid rgba(0,201,167,.2);border-radius:4px;color:var(--c2);cursor:pointer;"> Done</button>`:''}
+        ${b.status!=='complete'?`
+          <button onclick="completeBarter('${b.id}')" style="font-size:10px;padding:2px 8px;background:var(--c2-d);border:1px solid rgba(0,201,167,.2);border-radius:4px;color:var(--c2);cursor:pointer;">Done</button>
+          <button onclick="openEditBarter('${b.id}')" style="font-size:10px;padding:2px 8px;background:var(--c1-d);border:1px solid rgba(var(--c1-rgb),.2);border-radius:4px;color:var(--c1-l);cursor:pointer;">Edit</button>
+          ${b.status==='active'?`<button onclick="stallBarter('${b.id}')" style="font-size:10px;padding:2px 8px;background:var(--gold-d);border:1px solid rgba(245,166,35,.2);border-radius:4px;color:var(--gold);cursor:pointer;">Stall</button>`:`<button onclick="unstallBarter('${b.id}')" style="font-size:10px;padding:2px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text3);cursor:pointer;">Reactivate</button>`}
+        `:''}
       </div>
     </div>
   `).join(''):`<div style="color:var(--text3);font-size:13px;padding:16px 0;">None yet.</div>`;
@@ -2882,10 +3463,27 @@ function renderBarter(){
   document.getElementById('barterActive').innerHTML=barterHTML(active);
   document.getElementById('barterDone').innerHTML=barterHTML(done);
 }
-function openAddBarter(){openModal('modalBarter');}
+function openAddBarter(){
+  document.getElementById('baA').dataset.editId='';
+  ['baA','baGives','baB','baBGives','baDeadline'].forEach(id=>document.getElementById(id).value='');
+  openModal('modalBarter');
+}
+function openEditBarter(id){
+  const b=getBarters().find(b=>b.id===id);
+  if(!b)return;
+  document.getElementById('baA').value=b.aName||'';
+  document.getElementById('baA').dataset.editId=id;
+  document.getElementById('baGives').value=b.aGives||'';
+  document.getElementById('baB').value=b.bName||'';
+  document.getElementById('baBGives').value=b.bGives||'';
+  document.getElementById('baDeadline').value=b.deadline||'';
+  document.getElementById('baStatus').value=b.status||'active';
+  openModal('modalBarter');
+}
 function saveBarter(){
+  const editId=document.getElementById('baA').dataset.editId||'';
   const b={
-    id:uid(),
+    id:editId||uid(),
     aName:document.getElementById('baA').value.trim(),
     aGives:document.getElementById('baGives').value.trim(),
     bName:document.getElementById('baB').value.trim(),
@@ -2894,16 +3492,26 @@ function saveBarter(){
     status:document.getElementById('baStatus').value,
   };
   if(!b.aName||!b.bName)return;
-  const arr=getBarters();arr.push(b);saveBarters(arr);
-  logActivity(`Barter logged: ${b.aName} ↔ ${b.bName}`,'barter');
+  const arr=getBarters();
+  if(editId){const i=arr.findIndex(x=>x.id===editId);if(i>=0)arr[i]=b;else arr.push(b);}
+  else{arr.push(b);logActivity(`Barter logged: ${b.aName} ↔ ${b.bName}`,'barter');}
+  saveBarters(arr);
   closeModal('modalBarter');
   renderBarter();
+  document.getElementById('baA').dataset.editId='';
   ['baA','baGives','baB','baBGives','baDeadline'].forEach(id=>document.getElementById(id).value='');
 }
 function completeBarter(id){
-  const arr=getBarters();
-  const b=arr.find(i=>i.id===id);
+  const arr=getBarters();const b=arr.find(i=>i.id===id);
   if(b){b.status='complete';saveBarters(arr);renderBarter();}
+}
+function stallBarter(id){
+  const arr=getBarters();const b=arr.find(i=>i.id===id);
+  if(b){b.status='stalled';saveBarters(arr);renderBarter();}
+}
+function unstallBarter(id){
+  const arr=getBarters();const b=arr.find(i=>i.id===id);
+  if(b){b.status='active';saveBarters(arr);renderBarter();}
 }
 
 // 
@@ -2930,15 +3538,34 @@ function renderProductions(){
             <div class="health-bar-fill" style="width:${p.progress||0}%;background:${statusColors[p.status]};"></div>
           </div>
         </div>
-        <button onclick="deleteProduction('${p.id}')" style="font-size:11px;padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text3);cursor:pointer;flex-shrink:0;">Remove</button>
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          <button onclick="openEditProduction('${p.id}')" style="font-size:11px;padding:4px 10px;background:var(--c1-d);border:1px solid rgba(var(--c1-rgb),.2);border-radius:6px;color:var(--c1-l);cursor:pointer;">Edit</button>
+          <button onclick="deleteProduction('${p.id}')" style="font-size:11px;padding:4px 10px;background:var(--red-d);border:1px solid rgba(231,76,60,.2);border-radius:6px;color:var(--red);cursor:pointer;">Remove</button>
+        </div>
       </div>
     </div>
   `).join(''):`<div class="empty"><div class="empty-icon"></div><div class="empty-title">No productions yet</div><div class="empty-sub">Add your first project above</div></div>`;
 }
-function openAddProduction(){openModal('modalProduction');}
+function openAddProduction(){
+  document.getElementById('prTitle').dataset.editId='';
+  ['prTitle','prProgress','prNotes'].forEach(id=>document.getElementById(id).value='');
+  openModal('modalProduction');
+}
+function openEditProduction(id){
+  const p=getProductions().find(p=>p.id===id);
+  if(!p)return;
+  document.getElementById('prTitle').value=p.title||'';
+  document.getElementById('prTitle').dataset.editId=id;
+  document.getElementById('prType').value=p.type||'short';
+  document.getElementById('prStatus').value=p.status||'pre';
+  document.getElementById('prProgress').value=p.progress||0;
+  document.getElementById('prNotes').value=p.notes||'';
+  openModal('modalProduction');
+}
 function saveProduction(){
+  const editId=document.getElementById('prTitle').dataset.editId||'';
   const p={
-    id:uid(),
+    id:editId||uid(),
     title:document.getElementById('prTitle').value.trim(),
     type:document.getElementById('prType').value,
     status:document.getElementById('prStatus').value,
@@ -2946,10 +3573,13 @@ function saveProduction(){
     notes:document.getElementById('prNotes').value.trim(),
   };
   if(!p.title)return;
-  const arr=getProductions();arr.push(p);saveProductions(arr);
-  logActivity(`Production added: ${p.title}`,'production');
+  const arr=getProductions();
+  if(editId){const i=arr.findIndex(x=>x.id===editId);if(i>=0)arr[i]=p;else arr.push(p);}
+  else{arr.push(p);logActivity(`Production added: ${p.title}`,'production');}
+  saveProductions(arr);
   closeModal('modalProduction');
   renderProductions();
+  document.getElementById('prTitle').dataset.editId='';
   ['prTitle','prProgress','prNotes'].forEach(id=>document.getElementById(id).value='');
 }
 function deleteProduction(id){
@@ -2958,76 +3588,369 @@ function deleteProduction(id){
   renderProductions();
 }
 
-// 
-//  OUTREACH
-// 
+// ═══════════════════════════════════════
+//  EMAIL CLIENT
+// ═══════════════════════════════════════
+function getSentEmails(){return ls('s343_sent_emails')||[];}
+function saveSentEmails(d){lsSave('s343_sent_emails',d);}
+function getEmailDrafts(){return ls('s343_drafts')||[];}
+function saveEmailDrafts(d){lsSave('s343_drafts',d);}
+function getGmailCreds(){return ls('s343_gmail')||{clientId:""};}
+function saveGmailCreds2(d){lsSave('s343_gmail',d);}
+function isGmailConnected(){return !!(ls('s343_gmail_connected'));}
+
+const EMAIL_LABELS=[
+  {id:"inbox",   label:"Inbox",    color:"var(--c1)"},
+  {id:"marked",  label:"Marked",   color:"var(--gold)"},
+  {id:"drafts",  label:"Drafts",   color:"var(--text3)"},
+  {id:"sent",    label:"Sent",     color:"var(--c2)"},
+  {id:"templates",label:"Templates",color:"var(--c1)"},
+];
+const CUSTOM_LABELS=[
+  {id:"personal",label:"Personal",color:"#4CAF50"},
+  {id:"work",label:"Work",color:"#2196F3"},
+  {id:"outreach",label:"Outreach",color:"#F5A623"},
+  {id:"followup",label:"Follow-Up",color:"#9C27B0"},
+];
+let _emailView="inbox";
+let _emailSelected=null;
+let _ccBccVisible=false;
+
 function renderOutreach(){
-  const contacts=getOutreach();
-  const templates=getTemplates();
-
-  // Follow-ups
-  const today=new Date().toISOString().split('T')[0];
-  const sorted=contacts.slice().sort((a,b)=>(a.date||'')>(b.date||'')?1:-1);
-  document.getElementById('followUpList').innerHTML=sorted.length?sorted.map(c=>`
-    <div class="feed-item">
-      <div class="feed-icon" style="background:var(--bg3);"></div>
-      <div class="feed-body">
-        <div class="feed-title">${esc(c.name)}</div>
-        <div style="font-size:12px;color:var(--text2);">${esc(c.purpose||'')}</div>
-        <div class="feed-meta" style="color:${c.date<=today?'var(--red)':'var(--text3)'}">${c.date?`Follow up: ${c.date}`:''}</div>
-      </div>
-      <button onclick="deleteOutreach('${c.id}')" style="font-size:10px;padding:2px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text3);cursor:pointer;flex-shrink:0;"></button>
-    </div>
-  `).join(''):`<div style="color:var(--text3);font-size:13px;padding:16px 0;">No follow-ups logged.</div>`;
-
-  // Templates
-  document.getElementById('templateList').innerHTML=templates.length?templates.map(t=>`
-    <div style="padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:8px;">
-      <div style="font-size:12px;font-weight:700;margin-bottom:4px;">${esc(t.name)}</div>
-      <div style="font-size:11px;color:var(--text3);line-height:1.5;white-space:pre-wrap;">${esc(t.body.substring(0,120))}${t.body.length>120?'…':''}</div>
-      <div style="display:flex;gap:6px;margin-top:8px;">
-        <button onclick="copyTemplate('${t.id}')" style="font-size:10px;padding:2px 8px;background:var(--c1-d);border:1px solid rgba(var(--c1-rgb),.2);border-radius:4px;color:var(--c1-l);cursor:pointer;">Copy</button>
-        <button onclick="deleteTemplate('${t.id}')" style="font-size:10px;padding:2px 8px;background:var(--bg4);border:1px solid var(--border);border-radius:4px;color:var(--text3);cursor:pointer;">Delete</button>
-      </div>
-    </div>
-  `).join(''):`<div style="color:var(--text3);font-size:13px;padding:16px 0;">No templates yet.</div>`;
+  const connBadge=document.getElementById("gmailConnBadge");
+  const connBtn=document.getElementById("gmailConnectBtn");
+  if(connBadge&&connBtn){
+    if(isGmailConnected()){connBadge.style.display="flex";connBtn.style.display="none";}
+    else{connBadge.style.display="none";connBtn.style.display="inline-flex";}
+  }
+  _renderEmailSidebar();
+  _emailView="inbox";
+  _renderEmailList();
+  _renderEmailReader(null);
 }
-function openAddOutreach(){openModal('modalOutreach');}
-function saveOutreach(){
-  const c={
-    id:uid(),
-    name:document.getElementById('orName').value.trim(),
-    purpose:document.getElementById('orPurpose').value.trim(),
-    date:document.getElementById('orDate').value,
-    notes:document.getElementById('orNotes').value.trim(),
+
+function _sidebarIconSVG(type,color){
+  const icons={
+    inbox:`<svg width="13" height="13" fill="none" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    marked:`<svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    drafts:`<svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    sent:`<svg width="13" height="13" fill="none" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    templates:`<svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2"/><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
   };
-  if(!c.name)return;
-  const arr=getOutreach();arr.push(c);saveOutreach2(arr);
-  logActivity(`Outreach logged: ${c.name}`,'outreach');
-  closeModal('modalOutreach');
-  renderOutreach();
-  ['orName','orPurpose','orDate','orNotes'].forEach(id=>document.getElementById(id).value='');
+  return `<span style="color:${color};opacity:.85;">${icons[type]||""}</span>`;
 }
-function deleteOutreach(id){
-  saveOutreach2(getOutreach().filter(c=>c.id!==id));
-  renderOutreach();
+
+function _renderEmailSidebar(){
+  const sidebar=document.getElementById("emailSidebarItems");
+  if(!sidebar)return;
+  const sent=getSentEmails();
+  const drafts=getEmailDrafts();
+  const counts={inbox:0,marked:0,drafts:drafts.length,sent:sent.length,templates:getTemplates().length};
+  sidebar.innerHTML=EMAIL_LABELS.map(l=>{
+    const cnt=counts[l.id]||0;
+    return `<button class="email-sidebar-btn${_emailView===l.id?" active":""}" onclick="setEmailView('${l.id}')">
+      ${_sidebarIconSVG(l.id,l.color)}
+      <span style="flex:1;">${l.label}</span>
+      ${cnt>0?`<span class="badge-count" style="background:${l.color};">${cnt}</span>`:""}
+    </button>`;
+  }).join("");
+  const labelsEl=document.getElementById("emailLabels");
+  if(labelsEl) labelsEl.innerHTML=CUSTOM_LABELS.map(l=>`
+    <button class="email-sidebar-btn${_emailView==="label:"+l.id?" active":""}" onclick="setEmailView('label:${l.id}')">
+      <div class="email-label-dot" style="background:${l.color};"></div>
+      <span>${l.label}</span>
+    </button>
+  `).join("");
 }
-function openAddTemplate(){openModal('modalTemplate');}
-function saveTemplate(){
-  const t={id:uid(),name:document.getElementById('tmplName').value.trim(),body:document.getElementById('tmplBody').value.trim()};
-  if(!t.name)return;
-  const arr=getTemplates();arr.push(t);saveTemplates(arr);
-  closeModal('modalTemplate');
-  renderOutreach();
-  ['tmplName','tmplBody'].forEach(id=>document.getElementById(id).value='');
+
+function setEmailView(view){
+  _emailView=view;_emailSelected=null;
+  _renderEmailSidebar();_renderEmailList();_renderEmailReader(null);
 }
-function copyTemplate(id){
+
+function _renderEmailList(){
+  const listEl=document.getElementById("emailList");
+  const countEl=document.getElementById("emailCount");
+  if(!listEl)return;
+  if(_emailView==="sent"){
+    const items=getSentEmails().slice().reverse();
+    if(countEl)countEl.textContent=items.length+" sent";
+    listEl.innerHTML=items.length?items.map(e=>_emailRowHTML(e,true)).join("")
+      :`<div style="padding:40px;text-align:center;font-size:12px;color:var(--text3);">No sent emails yet.</div>`;
+    return;
+  }
+  if(_emailView==="drafts"){
+    const items=getEmailDrafts();
+    if(countEl)countEl.textContent=items.length+" drafts";
+    listEl.innerHTML=items.length?items.map(e=>_emailRowHTML(e,false)).join("")
+      :`<div style="padding:40px;text-align:center;font-size:12px;color:var(--text3);">No drafts saved.</div>`;
+    return;
+  }
+  if(_emailView==="templates"){
+    if(countEl)countEl.textContent=getTemplates().length+" templates";
+    _renderTemplateList();return;
+  }
+  if(_emailView==="inbox"||_emailView==="marked"){
+    if(countEl)countEl.textContent="0 messages";
+    listEl.innerHTML=`<div style="padding:40px;text-align:center;font-size:12px;color:var(--text3);">${isGmailConnected()?"Inbox is empty.":"Connect Gmail to see incoming emails."}</div>`;
+    return;
+  }
+  if(_emailView.startsWith("label:")){
+    const labelId=_emailView.replace("label:","");
+    const items=getSentEmails().filter(e=>e.label===labelId);
+    if(countEl)countEl.textContent=items.length+" messages";
+    listEl.innerHTML=items.length?items.map(e=>_emailRowHTML(e,true)).join("")
+      :`<div style="padding:40px;text-align:center;font-size:12px;color:var(--text3);">No messages with this label.</div>`;
+  }
+}
+
+function _emailRowHTML(e,sent){
+  const isActive=_emailSelected===e.id;
+  const initial=(sent?e.to:e.from||"?").charAt(0).toUpperCase();
+  return `<div class="email-row${isActive?" active":""}" onclick="selectEmail('${e.id}','${sent?"sent":"draft"}')">
+    <div class="email-row-av" style="background:var(--c1-d);color:var(--c1-l);">${initial}</div>
+    <div class="email-row-body">
+      <div class="email-row-from">${esc(sent?"To: "+e.to:e.from||"Draft")}</div>
+      <div class="email-row-subject">${esc(e.subject||"(no subject)")}</div>
+      <div class="email-row-preview">${esc((e.body||"").replace(/<[^>]+>/g,"").substring(0,60))}</div>
+    </div>
+    <div class="email-row-time">${e.date?relTime(e.date):""}</div>
+  </div>`;
+}
+
+function _renderTemplateList(){
+  const listEl=document.getElementById("emailList");
+  if(!listEl)return;
+  const templates=getTemplates();
+  if(!templates.length){
+    listEl.innerHTML=`<div style="padding:40px;text-align:center;"><div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:4px;">No templates yet</div><div style="font-size:12px;color:var(--text3);margin-bottom:16px;">Create reusable messages for common outreach</div><button class="btn btn-blue" onclick="openAddTemplate()">Create First Template</button></div>`;
+    const reader=document.getElementById("emailReader");
+    if(reader)reader.innerHTML=`<div style="height:100%;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:var(--text3);font-size:13px;">Select a template</div></div>`;
+    return;
+  }
+  listEl.innerHTML=templates.map(t=>{
+    const labelColor=CUSTOM_LABELS.find(l=>l.id===t.label)?.color||"var(--text3)";
+    return `<div class="email-row${_emailSelected===t.id?" active":""}" onclick="selectTemplate('${t.id}')">
+      <div class="email-row-av" style="background:${labelColor}22;color:${labelColor};">T</div>
+      <div class="email-row-body">
+        <div class="email-row-from">${esc(t.name)}</div>
+        <div class="email-row-subject">${esc(t.subject||"(no subject)")}</div>
+        <div class="email-row-preview">${esc((t.body||"").substring(0,60))}</div>
+      </div>
+      <span class="badge" style="background:${labelColor}22;color:${labelColor};font-size:9px;">${t.label||"general"}</span>
+    </div>`;
+  }).join("");
+}
+
+function selectEmail(id,source){
+  _emailSelected=id;
+  const items=source==="sent"?getSentEmails():getEmailDrafts();
+  const e=items.find(i=>i.id===id);
+  if(!e)return;
+  _renderEmailList();
+  _renderEmailReader(e,source);
+}
+
+function selectTemplate(id){
+  _emailSelected=id;
+  _renderTemplateList();
   const t=getTemplates().find(t=>t.id===id);
-  if(t){navigator.clipboard.writeText(t.body).then(()=>showToast('Copied to clipboard'));}
+  if(!t)return;
+  const labelColor=CUSTOM_LABELS.find(l=>l.id===t.label)?.color||"var(--c1)";
+  const reader=document.getElementById("emailReader");
+  if(!reader)return;
+  reader.innerHTML=`
+    <div style="padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);margin-bottom:4px;">TEMPLATE</div>
+        <div style="font-size:20px;font-weight:800;">${esc(t.name)}</div>
+        ${t.subject?`<div style="font-size:13px;color:var(--text2);margin-top:3px;">Subject: ${esc(t.subject)}</div>`:""}
+      </div>
+      <span class="badge" style="background:${labelColor}22;color:${labelColor};">${t.label||"general"}</span>
+    </div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.8;white-space:pre-wrap;margin-bottom:24px;">${esc(t.body)}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-blue" onclick="openComposeFromTemplate('${t.id}')">Use Template</button>
+      <button class="btn btn-ghost" onclick="openEditTemplate('${t.id}')">Edit</button>
+      <button class="btn btn-ghost" onclick="copyTemplateText('${t.id}')">Copy</button>
+      <button class="danger-btn" onclick="deleteTemplate('${t.id}')">Delete</button>
+    </div>`;
+}
+
+function _renderEmailReader(e,source){
+  const reader=document.getElementById("emailReader");
+  if(!reader)return;
+  if(!e){reader.innerHTML=`<div style="height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--text3);"><svg width="40" height="40" fill="none" viewBox="0 0 24 24" style="opacity:.2;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div style="font-size:13px;font-weight:600;color:var(--text2);">Select a message</div></div>`;return;}
+  const d=new Date(e.date);
+  reader.innerHTML=`
+    <div style="padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:16px;">
+      <div style="font-size:20px;font-weight:800;margin-bottom:10px;">${esc(e.subject||"(no subject)")}</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--c1-d);color:var(--c1-l);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;">${(source==="sent"?e.to:e.from||"?").charAt(0).toUpperCase()}</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;">${esc(source==="sent"?"To: "+e.to:e.from||"Draft")}</div>
+          <div style="font-size:11px;color:var(--text3);font-family:var(--mono);">${d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"2-digit",minute:"2-digit"})}</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:6px;">
+          <button class="btn btn-ghost" style="font-size:11px;" onclick="openComposeReply('${e.id}')">Reply</button>
+          ${source==="sent"?`<button class="danger-btn" style="font-size:11px;padding:4px 10px;" onclick="deleteSentEmail('${e.id}')">Delete</button>`:""}
+        </div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.8;white-space:pre-wrap;">${e.body||""}</div>`;
+}
+
+function filterEmails(){
+  const q=(document.getElementById("emailSearch")?.value||"").toLowerCase();
+  document.querySelectorAll(".email-row").forEach(row=>{row.style.display=row.textContent.toLowerCase().includes(q)?"":"none";});
+}
+
+function openCompose(){
+  _populateTemplateSelect();
+  ["composeTo","composeSubject"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("composeBody").innerHTML="";
+  document.getElementById("sendStatus").textContent="";
+  document.getElementById("ccRow").style.display="none";
+  document.getElementById("bccRow").style.display="none";
+  _ccBccVisible=false;
+  document.getElementById("composeTitle").textContent="New Message";
+  openModal("modalCompose");
+}
+function openComposeFromTemplate(id){openCompose();applyTemplateToCompose(id);}
+function openComposeReply(emailId){
+  openCompose();
+  const e=getSentEmails().find(e=>e.id===emailId);
+  if(e){document.getElementById("composeTo").value=e.to||"";document.getElementById("composeSubject").value="Re: "+(e.subject||"");document.getElementById("composeTitle").textContent="Reply";}
+}
+function toggleCcBcc(){
+  _ccBccVisible=!_ccBccVisible;
+  document.getElementById("ccRow").style.display=_ccBccVisible?"flex":"none";
+  document.getElementById("bccRow").style.display=_ccBccVisible?"flex":"none";
+}
+function _populateTemplateSelect(){
+  const sel=document.getElementById("composeTemplateSelect");
+  if(!sel)return;
+  sel.innerHTML="<option value=''>Use template...</option>"+getTemplates().map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");
+}
+function applyTemplateToCompose(id){
+  if(!id)return;
+  const t=getTemplates().find(t=>t.id===id);
+  if(!t)return;
+  if(t.subject)document.getElementById("composeSubject").value=t.subject;
+  document.getElementById("composeBody").innerHTML=t.body.replace(/\n/g,"<br>");
+  document.getElementById("composeTemplateSelect").value="";
+}
+function fmt(cmd){document.execCommand(cmd,false,null);document.getElementById("composeBody").focus();}
+
+async function sendEmail(){
+  const to=document.getElementById("composeTo").value.trim();
+  const subject=document.getElementById("composeSubject").value.trim();
+  const body=document.getElementById("composeBody").innerHTML;
+  const statusEl=document.getElementById("sendStatus");
+  if(!to){statusEl.style.color="var(--red)";statusEl.textContent="Enter a recipient.";return;}
+  const sent={id:uid(),to,subject,body,date:new Date().toISOString(),label:"outreach"};
+  if(isGmailConnected()){
+    statusEl.style.color="var(--text3)";statusEl.textContent="Sending...";
+    try{
+      await _gmailSend(to,subject,body);
+      const arr=getSentEmails();arr.push(sent);saveSentEmails(arr);
+      statusEl.style.color="var(--c2)";statusEl.textContent="Sent!";
+      logActivity("Email sent to "+to,"outreach");
+      setTimeout(()=>{closeModal("modalCompose");renderOutreach();},1000);
+    }catch(e){statusEl.style.color="var(--red)";statusEl.textContent="Send failed: "+e.message.substring(0,60);}
+  } else {
+    const mailtoLink=`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(document.getElementById("composeBody").innerText)}`;
+    window.open(mailtoLink);
+    const arr=getSentEmails();arr.push(sent);saveSentEmails(arr);
+    statusEl.style.color="var(--c2)";statusEl.textContent="Opened in mail app.";
+    logActivity("Email drafted to "+to,"outreach");
+    setTimeout(()=>{closeModal("modalCompose");renderOutreach();},1200);
+  }
+}
+
+async function _gmailSend(to,subject,body){
+  const msg=["To: "+to,"Subject: "+subject,"Content-Type: text/html; charset=utf-8","MIME-Version: 1.0","",body].join("\r\n");
+  const encoded=btoa(unescape(encodeURIComponent(msg))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+  const resp=await gapi.client.request({path:"https://gmail.googleapis.com/gmail/v1/users/me/messages/send",method:"POST",body:{raw:encoded}});
+  if(resp.status!==200)throw new Error("Status "+resp.status);
+}
+
+function deleteSentEmail(id){
+  if(!confirm("Remove from sent?"))return;
+  saveSentEmails(getSentEmails().filter(e=>e.id!==id));
+  _emailSelected=null;_renderEmailList();_renderEmailReader(null);
+}
+
+function openAddTemplate(){
+  document.getElementById("tmplModalTitle").textContent="New Template";
+  document.getElementById("tmplEditId").value="";
+  ["tmplName","tmplSubject","tmplBody"].forEach(id=>document.getElementById(id).value="");
+  openModal("modalTemplate");
+}
+function openEditTemplate(id){
+  const t=getTemplates().find(t=>t.id===id);
+  if(!t)return;
+  document.getElementById("tmplModalTitle").textContent="Edit Template";
+  document.getElementById("tmplEditId").value=id;
+  document.getElementById("tmplName").value=t.name||"";
+  document.getElementById("tmplSubject").value=t.subject||"";
+  document.getElementById("tmplBody").value=t.body||"";
+  document.getElementById("tmplLabel").value=t.label||"outreach";
+  openModal("modalTemplate");
+}
+function saveTemplate(){
+  const editId=document.getElementById("tmplEditId").value;
+  const t={id:editId||uid(),name:document.getElementById("tmplName").value.trim(),subject:document.getElementById("tmplSubject").value.trim(),body:document.getElementById("tmplBody").value.trim(),label:document.getElementById("tmplLabel").value};
+  if(!t.name||!t.body)return;
+  const arr=getTemplates();
+  if(editId){const i=arr.findIndex(x=>x.id===editId);if(i>=0)arr[i]=t;else arr.push(t);}else arr.push(t);
+  saveTemplates(arr);
+  closeModal("modalTemplate");
+  ["tmplName","tmplSubject","tmplBody"].forEach(id=>document.getElementById(id).value="");
+  if(_emailView==="templates"){_renderTemplateList();selectTemplate(t.id);}
+  showToast(editId?"Template updated.":"Template saved.");
+}
+function copyTemplateText(id){
+  const t=getTemplates().find(t=>t.id===id);
+  if(t)navigator.clipboard.writeText(t.body).then(()=>showToast("Copied to clipboard."));
 }
 function deleteTemplate(id){
+  if(!confirm("Delete this template?"))return;
   saveTemplates(getTemplates().filter(t=>t.id!==id));
-  renderOutreach();
+  _emailSelected=null;_renderTemplateList();_renderEmailReader(null);
+}
+function copyTemplate(id){copyTemplateText(id);}
+function openAddOutreach(){openCompose();}
+// Legacy compat stubs — openCompose() handles all email composition now
+function saveOutreach(){openCompose();}
+function deleteOutreach(id){deleteSentEmail(id);}
+
+function openGmailSetup(){
+  const c=getGmailCreds();
+  document.getElementById("gmailClientId").value=c.clientId||"";
+  openModal("modalGmailSetup");
+}
+function gmailSaveAndConnect(){
+  const clientId=document.getElementById("gmailClientId").value.trim();
+  const statusEl=document.getElementById("gmailConnectStatus");
+  if(!clientId){statusEl.style.color="var(--red)";statusEl.textContent="Client ID required.";return;}
+  saveGmailCreds2({clientId});
+  statusEl.style.color="var(--text3)";statusEl.textContent="Connecting...";
+  const loadGapi=new Promise((res,rej)=>{if(window.gapi&&window.gapi.client){res();return;}const s=document.createElement("script");s.src="https://apis.google.com/js/api.js";s.onload=res;s.onerror=rej;document.head.appendChild(s);});
+  const loadGis=new Promise((res,rej)=>{if(window.google?.accounts){res();return;}const s=document.createElement("script");s.src="https://accounts.google.com/gsi/client";s.onload=res;s.onerror=rej;document.head.appendChild(s);});
+  Promise.all([loadGapi,loadGis]).then(()=>{
+    gapi.load("client",()=>{
+      gapi.client.init({}).then(()=>{
+        const tc=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:"https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly",callback:(resp)=>{
+          if(resp.error){statusEl.style.color="var(--red)";statusEl.textContent="Auth error: "+resp.error;return;}
+          lsSave("s343_gmail_connected",true);
+          statusEl.style.color="var(--c2)";statusEl.textContent="Gmail connected!";
+          setTimeout(()=>{closeModal("modalGmailSetup");renderOutreach();},800);
+        }});
+        tc.requestAccessToken({prompt:"consent"});
+      });
+    });
+  }).catch(()=>{statusEl.style.color="var(--red)";statusEl.textContent="Could not load Google API.";});
 }
 
 // 
@@ -3043,25 +3966,43 @@ function renderDecisions(){
       <div class="decision-why">${esc(d.why)}</div>
       <div class="decision-tags">
         <span class="badge ${catColors[d.cat]||'badge-gray'}">${d.cat}</span>
+        <button onclick="openEditDecision('${d.id}')" style="font-size:10px;padding:2px 8px;background:var(--c1-d);border:1px solid rgba(var(--c1-rgb),.2);border-radius:4px;color:var(--c1-l);cursor:pointer;">Edit</button>
         <button onclick="deleteDecision('${d.id}')" style="font-size:10px;padding:2px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text3);cursor:pointer;margin-left:4px;">Delete</button>
       </div>
     </div>
   `).join(''):`<div class="empty"><div class="empty-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="empty-title">No decisions logged yet</div><div class="empty-sub">Log your first decision. Future you will thank you.</div></div>`;
 }
-function openAddDecision(){openModal('modalDecision');}
+function openAddDecision(){
+  document.getElementById('dTitle').dataset.editId='';
+  ['dTitle','dWhy'].forEach(id=>document.getElementById(id).value='');
+  openModal('modalDecision');
+}
+function openEditDecision(id){
+  const d=getDecisions().find(d=>d.id===id);
+  if(!d)return;
+  document.getElementById('dTitle').value=d.title||'';
+  document.getElementById('dTitle').dataset.editId=id;
+  document.getElementById('dWhy').value=d.why||'';
+  document.getElementById('dCat').value=d.cat||'community';
+  openModal('modalDecision');
+}
 function saveDecision(){
+  const editId=document.getElementById('dTitle').dataset.editId||'';
   const d={
-    id:uid(),
+    id:editId||uid(),
     title:document.getElementById('dTitle').value.trim(),
     why:document.getElementById('dWhy').value.trim(),
     cat:document.getElementById('dCat').value,
-    date:new Date().toISOString(),
+    date:editId?(getDecisions().find(x=>x.id===editId)?.date||new Date().toISOString()):new Date().toISOString(),
   };
   if(!d.title||!d.why)return;
-  const arr=getDecisions();arr.push(d);saveDecisions(arr);
-  logActivity(`Decision logged: ${d.title}`,'decision');
+  const arr=getDecisions();
+  if(editId){const i=arr.findIndex(x=>x.id===editId);if(i>=0)arr[i]=d;else arr.push(d);}
+  else{arr.push(d);logActivity(`Decision logged: ${d.title}`,'decision');}
+  saveDecisions(arr);
   closeModal('modalDecision');
   renderDecisions();
+  document.getElementById('dTitle').dataset.editId='';
   ['dTitle','dWhy'].forEach(id=>document.getElementById(id).value='');
 }
 function deleteDecision(id){
@@ -3776,12 +4717,22 @@ function _renderUpcomingEvents(){
   el.innerHTML=allEvents.map((e,i)=>{
     const d=new Date(e.start);
     const featured=i===0;
+    const isLocal=!!e.id&&!e.summary; // local events have id but no .summary (gcal field)
     return `<div class="cal-event-item${featured?' featured':''}">
-      <div class="cal-event-title">${esc(e.title||e.name||'')}</div>
-      ${e.sub||e.notes?`<div class="cal-event-sub">${esc(e.sub||e.notes||'')}</div>`:''}
-      <div class="cal-event-meta">
-        <span>${mo[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}</span>
-        ${e.location?`<span>${esc(e.location.substring(0,30))}</span>`:''}
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+        <div style="flex:1;min-width:0;">
+          <div class="cal-event-title">${esc(e.title||e.name||'')}</div>
+          ${e.sub||e.notes?`<div class="cal-event-sub">${esc(e.sub||e.notes||'')}</div>`:''}
+          <div class="cal-event-meta">
+            <span>${mo[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}</span>
+            ${e.location?`<span>${esc(e.location.substring(0,30))}</span>`:''}
+            <span class="badge badge-${e.status==='confirmed'?'teal':e.status==='pending'?'gold':'gray'}" style="font-size:9px;">${e.status||e.type||''}</span>
+          </div>
+        </div>
+        ${isLocal?`<div style="display:flex;gap:4px;flex-shrink:0;">
+          <button onclick="openEditCalEvent('${e.id}')" style="font-size:9px;padding:2px 7px;background:var(--c1-d);border:1px solid rgba(var(--c1-rgb),.2);border-radius:4px;color:var(--c1-l);cursor:pointer;">Edit</button>
+          <button onclick="deleteCalEvent('${e.id}')" style="font-size:9px;padding:2px 7px;background:var(--red-d);border:1px solid rgba(231,76,60,.2);border-radius:4px;color:var(--red);cursor:pointer;">Delete</button>
+        </div>`:''}
       </div>
     </div>`;
   }).join('');
@@ -3886,15 +4837,35 @@ function gcalGoToday(){_gcalCursor=new Date();if(_gcalView==='month')_renderMont
 
 // ── Local event CRUD ──
 function openAddCalEvent(){
-  // Default dates to today
+  document.getElementById('ceTitle').dataset.editId='';
+  ['ceTitle','ceNotes'].forEach(id=>document.getElementById(id).value='');
   const today=new Date().toISOString().split('T')[0];
   document.getElementById('ceStart').value=today;
   document.getElementById('ceEnd').value=today;
   openModal('modalCalEvent');
 }
+function openEditCalEvent(id){
+  const e=getCalEvents().find(e=>e.id===id);
+  if(!e)return;
+  document.getElementById('ceTitle').value=e.title||'';
+  document.getElementById('ceTitle').dataset.editId=id;
+  document.getElementById('ceType').value=e.type||'event';
+  document.getElementById('ceStart').value=e.start||'';
+  document.getElementById('ceEnd').value=e.end||'';
+  document.getElementById('ceStatus').value=e.status||'confirmed';
+  document.getElementById('ceNotes').value=e.notes||'';
+  openModal('modalCalEvent');
+}
+function deleteCalEvent(id){
+  if(!confirm('Delete this event?'))return;
+  saveCalEvents(getCalEvents().filter(e=>e.id!==id));
+  showToast('Event deleted.');
+  _renderTimeline();
+}
 function saveCalEvent(){
+  const editId=document.getElementById('ceTitle').dataset.editId||'';
   const e={
-    id:uid(),
+    id:editId||uid(),
     title:document.getElementById('ceTitle').value.trim(),
     type:document.getElementById('ceType').value,
     start:document.getElementById('ceStart').value,
@@ -3902,12 +4873,15 @@ function saveCalEvent(){
     status:document.getElementById('ceStatus').value,
     notes:document.getElementById('ceNotes').value.trim(),
   };
-  if(!e.title||!e.start) return;
-  const arr=getCalEvents(); arr.push(e); saveCalEvents(arr);
-  logActivity(`Event added: ${e.title}`,'production');
+  if(!e.title||!e.start)return;
+  const arr=getCalEvents();
+  if(editId){const i=arr.findIndex(x=>x.id===editId);if(i>=0)arr[i]=e;else arr.push(e);}
+  else{arr.push(e);logActivity(`Event added: ${e.title}`,'production');}
+  saveCalEvents(arr);
   closeModal('modalCalEvent');
+  document.getElementById('ceTitle').dataset.editId='';
   ['ceTitle','ceNotes'].forEach(id=>document.getElementById(id).value='');
-  showToast('Event added to calendar.');
+  showToast(editId?'Event updated.':'Event added to calendar.');
   _renderTimeline();
 }
 function calOpenSetup(){
@@ -4087,6 +5061,8 @@ function applyTheme(el){
   document.documentElement.dataset.theme=theme;
   document.getElementById('themeDesc').textContent=el.checked?'Dark Mode':'Light Mode';
   lsSave('s343_theme',theme);
+  // Re-apply featured card since glass values changed
+  requestAnimationFrame(()=>_applyFeaturedCardTheme&&_applyFeaturedCardTheme());
 }
 
 function applyRadius(v,el){
@@ -4178,7 +5154,10 @@ function exportData(){
     outreach:getOutreach(),templates:getTemplates(),
     activity:getActivity(),ic2:get2IC(),
     personal:getPersonal(),community:getCommunity(),
-    exported:new Date().toISOString(),
+    calEvents:getCalEvents(),sentEmails:getSentEmails(),
+    cuLogs:getCULogs(),cuChart:getCUChart(),
+    sep:getSepToggles(),
+    exported:new Date().toISOString(),version:'1.0',
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');
@@ -4186,6 +5165,53 @@ function exportData(){
   a.download=`343founder-backup-${new Date().toISOString().split('T')[0]}.json`;
   a.click();
   showToast('Data exported!');
+}
+
+function importData(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  if(!file.name.endsWith('.json')){showToast('Please select a .json backup file.');return;}
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const d=JSON.parse(ev.target.result);
+      if(!d.version&&!d.members&&!d.decisions){showToast('Invalid backup file.');return;}
+
+      // Merge strategy: existing data wins for duplicates, backup fills gaps
+      const merge=(getterFn,saverFn,key)=>{
+        if(!d[key]||!Array.isArray(d[key]))return;
+        const existing=getterFn();
+        const existingIds=new Set(existing.map(x=>x.id));
+        const merged=[...existing,...d[key].filter(x=>x.id&&!existingIds.has(x.id))];
+        saverFn(merged);
+      };
+
+      merge(getMembers,saveMembers,'members');
+      merge(getPipeline,savePipeline2,'pipeline');
+      merge(getBarters,saveBarters,'barters');
+      merge(getProductions,saveProductions,'productions');
+      merge(getDecisions,saveDecisions,'decisions');
+      merge(getTemplates,saveTemplates,'templates');
+      merge(getActivity,saveActivity2,'activity');
+      merge(getCalEvents,saveCalEvents,'calEvents');
+      merge(getSentEmails,saveSentEmails,'sentEmails');
+      merge(getCULogs,saveCULogs,'cuLogs');
+
+      // Non-array items: only restore if currently empty
+      if(!get2IC()&&d.ic2) save2IC2(d.ic2);
+      if(!getPersonal().length&&d.personal) savePersonal(d.personal);
+      if(!getCommunity().length&&d.community) saveCommunityProjects(d.community);
+
+      showToast('Backup imported and merged successfully.');
+      renderHome();
+      // Reset file input
+      e.target.value='';
+    }catch(err){
+      showToast('Failed to parse backup file. Make sure it is a valid 343Founder export.');
+      console.error(err);
+    }
+  };
+  reader.readAsText(file);
 }
 
 function resetSettings(){
@@ -4200,10 +5226,15 @@ function resetSettings(){
 
 function clearAllData(){
   if(!confirm('Delete ALL data permanently? This cannot be undone.'))return;
-  ['s343_members','s343_decisions','s343_pipeline','s343_barters','s343_productions',
-   's343_outreach','s343_templates','s343_activity','s343_2ic','s343_sep',
-   's343_personal','s343_community'].forEach(k=>localStorage.removeItem(k));
+  [
+    's343_members','s343_decisions','s343_pipeline','s343_barters','s343_productions',
+    's343_outreach','s343_templates','s343_activity','s343_2ic','s343_sep',
+    's343_personal','s343_community','s343_cu_logs','s343_cu_chart',
+    's343_cal_events','s343_gcal_events','s343_gcal_connected',
+    's343_sent_emails','s343_drafts','s343_gmail_connected',
+  ].forEach(k=>localStorage.removeItem(k));
   showToast('All data cleared.');
+  renderHome();
 }
 
 function hexToRgb(hex){
