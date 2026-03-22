@@ -3949,28 +3949,55 @@ function gcalDisconnect(){
   _renderTimeline();
 }
 function _loadGoogleApi(c,statusEl){
-  if(window.gapi&&window.gapi.client){_initGapi(c,statusEl);return;}
-  const script=document.createElement('script');
-  script.src='https://apis.google.com/js/api.js';
-  script.onload=()=>_initGapi(c,statusEl);
-  script.onerror=()=>{
-    if(statusEl){statusEl.style.color='var(--red)';statusEl.textContent='Could not load Google API.';}
-    showToast('Failed to load Google API.');
-  };
-  document.head.appendChild(script);
+  // Load both gapi (for Calendar API calls) and GIS (for OAuth token)
+  const loadGapi=new Promise((res,rej)=>{
+    if(window.gapi){res();return;}
+    const s=document.createElement('script');
+    s.src='https://apis.google.com/js/api.js';
+    s.onload=res; s.onerror=rej;
+    document.head.appendChild(s);
+  });
+  const loadGis=new Promise((res,rej)=>{
+    if(window.google?.accounts){res();return;}
+    const s=document.createElement('script');
+    s.src='https://accounts.google.com/gsi/client';
+    s.onload=res; s.onerror=rej;
+    document.head.appendChild(s);
+  });
+  Promise.all([loadGapi,loadGis])
+    .then(()=>_initGapi(c,statusEl))
+    .catch(()=>{
+      if(statusEl){statusEl.style.color='var(--red)';statusEl.textContent='Could not load Google API. Check your internet connection.';}
+      showToast('Failed to load Google API.');
+    });
 }
+
 function _initGapi(c,statusEl){
-  gapi.load('client:auth2',()=>{
+  // Step 1: init gapi client for Calendar API
+  gapi.load('client',()=>{
     gapi.client.init({
-      apiKey:c.apiKey,clientId:c.clientId,
+      apiKey:c.apiKey,
       discoveryDocs:['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-      scope:'https://www.googleapis.com/auth/calendar.readonly',
     }).then(()=>{
-      const auth=gapi.auth2.getAuthInstance();
-      if(auth.isSignedIn.get()) return _fetchGCalEvents(c,statusEl);
-      return auth.signIn().then(()=>_fetchGCalEvents(c,statusEl));
+      // Step 2: use GIS token client for OAuth (replaces deprecated gapi.auth2)
+      const tokenClient=google.accounts.oauth2.initTokenClient({
+        client_id:c.clientId,
+        scope:'https://www.googleapis.com/auth/calendar.readonly',
+        callback:(tokenResp)=>{
+          if(tokenResp.error){
+            const msg='Auth error: '+tokenResp.error;
+            if(statusEl){statusEl.style.color='var(--red)';statusEl.textContent=msg;}
+            showToast(msg);
+            return;
+          }
+          // Token granted — fetch events
+          _fetchGCalEvents(c,statusEl);
+        },
+      });
+      // Request token — shows Google sign-in popup
+      tokenClient.requestAccessToken({prompt:'consent'});
     }).catch(err=>{
-      const msg='Auth error: '+(err.error||err.details||'Check your credentials.').toString().substring(0,80);
+      const msg='Init error: '+((err.details||err.message||JSON.stringify(err)).toString().substring(0,80));
       if(statusEl){statusEl.style.color='var(--red)';statusEl.textContent=msg;}
       showToast(msg);
     });
