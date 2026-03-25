@@ -51,10 +51,10 @@
   --border2:rgba(0,0,0,.16);
   --hover:rgba(0,0,0,.04);
   --shadow:0 4px 24px rgba(0,0,0,.11);
-  --glass-bg:rgba(255,255,255,.78);
-  --glass-border:rgba(255,255,255,.96);
-  --glass-shadow:0 8px 32px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
-  --glass-blur:saturate(200%) blur(22px);
+  --glass-bg:#FFFFFF;
+  --glass-border:rgba(0,0,0,.09);
+  --glass-shadow:0 4px 20px rgba(0,0,0,.08);
+  --glass-blur:none;
   --mesh-1:radial-gradient(ellipse 70% 60% at 10% 10%, rgba(var(--c1-rgb),.15) 0%, transparent 65%);
   --mesh-2:radial-gradient(ellipse 60% 70% at 88% 88%, rgba(var(--c2-rgb),.12) 0%, transparent 65%);
   --mesh-3:radial-gradient(ellipse 50% 50% at 68% 5%, rgba(245,166,35,.10) 0%, transparent 60%);
@@ -73,10 +73,10 @@
   --border2:rgba(255,255,255,.13);
   --hover:rgba(255,255,255,.05);
   --shadow:0 8px 40px rgba(0,0,0,.85);
-  --glass-bg:rgba(16,16,32,.82);
+  --glass-bg:#1C1C20;
   --glass-border:rgba(255,255,255,.09);
-  --glass-shadow:0 8px 32px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.35);
-  --glass-blur:saturate(160%) blur(24px);
+  --glass-shadow:0 8px 32px rgba(0,0,0,.5);
+  --glass-blur:none;
   --mesh-1:radial-gradient(ellipse 70% 60% at 10% 10%, rgba(var(--c1-rgb),.18) 0%, transparent 65%);
   --mesh-2:radial-gradient(ellipse 60% 70% at 88% 88%, rgba(var(--c2-rgb),.13) 0%, transparent 65%);
   --mesh-3:radial-gradient(ellipse 50% 50% at 68% 5%, rgba(245,166,35,.10) 0%, transparent 60%);
@@ -135,7 +135,7 @@ a{text-decoration:none;color:inherit;}
 .field label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);}
 .field input{
   background:rgba(255,255,255,.5);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid var(--border2);color:var(--text);
   padding:10px 14px;border-radius:var(--r-sm);outline:none;font-size:14px;
   transition:border-color .2s, box-shadow .2s, background .2s;
@@ -248,7 +248,7 @@ a{text-decoration:none;color:inherit;}
   min-width:0;
   /* Transitions handled by JS class toggling */
 }
-.page.active{display:block;animation:pageIn var(--transition-page) var(--ease-out) both;}
+.page.active{display:block;animation:pageIn 180ms var(--ease-out) both;}
 .page.page-exit{animation:pageOut 200ms var(--ease) both;}
 @keyframes pageIn{
   from{opacity:0;transform:translateY(14px);}
@@ -323,7 +323,7 @@ a{text-decoration:none;color:inherit;}
 }
 .btn-ghost{
   background:var(--glass-bg);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid var(--glass-border);
   color:var(--text2);
   box-shadow:0 1px 4px rgba(0,0,0,.06);
@@ -446,7 +446,7 @@ a{text-decoration:none;color:inherit;}
   display:flex;align-items:center;gap:7px;
   padding:9px 11px;
   background:var(--glass-bg);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid var(--glass-border);
   border-radius:var(--r-sm);
   box-shadow:0 2px 8px rgba(0,0,0,.06);
@@ -596,7 +596,7 @@ a{text-decoration:none;color:inherit;}
   display:grid;grid-template-columns:120px 1fr 60px 80px;
   gap:12px;align-items:center;padding:11px 14px;
   background:var(--glass-bg);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid var(--glass-border);
   border-radius:var(--r-sm);margin-bottom:6px;
   transition:border-color .12s;
@@ -607,7 +607,7 @@ a{text-decoration:none;color:inherit;}
 .tab-strip{
   display:flex;gap:2px;margin-bottom:20px;
   background:var(--glass-bg);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid var(--glass-border);
   padding:4px;border-radius:var(--r-sm);
   width:fit-content;
@@ -658,7 +658,7 @@ a{text-decoration:none;color:inherit;}
 .pipeline-col{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r);padding:16px;box-shadow:var(--glass-shadow);}
 .pipeline-card{
   background:rgba(255,255,255,.6);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1px solid var(--glass-border);border-radius:var(--r-sm);
   padding:12px;margin-bottom:8px;cursor:pointer;
   transition:border-color .12s, box-shadow .12s, transform .12s;
@@ -694,7 +694,7 @@ a{text-decoration:none;color:inherit;}
 /* ── INPUT (rich) ── */
 .input{
   background:rgba(255,255,255,.55);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border:1.5px solid var(--border2);
   color:var(--text);
   padding:10px 14px;border-radius:var(--r-sm);
@@ -715,9 +715,7 @@ select.input{cursor:pointer;}
 /* ── MODAL (redesigned) ── */
 .modal-backdrop{
   position:fixed;inset:0;
-  background:rgba(0,0,0,.4);
-  backdrop-filter:blur(16px) saturate(140%);
-  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  background:rgba(0,0,0,.45);
   z-index:1000;display:flex;align-items:center;justify-content:center;
   opacity:0;pointer-events:none;
   transition:opacity .22s var(--ease);
@@ -874,6 +872,79 @@ select.input{cursor:pointer;}
 }
 .sep-toggle.on::after{transform:translateX(18px);}
 
+
+/* LEADS */
+.lead-card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--r);
+  margin-bottom:14px;overflow:hidden;
+}
+.lead-card-header{
+  display:flex;align-items:center;gap:12px;padding:16px 20px;
+  cursor:pointer;user-select:none;transition:background .12s;
+}
+.lead-card-header:hover{background:var(--hover);}
+.lead-avatar{
+  width:38px;height:38px;border-radius:50%;background:var(--c1-d);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:14px;color:var(--c1-l);flex-shrink:0;
+  border:1px solid rgba(var(--c1-rgb),.2);
+}
+.lead-info{flex:1;}
+.lead-name{font-size:15px;font-weight:700;color:var(--text);}
+.lead-role{font-size:12px;color:var(--text3);font-family:var(--mono);}
+.lead-summary-pills{display:flex;gap:6px;margin-left:auto;}
+.lead-chevron{color:var(--text3);transition:transform .2s;flex-shrink:0;}
+.lead-chevron.open{transform:rotate(180deg);}
+.lead-body{
+  border-top:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:0;
+}
+.lead-col{padding:16px 20px;border-right:1px solid var(--border);}
+.lead-col:last-child{border-right:none;}
+.lead-col-title{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text3);margin-bottom:12px;display:flex;align-items:center;
+  justify-content:space-between;
+}
+.lead-item{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:8px 10px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r-sm);margin-bottom:6px;
+}
+.lead-item-check{
+  width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border2);
+  flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;transition:background .12s,border-color .12s;
+}
+.lead-item-check.done{background:var(--c2);border-color:var(--c2);}
+.lead-item-text{flex:1;font-size:12px;color:var(--text2);line-height:1.4;}
+.lead-item-text.done{text-decoration:line-through;color:var(--text3);}
+.lead-item-del{
+  opacity:0;color:var(--red);font-size:18px;line-height:1;cursor:pointer;
+  flex-shrink:0;transition:opacity .12s;padding:0 2px;
+}
+.lead-item:hover .lead-item-del{opacity:1;}
+.lead-add-row{
+  display:flex;gap:6px;margin-top:8px;
+}
+.lead-add-input{
+  flex:1;background:var(--bg);border:1px solid var(--border2);color:var(--text);
+  padding:6px 10px;border-radius:var(--r-sm);outline:none;font-size:12px;
+  font-family:var(--font);transition:border-color .15s;
+}
+.lead-add-input:focus{border-color:var(--c1);}
+.lead-add-btn{
+  padding:6px 12px;background:var(--c1);color:#fff;border-radius:var(--r-sm);
+  font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.outreach-pill{
+  display:inline-flex;align-items:center;gap:5px;padding:4px 10px;
+  border-radius:var(--r-pill);font-size:11px;font-weight:600;
+  background:var(--bg3);border:1px solid var(--border);color:var(--text2);
+  margin-bottom:5px;width:100%;justify-content:space-between;
+}
+.outreach-status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:5px;}
@@ -1122,8 +1193,11 @@ select.input{cursor:pointer;}
 .cal-tl-cell.today-col{background:rgba(var(--c1-rgb),.05);}
 .cal-tl-today-line{position:absolute;top:0;bottom:0;width:2px;background:var(--c1);z-index:2;pointer-events:none;}
 .cal-tl-today-line::before{content:'';position:absolute;top:-4px;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--c1);}
-.cal-tl-bar{position:absolute;top:50%;transform:translateY(-50%);height:26px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1;cursor:pointer;transition:opacity .12s;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.cal-tl-bar{position:absolute;top:50%;transform:translateY(-50%);height:26px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1;cursor:grab;transition:opacity .12s,box-shadow .12s;box-shadow:0 1px 4px rgba(0,0,0,.1);}
 .cal-tl-bar:hover{opacity:.85;}
+.cal-tl-bar.dragging{opacity:.35;cursor:grabbing;}
+.cal-tl-bar:active{cursor:grabbing;}
+.cal-day-cell-click.cal-drag-over{background:rgba(var(--c1-rgb),.13)!important;outline:2px solid rgba(var(--c1-rgb),.4);outline-offset:-1px;}
 .cal-tl-bar .bar-status{font-size:9px;font-weight:700;padding:1px 5px;border-radius:10px;background:rgba(255,255,255,.3);margin-left:6px;flex-shrink:0;}
 .cal-tl-day-num{font-size:10px;font-weight:700;color:var(--text3);text-align:center;padding:6px 2px 4px;}
 .cal-tl-day-num.today{color:var(--c1);font-weight:800;}
@@ -1352,6 +1426,10 @@ select.input{cursor:pointer;}
 
     <div class="sidebar-section">Operations</div>
 
+    <div class="nav-item" onclick="nav('leads')" id="nav-leads">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Leads
+    </div>
     <div class="nav-item" onclick="nav('pipeline')" id="nav-pipeline">
       <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>
       Pipeline
@@ -1364,10 +1442,12 @@ select.input{cursor:pointer;}
       <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 3l-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11l4 2.5-4 2.5V11z" fill="currentColor"/></svg>
       Productions
     </div>
-    <div class="nav-item" onclick="nav('outreach')" id="nav-outreach">
-      <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Emails
+
+    <div class="nav-item" onclick="nav('onboarding')" id="nav-onboarding">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="14 14 16 16 20 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Onboarding
     </div>
+
     <div class="nav-item" onclick="nav('calendar')" id="nav-calendar">
       <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       Calendar
@@ -1553,9 +1633,7 @@ select.input{cursor:pointer;}
               <button class="home-quick-nav" onclick="nav('calendar')">
                 <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Calendar
               </button>
-              <button class="home-quick-nav" onclick="nav('outreach')">
-                <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Emails
-              </button>
+
             </div>
           </div>
           <!-- 2IC -->
@@ -1638,6 +1716,21 @@ select.input{cursor:pointer;}
       </div>
     </div><!-- /members -->
 
+    <!--  LEADS  -->
+    <div class="page" id="page-leads">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Leads</div>
+          <div class="page-sub">Tasks, weekly deliverables and outreach assigned to each lead</div>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-ghost" onclick="openAddLead()">+ Add Lead</button>
+        </div>
+      </div>
+
+      <div id="leadsContainer"></div>
+    </div><!-- /leads -->
+
     <!--  PIPELINE  -->
     <div class="page" id="page-pipeline">
       <div class="page-header">
@@ -1692,64 +1785,6 @@ select.input{cursor:pointer;}
       <div id="productionsList"></div>
     </div>
 
-    <!--  EMAILS  -->
-    <div class="page" id="page-outreach">
-
-      <!-- Top bar -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap;">
-        <div>
-          <div class="page-title">Emails</div>
-          <div class="page-sub">Send outreach, manage templates, track follow-ups</div>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <div id="gmailConnBadge" style="display:none;align-items:center;gap:6px;padding:5px 12px;background:var(--c2-d);border:1px solid rgba(var(--c2-rgb),.25);border-radius:var(--r-pill);font-size:12px;font-weight:600;color:var(--c2);">
-            <div style="width:6px;height:6px;border-radius:50%;background:var(--c2);"></div>
-            Gmail connected
-          </div>
-          <button class="btn btn-ghost" onclick="openGmailSetup()" id="gmailConnectBtn">
-            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Connect Gmail
-          </button>
-          <button class="btn btn-blue" onclick="openCompose()">
-            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            New Message
-          </button>
-        </div>
-      </div>
-
-      <!-- Main 3-column layout — fills remaining page height -->
-      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;height:calc(100dvh - 180px);min-height:480px;background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border);border-radius:var(--r);overflow:hidden;box-shadow:var(--glass-shadow);">
-
-        <!-- LEFT: sidebar labels -->
-        <div style="border-right:1px solid var(--border);display:flex;flex-direction:column;background:rgba(0,0,0,.03);">
-          <div style="padding:12px 8px;flex:1;overflow-y:auto;">
-            <div id="emailSidebarItems"></div>
-            <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);padding:14px 10px 6px;font-family:var(--mono);">Labels</div>
-            <div id="emailLabels"></div>
-          </div>
-        </div>
-
-        <!-- MIDDLE: email list -->
-        <div style="border-right:1px solid var(--border);display:flex;flex-direction:column;min-width:0;">
-          <div style="padding:10px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center;flex-shrink:0;">
-            <div style="flex:1;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.05);border:1px solid var(--border);border-radius:var(--r-pill);padding:6px 12px;">
-              <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              <input id="emailSearch" placeholder="Search..." style="border:none;background:none;outline:none;font-size:12px;color:var(--text);width:100%;font-family:var(--font);" oninput="filterEmails()">
-            </div>
-            <div style="font-size:10px;color:var(--text3);font-family:var(--mono);white-space:nowrap;" id="emailCount"></div>
-          </div>
-          <div style="flex:1;overflow-y:auto;min-height:0;" id="emailList"></div>
-        </div>
-
-        <!-- RIGHT: email reader -->
-        <div style="display:flex;flex-direction:column;min-width:0;min-height:0;" id="emailReaderPane">
-          <div id="emailReader" style="flex:1;overflow-y:auto;padding:24px;min-height:0;"></div>
-        </div>
-
-      </div>
-
-    </div><!-- /emails -->
-
     <!--  DECISIONS  -->
     <div class="page" id="page-decisions">
       <div class="page-header">
@@ -1781,10 +1816,13 @@ select.input{cursor:pointer;}
         </button>
       </div>
 
-      <!-- Separation toggles -->
+      <!-- 2IC Responsibilities -->
       <div style="margin-bottom:24px;">
-        <div class="section-head" style="margin-bottom:14px;"><div class="section-title">Work Boundary Checks</div></div>
-        <div id="sepToggles"></div>
+        <div class="section-head" style="margin-bottom:14px;">
+          <div class="section-title">2IC Responsibilities</div>
+          <button class="btn btn-ghost" style="font-size:11px;padding:4px 12px;" onclick="openAddResponsibility()">+ Add</button>
+        </div>
+        <div id="ic2Responsibilities"></div>
       </div>
 
       <!-- Personal vs Community task split -->
@@ -1877,6 +1915,12 @@ select.input{cursor:pointer;}
         <!-- Timeline grid -->
         <div class="card" style="padding:0;overflow:hidden;margin-bottom:20px;">
           <div id="calTimelineGrid" style="overflow-x:auto;"></div>
+          <div id="calMembersLegend" style="display:none;padding:8px 14px;border-top:1px solid var(--border);display:flex;gap:16px;background:var(--bg2);border-radius:0 0 var(--r) var(--r);">
+            <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);"><span style="width:10px;height:10px;border-radius:2px;background:#E53935;border:1px solid #E53935;"></span>Unavailable</span>
+            <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);"><span style="width:10px;height:10px;border-radius:2px;background:#1976D2;border:1px solid #1976D2;"></span>343 Commitment</span>
+            <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);"><span style="width:10px;height:10px;border-radius:2px;background:#8E24AA;border:1px solid #8E24AA;"></span>Meeting</span>
+            <span style="margin-left:auto;font-size:11px;color:var(--text3);">Click a cell to add · Click a bar to edit</span>
+          </div>
         </div>
 
         <!-- Bottom 3-panel row -->
@@ -2082,7 +2126,6 @@ select.input{cursor:pointer;}
       <!-- Settings tab strip -->
       <div class="tab-strip">
         <div class="tab-btn active" id="stab-general" onclick="sSetTab('general')">General</div>
-        <div class="tab-btn" id="stab-integrations" onclick="sSetTab('integrations')">Integrations</div>
         <div class="tab-btn" id="stab-data" onclick="sSetTab('data')">Data</div>
       </div>
 
@@ -2194,44 +2237,6 @@ select.input{cursor:pointer;}
       </div><!-- /stab-panel-general -->
 
       <!-- INTEGRATIONS TAB -->
-      <div id="stab-panel-integrations" style="display:none;max-width:680px;">
-        <div class="settings-section">
-          <div class="settings-section-title">Connected Services</div>
-
-          <div class="integration-card">
-            <div class="integration-icon" style="background:rgba(66,133,244,.12);">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#4285F4" stroke-width="2" stroke-linejoin="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4285F4" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4285F4" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="10" x2="21" y2="10" stroke="#4285F4" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <div class="integration-info">
-              <div class="integration-name">Google Calendar</div>
-              <div class="integration-desc">Sync productions and follow-up dates — configure in Calendar</div>
-            </div>
-            <button class="btn btn-ghost" onclick="nav('calendar')" style="font-size:12px;flex-shrink:0;">Open Calendar</button>
-          </div>
-
-          <div class="integration-card">
-            <div class="integration-icon" style="background:rgba(234,67,53,.12);">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#EA4335" stroke-width="2" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="integration-info">
-              <div class="integration-name">Gmail</div>
-              <div class="integration-desc">Send outreach messages directly from 343Founder</div>
-            </div>
-            <button class="btn btn-ghost" onclick="nav('outreach')" style="font-size:12px;flex-shrink:0;">Open Emails</button>
-          </div>
-
-          <div class="integration-card">
-            <div class="integration-icon" style="background:rgba(0,0,0,.07);">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/><line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="16" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <div class="integration-info">
-              <div class="integration-name">Notion</div>
-              <div class="integration-desc">Pull your member database directly from a Notion DB</div>
-            </div>
-            <button class="btn btn-ghost" onclick="nav('members');setTimeout(openNotionImport,200);" style="font-size:12px;flex-shrink:0;">Import</button>
-          </div>
-        </div>
-      </div><!-- /stab-panel-integrations -->
 
       <!-- DATA TAB -->
       <div id="stab-panel-data" style="display:none;max-width:680px;">
@@ -2276,6 +2281,21 @@ select.input{cursor:pointer;}
 
     </div><!-- /settings -->
 
+    <!-- ONBOARDING PAGE -->
+    <div class="page" id="page-onboarding">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Onboarding</div>
+          <div class="page-sub">Track prospects from first contact to full member — max 20 at a time</div>
+        </div>
+        <div class="page-actions">
+          <span id="ob-count-badge" style="font-family:var(--mono);font-size:11px;color:var(--text3);padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:100px;">0 / 20</span>
+          <button class="btn btn-blue" onclick="obAddContact()">+ Add Contact</button>
+        </div>
+      </div>
+      <div id="obBoard" style="display:flex;gap:16px;align-items:flex-start;overflow-x:auto;padding-bottom:20px;min-height:500px;"></div>
+    </div>
+
   </main>
 </div>
 
@@ -2313,8 +2333,8 @@ select.input{cursor:pointer;}
 <!-- ADD CALENDAR EVENT -->
 <div class="modal-backdrop" id="modalCalEvent">
   <div class="modal">
-    <div class="modal-title">Add Event</div>
-    <div class="modal-sub">Add to the community calendar</div>
+    <div class="modal-title" id="ceModalTitle">Add Event</div>
+    <div class="modal-sub" id="ceModalSub">Add to the community calendar</div>
     <div class="modal-field"><label>Event Title</label><input class="input" id="ceTitle" placeholder="e.g. Table Read, Workshop, Shoot Day"></div>
     <div class="modal-field"><label>Type</label>
       <select class="input" id="ceType">
@@ -2334,10 +2354,14 @@ select.input{cursor:pointer;}
         <option value="approved">Approved</option>
       </select>
     </div>
+    <div class="modal-field">
+      <label>Members</label>
+      <div id="ceMembersWrap" style="display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);min-height:38px;"></div>
+    </div>
     <div class="modal-field"><label>Notes</label><textarea class="input textarea" id="ceNotes" placeholder="Location, crew needed, context..."></textarea></div>
     <div class="modal-row">
       <button class="modal-cancel" onclick="closeModal('modalCalEvent')">Cancel</button>
-      <button class="modal-confirm" onclick="saveCalEvent()">Add Event</button>
+      <button class="modal-confirm" id="ceConfirmBtn" onclick="saveCalEvent()">Add Event</button>
     </div>
   </div>
 </div>
@@ -2370,6 +2394,51 @@ select.input{cursor:pointer;}
     <div class="modal-row">
       <button class="modal-cancel" onclick="closeModal('modalLogCU')">Cancel</button>
       <button class="modal-confirm" onclick="saveLogCU()">Log It</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD LEAD -->
+<div class="modal-backdrop" id="modalAddLead">
+  <div class="modal">
+    <div class="modal-title">Add Lead</div>
+    <div class="modal-sub">Select a member to assign as a lead</div>
+    <div id="modalAddLeadBody">
+      <div class="modal-field">
+        <label>Member</label>
+        <select class="input" id="leadMemberSelect_static"></select>
+      </div>
+      <div class="modal-field">
+        <label>Role / Area</label>
+        <input class="input" id="leadRole_static" placeholder="e.g. Production Lead, Community Lead">
+      </div>
+    </div>
+    <div class="modal-row">
+      <button class="modal-cancel" onclick="closeModal('modalAddLead')">Cancel</button>
+      <button class="modal-confirm" id="modalAddLeadConfirm" onclick="saveLead()">Add Lead</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD LEAD OUTREACH -->
+<div class="modal-backdrop" id="modalLeadOutreach">
+  <div class="modal">
+    <div class="modal-title">Add Outreach</div>
+    <div class="modal-sub">Track an outreach contact assigned to this lead</div>
+    <div class="modal-field"><label>Contact / Target</label><input class="input" id="leadOutreachContact" placeholder="e.g. Nike, @filmmaker_name, Local Studio"></div>
+    <div class="modal-field"><label>Notes (optional)</label><input class="input" id="leadOutreachNote" placeholder="What's the ask or context?"></div>
+    <div class="modal-field">
+      <label>Status</label>
+      <select class="input" id="leadOutreachStatus">
+        <option value="pending">Pending</option>
+        <option value="sent">Sent</option>
+        <option value="responded">Responded</option>
+        <option value="closed">Closed</option>
+      </select>
+    </div>
+    <div class="modal-row">
+      <button class="modal-cancel" onclick="closeModal('modalLeadOutreach')">Cancel</button>
+      <button class="modal-confirm" onclick="saveLeadOutreach()">Add</button>
     </div>
   </div>
 </div>
@@ -2590,6 +2659,20 @@ select.input{cursor:pointer;}
   </div>
 </div>
 
+<!-- ADD 2IC RESPONSIBILITY -->
+<div class="modal-backdrop" id="modalIC2Resp">
+  <div class="modal">
+    <div class="modal-title">Add Responsibility</div>
+    <div class="modal-sub">Define something your 2IC owns</div>
+    <div class="modal-field"><label>Responsibility</label><input class="input" id="ic2RespLabel" placeholder="e.g. Member check-ins, Scheduling, Crew logistics"></div>
+    <div class="modal-field"><label>Notes (optional)</label><input class="input" id="ic2RespContext" placeholder="e.g. They handle this without looping you in"></div>
+    <div class="modal-row">
+      <button class="modal-cancel" onclick="closeModal('modalIC2Resp')">Cancel</button>
+      <button class="modal-confirm" onclick="saveResponsibility()">Add</button>
+    </div>
+  </div>
+</div>
+
 <!-- GMAIL SETUP -->
 <div class="modal-backdrop" id="modalGmailSetup">
   <div class="modal">
@@ -2798,6 +2881,10 @@ function getActivity(){return ls('s343_activity')||[];}
 function saveActivity2(d){lsSave('s343_activity',d);}
 function getFounderName(){return ls('s343_founder_name')||'Founder';}
 function saveFounderName(n){lsSave('s343_founder_name',n);}
+function getLeads(){return ls('s343_leads')||[];}
+function saveLeads(d){lsSave('s343_leads',d);}
+function getMemberBlocks(){return ls('s343_member_blocks')||[];}
+function saveMemberBlocks(d){lsSave('s343_member_blocks',d);}
 
 // 
 //  AUTH
@@ -2945,13 +3032,9 @@ function nav(id){
   if(currentPage===nextPage) return;
 
   if(currentPage){
-    currentPage.style.animation='pageOut 160ms var(--ease) both';
-    setTimeout(()=>{
-      currentPage.classList.remove('active');
-      currentPage.style.animation='';
-      nextPage.classList.add('active');
-      renderPage(id);
-    },150);
+    currentPage.classList.remove('active');
+    nextPage.classList.add('active');
+    renderPage(id);
   } else {
     nextPage.classList.add('active');
     renderPage(id);
@@ -2964,12 +3047,14 @@ function renderPage(id){
   else if(id==='pipeline')renderPipeline();
   else if(id==='barter')renderBarter();
   else if(id==='contributions')renderContributions();
+  else if(id==='leads')renderLeads();
   else if(id==='productions')renderProductions();
   else if(id==='outreach')renderOutreach();
   else if(id==='calendar')renderCalendarPage();
   else if(id==='decisions')renderDecisions();
   else if(id==='separation')renderSeparation();
   else if(id==='settings')renderSettings();
+  else if(id==='onboarding')obRender();
 }
 
 // 
@@ -3401,7 +3486,10 @@ function renderMembers(){
     tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3);">No members yet. Add your first or import from CSV.</td></tr>`;
     return;
   }
-  tbody.innerHTML=members.map(m=>`
+  const existingLeadNames=getLeads().map(l=>l.name.toLowerCase());
+  tbody.innerHTML=members.map(m=>{
+    const isLead=existingLeadNames.includes(m.name.toLowerCase());
+    return `
     <tr data-mid="${m.id}" style="cursor:context-menu;">
       <td><div style="display:flex;align-items:center;gap:10px;">
         <div class="member-avatar">${m.name.charAt(0)}</div>
@@ -3412,9 +3500,16 @@ function renderMembers(){
       <td><span class="badge ${statusBadge[m.status]||'badge-gray'}">${esc(m.status||'—')}</span></td>
       <td style="font-size:12px;color:var(--text3);">${esc(m.offers||'—')}</td>
       <td style="font-size:12px;color:var(--text3);">${esc(m.needs||'—')}</td>
-      <td><div style="display:flex;gap:4px;"><button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="openEditMember('${m.id}')">Edit</button><button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;color:var(--red);" onclick="deleteMember('${m.id}')">Remove</button></div></td>
-    </tr>
-  `).join('');
+      <td><div style="display:flex;gap:4px;">
+        ${isLead
+          ? `<button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;color:var(--c2);cursor:default;" disabled>✓ Lead</button>`
+          : `<button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;color:var(--c1-l);" onclick="addMemberAsLead('${m.id}')">+ Lead</button>`
+        }
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="openEditMember('${m.id}')">Edit</button>
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;color:var(--red);" onclick="deleteMember('${m.id}')">Remove</button>
+      </div></td>
+    </tr>`;
+  }).join('');
   setTimeout(attachMemberCtx, 0);
 }
 
@@ -3428,8 +3523,22 @@ function openAddMember(){
   openModal('modalMember');
 }
 function deleteMember(id){
-  if(!confirm('Remove this member?'))return;
-  saveMembers(getMembers().filter(m=>m.id!==id));
+  showConfirm('Remove this member?', true).then(ok=>{
+    if(!ok)return;
+    saveMembers(getMembers().filter(m=>m.id!==id));
+    renderMembers();
+  });
+}
+function addMemberAsLead(memberId){
+  const member=getMembers().find(m=>m.id===memberId);
+  if(!member)return;
+  const leads=getLeads();
+  if(leads.find(l=>l.name.toLowerCase()===member.name.toLowerCase())){
+    showToast(`${member.name} is already a lead.`);return;
+  }
+  leads.push({id:uid(),name:member.name,role:member.role||'Lead',tasks:[],deliverables:[],outreach:[]});
+  saveLeads(leads);
+  showToast(`${member.name} added as a lead.`);
   renderMembers();
 }
 function openEditMember(id){
@@ -3498,7 +3607,7 @@ function importCSV(e){
     saveMembers(members);
     closeModal('modalNotion');
     renderMembers();
-    alert(`Imported ${lines.length-1} members.`);
+    showToast(`Imported ${lines.length-1} members.`);
   };
   reader.readAsText(file);
 }
@@ -3743,9 +3852,11 @@ function movePipeline(id,stage){
   if(item){item.stage=stage;savePipeline2(arr);renderPipeline();}
 }
 function deletePipelineItem(id){
-  if(!confirm('Remove this opportunity?'))return;
-  savePipeline2(getPipeline().filter(i=>i.id!==id));
-  renderPipeline();
+  showConfirm('Remove this opportunity?', true).then(ok=>{
+    if(!ok)return;
+    savePipeline2(getPipeline().filter(i=>i.id!==id));
+    renderPipeline();
+  });
 }
 
 // 
@@ -3794,9 +3905,11 @@ function renderBarter(){
   document.getElementById('barterDone').innerHTML=barterHTML(done,true);
 }
 function deleteBarter(id){
-  if(!confirm('Remove this barter exchange?'))return;
-  saveBarters(getBarters().filter(b=>b.id!==id));
-  renderBarter();
+  showConfirm('Remove this barter exchange?', true).then(ok=>{
+    if(!ok)return;
+    saveBarters(getBarters().filter(b=>b.id!==id));
+    renderBarter();
+  });
 }
 function openAddBarter(){
   document.getElementById('baA').dataset.editId='';
@@ -3927,9 +4040,11 @@ function saveProduction(){
   if(disp) disp.textContent='0';
 }
 function deleteProduction(id){
-  if(!confirm('Remove this production?'))return;
-  saveProductions(getProductions().filter(p=>p.id!==id));
-  renderProductions();
+  showConfirm('Remove this production?', true).then(ok=>{
+    if(!ok)return;
+    saveProductions(getProductions().filter(p=>p.id!==id));
+    renderProductions();
+  });
 }
 
 // ═══════════════════════════════════════
@@ -4255,9 +4370,11 @@ async function _gmailSend(to,subject,body){
 }
 
 function deleteSentEmail(id){
-  if(!confirm("Remove from sent?"))return;
-  saveSentEmails(getSentEmails().filter(e=>e.id!==id));
-  _emailSelected=null;_renderEmailList();_renderEmailReader(null);
+  showConfirm('Remove from sent?', true).then(ok=>{
+    if(!ok)return;
+    saveSentEmails(getSentEmails().filter(e=>e.id!==id));
+    _emailSelected=null;_renderEmailList();_renderEmailReader(null);
+  });
 }
 
 function openAddTemplate(){
@@ -4294,9 +4411,11 @@ function copyTemplateText(id){
   if(t)navigator.clipboard.writeText(t.body).then(()=>showToast("Copied to clipboard."));
 }
 function deleteTemplate(id){
-  if(!confirm("Delete this template?"))return;
-  saveTemplates(getTemplates().filter(t=>t.id!==id));
-  _emailSelected=null;_renderTemplateList();_renderEmailReader(null);
+  showConfirm('Delete this template?', true).then(ok=>{
+    if(!ok)return;
+    saveTemplates(getTemplates().filter(t=>t.id!==id));
+    _emailSelected=null;_renderTemplateList();_renderEmailReader(null);
+  });
 }
 function copyTemplate(id){copyTemplateText(id);}
 function openAddOutreach(){openCompose();}
@@ -4330,6 +4449,284 @@ function gmailSaveAndConnect(){
       });
     });
   }).catch(()=>{statusEl.style.color="var(--red)";statusEl.textContent="Could not load Google API.";});
+}
+
+
+// 
+//  LEADS
+// 
+const _leadExpanded={};
+
+function renderLeads(){
+  const leads=getLeads();
+  const el=document.getElementById('leadsContainer');
+  if(!leads.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><div class="empty-title">No leads yet</div><div class="empty-sub">Add a lead to start tracking their tasks, deliverables and outreach.</div></div>`;
+    return;
+  }
+
+  // ── Dashboard summary ──
+  const allTasks=leads.flatMap(l=>l.tasks||[]);
+  const allDelivs=leads.flatMap(l=>l.deliverables||[]);
+  const allOutreach=leads.flatMap(l=>l.outreach||[]);
+  const doneTasks=allTasks.filter(t=>t.done).length;
+  const doneDelivs=allDelivs.filter(d=>d.done).length;
+  const outreachResponded=allOutreach.filter(o=>o.status==='responded'||o.status==='closed').length;
+  const taskPct=allTasks.length?Math.round(doneTasks/allTasks.length*100):0;
+  const delivPct=allDelivs.length?Math.round(doneDelivs/allDelivs.length*100):0;
+
+  const dash=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;">
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Leads</div>
+      <div style="font-size:26px;font-weight:800;color:var(--text);">${leads.length}</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Tasks</div>
+      <div style="font-size:26px;font-weight:800;color:var(--c1-l);">${doneTasks}<span style="font-size:13px;font-weight:500;color:var(--text3);">/${allTasks.length}</span></div>
+      <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="height:100%;width:${taskPct}%;background:var(--c1-l);border-radius:2px;transition:width .5s;"></div></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Deliverables</div>
+      <div style="font-size:26px;font-weight:800;color:var(--c2);">${doneDelivs}<span style="font-size:13px;font-weight:500;color:var(--text3);">/${allDelivs.length}</span></div>
+      <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="height:100%;width:${delivPct}%;background:var(--c2);border-radius:2px;transition:width .5s;"></div></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Outreach</div>
+      <div style="font-size:26px;font-weight:800;color:var(--gold);">${allOutreach.length}<span style="font-size:12px;font-weight:500;color:var(--text3);margin-left:6px;">${outreachResponded} responded</span></div>
+    </div>
+  </div>`;
+
+  el.innerHTML = dash + leads.map(lead=>{
+    const tasks=lead.tasks||[];
+    const deliverables=lead.deliverables||[];
+    const outreach=lead.outreach||[];
+    const doneTasks=tasks.filter(t=>t.done).length;
+    const doneDelivs=deliverables.filter(d=>d.done).length;
+    const isOpen=_leadExpanded[lead.id]===true; // default collapsed
+    return `
+    <div class="lead-card" id="lc-${lead.id}">
+      <div class="lead-card-header" onclick="toggleLeadCard('${lead.id}')">
+        <div class="lead-avatar">${lead.name.charAt(0).toUpperCase()}</div>
+        <div class="lead-info">
+          <div class="lead-name">${esc(lead.name)}</div>
+          <div class="lead-role">${esc(lead.role||'Lead')}</div>
+        </div>
+        <div class="lead-summary-pills">
+          <span class="badge badge-blue" title="Tasks">${doneTasks}/${tasks.length} tasks</span>
+          <span class="badge badge-teal" title="Deliverables">${doneDelivs}/${deliverables.length} deliverables</span>
+          <span class="badge badge-gold" title="Outreach">${outreach.length} outreach</span>
+        </div>
+        <button onclick="event.stopPropagation();deleteLead('${lead.id}')" style="background:none;border:none;color:var(--text3);font-size:18px;line-height:1;cursor:pointer;padding:0 4px;opacity:.5;" title="Remove lead">×</button>
+        <svg class="lead-chevron ${isOpen?'open':''}" width="14" height="14" fill="none" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="lead-body" style="${isOpen?'':'display:none'}">
+
+        <!-- TASKS -->
+        <div class="lead-col">
+          <div class="lead-col-title">
+            <span>Tasks</span>
+            <span style="color:var(--c1-l);font-size:10px;">${doneTasks}/${tasks.length}</span>
+          </div>
+          ${tasks.map(t=>`
+            <div class="lead-item">
+              <div class="lead-item-check ${t.done?'done':''}" onclick="toggleLeadItem('${lead.id}','tasks','${t.id}')">
+                ${t.done?`<svg width="10" height="10" fill="none" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`:''}
+              </div>
+              <div class="lead-item-text ${t.done?'done':''}">${esc(t.text)}</div>
+              <div class="lead-item-del" onclick="deleteLeadItem('${lead.id}','tasks','${t.id}')">×</div>
+            </div>
+          `).join('')}
+          <div class="lead-add-row">
+            <input class="lead-add-input" id="task-input-${lead.id}" placeholder="Add task..." onkeydown="if(event.key==='Enter')addLeadItem('${lead.id}','tasks')">
+            <button class="lead-add-btn" onclick="addLeadItem('${lead.id}','tasks')">Add</button>
+          </div>
+        </div>
+
+        <!-- WEEKLY DELIVERABLES -->
+        <div class="lead-col">
+          <div class="lead-col-title">
+            <span>Weekly Deliverables</span>
+            <span style="color:var(--c2);font-size:10px;">${doneDelivs}/${deliverables.length}</span>
+          </div>
+          ${deliverables.map(d=>`
+            <div class="lead-item">
+              <div class="lead-item-check ${d.done?'done':''}" onclick="toggleLeadItem('${lead.id}','deliverables','${d.id}')">
+                ${d.done?`<svg width="10" height="10" fill="none" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`:''}
+              </div>
+              <div class="lead-item-text ${d.done?'done':''}">${esc(d.text)}</div>
+              <div class="lead-item-del" onclick="deleteLeadItem('${lead.id}','deliverables','${d.id}')">×</div>
+            </div>
+          `).join('')}
+          <div class="lead-add-row">
+            <input class="lead-add-input" id="deliv-input-${lead.id}" placeholder="Add deliverable..." onkeydown="if(event.key==='Enter')addLeadItem('${lead.id}','deliverables')">
+            <button class="lead-add-btn" onclick="addLeadItem('${lead.id}','deliverables')">Add</button>
+          </div>
+        </div>
+
+        <!-- OUTREACH -->
+        <div class="lead-col">
+          <div class="lead-col-title">
+            <span>Outreach</span>
+            <button onclick="openAddOutreachForLead('${lead.id}')" style="background:none;border:none;color:var(--c1-l);font-size:11px;font-weight:700;cursor:pointer;">+ Add</button>
+          </div>
+          ${outreach.map(o=>{
+            const statusColors={pending:'var(--gold)',sent:'var(--c1-l)',responded:'var(--c2)',closed:'var(--text3)'};
+            return `<div class="outreach-pill">
+              <div style="display:flex;align-items:center;gap:6px;min-width:0;">
+                <div class="outreach-status-dot" style="background:${statusColors[o.status]||'var(--text3)'};"></div>
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(o.contact)}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                <select onchange="updateOutreachStatus('${lead.id}','${o.id}',this.value)" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;outline:none;font-family:var(--mono);">
+                  <option value="pending" ${o.status==='pending'?'selected':''}>pending</option>
+                  <option value="sent" ${o.status==='sent'?'selected':''}>sent</option>
+                  <option value="responded" ${o.status==='responded'?'selected':''}>responded</option>
+                  <option value="closed" ${o.status==='closed'?'selected':''}>closed</option>
+                </select>
+                <span onclick="deleteLeadItem('${lead.id}','outreach','${o.id}')" style="color:var(--red);cursor:pointer;opacity:.5;font-size:16px;line-height:1;">×</span>
+              </div>
+            </div>`;
+          }).join('')}
+          ${!outreach.length?`<div style="color:var(--text3);font-size:12px;padding:8px 0;">No outreach assigned yet.</div>`:''}
+        </div>
+
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleLeadCard(id){
+  _leadExpanded[id]=_leadExpanded[id]===true?false:true;
+  renderLeads();
+}
+
+function openAddLead(){
+  const members=getMembers();
+  const existingLeadNames=getLeads().map(l=>l.name.toLowerCase());
+  const available=members.filter(m=>!existingLeadNames.includes(m.name.toLowerCase()));
+  const body=document.getElementById('modalAddLeadBody');
+  const confirmBtn=document.getElementById('modalAddLeadConfirm');
+  if(!members.length){
+    body.innerHTML=`<div style="text-align:center;padding:20px 0;color:var(--text3);font-size:13px;">No members yet — add members first before assigning leads.</div>`;
+    confirmBtn.style.display='none';
+  } else if(!available.length){
+    body.innerHTML=`<div style="text-align:center;padding:20px 0;color:var(--text3);font-size:13px;">All members are already assigned as leads.</div>`;
+    confirmBtn.style.display='none';
+  } else {
+    body.innerHTML=`
+      <div class="modal-field">
+        <label>Member</label>
+        <select class="input" id="leadMemberSelect">
+          ${available.map(m=>`<option value="${m.id}" data-role="${esc(m.role||'')}">${esc(m.name)}${m.role?' — '+m.role:''}</option>`).join('')}
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Role / Area</label>
+        <input class="input" id="leadRole" placeholder="e.g. Production Lead, Community Lead">
+      </div>`;
+    confirmBtn.style.display='';
+    // Pre-fill role from selected member
+    setTimeout(()=>{
+      const sel=document.getElementById('leadMemberSelect');
+      const roleInput=document.getElementById('leadRole');
+      if(sel&&roleInput){
+        roleInput.value=sel.selectedOptions[0]?.dataset.role||'';
+        sel.onchange=()=>{roleInput.value=sel.selectedOptions[0]?.dataset.role||'';};
+      }
+    },0);
+  }
+  openModal('modalAddLead');
+}
+function saveLead(){
+  const sel=document.getElementById('leadMemberSelect');
+  const roleInput=document.getElementById('leadRole');
+  if(!sel)return;
+  const memberId=sel.value;
+  const member=getMembers().find(m=>m.id===memberId);
+  if(!member)return;
+  const role=roleInput?roleInput.value.trim()||member.role||'Lead':member.role||'Lead';
+  const leads=getLeads();
+  if(leads.find(l=>l.name.toLowerCase()===member.name.toLowerCase())){
+    showToast(`${member.name} is already a lead.`);return;
+  }
+  leads.push({id:uid(),name:member.name,role,tasks:[],deliverables:[],outreach:[]});
+  saveLeads(leads);
+  closeModal('modalAddLead');
+  renderLeads();
+}
+
+function deleteLead(id){
+  showConfirm('Remove this lead?', true).then(ok=>{
+    if(!ok)return;
+    saveLeads(getLeads().filter(l=>l.id!==id));
+    renderLeads();
+  });
+}
+
+function addLeadItem(leadId,col){
+  const inputId=col==='tasks'?`task-input-${leadId}`:`deliv-input-${leadId}`;
+  const input=document.getElementById(inputId);
+  const text=input?input.value.trim():'';
+  if(!text)return;
+  const leads=getLeads();
+  const lead=leads.find(l=>l.id===leadId);
+  if(!lead)return;
+  if(!lead[col])lead[col]=[];
+  lead[col].push({id:uid(),text,done:false});
+  saveLeads(leads);
+  renderLeads();
+  // Restore focus
+  const newInput=document.getElementById(inputId);
+  if(newInput)newInput.focus();
+}
+
+function toggleLeadItem(leadId,col,itemId){
+  const leads=getLeads();
+  const lead=leads.find(l=>l.id===leadId);
+  if(!lead||!lead[col])return;
+  const item=lead[col].find(i=>i.id===itemId);
+  if(item)item.done=!item.done;
+  saveLeads(leads);
+  renderLeads();
+}
+
+function deleteLeadItem(leadId,col,itemId){
+  const leads=getLeads();
+  const lead=leads.find(l=>l.id===leadId);
+  if(!lead||!lead[col])return;
+  lead[col]=lead[col].filter(i=>i.id!==itemId);
+  saveLeads(leads);
+  renderLeads();
+}
+
+let _outreachLeadId=null;
+function openAddOutreachForLead(leadId){
+  _outreachLeadId=leadId;
+  document.getElementById('leadOutreachContact').value='';
+  document.getElementById('leadOutreachNote').value='';
+  document.getElementById('leadOutreachStatus').value='pending';
+  openModal('modalLeadOutreach');
+}
+function saveLeadOutreach(){
+  const contact=document.getElementById('leadOutreachContact').value.trim();
+  if(!contact)return;
+  const note=document.getElementById('leadOutreachNote').value.trim();
+  const status=document.getElementById('leadOutreachStatus').value;
+  const leads=getLeads();
+  const lead=leads.find(l=>l.id===_outreachLeadId);
+  if(!lead)return;
+  if(!lead.outreach)lead.outreach=[];
+  lead.outreach.push({id:uid(),contact,note,status});
+  saveLeads(leads);
+  closeModal('modalLeadOutreach');
+  renderLeads();
+}
+function updateOutreachStatus(leadId,outreachId,status){
+  const leads=getLeads();
+  const lead=leads.find(l=>l.id===leadId);
+  if(!lead)return;
+  const o=lead.outreach.find(o=>o.id===outreachId);
+  if(o){o.status=status;saveLeads(leads);}
 }
 
 // 
@@ -4385,9 +4782,11 @@ function saveDecision(){
   ['dTitle','dWhy'].forEach(id=>document.getElementById(id).value='');
 }
 function deleteDecision(id){
-  if(!confirm('Delete this decision?'))return;
-  saveDecisions(getDecisions().filter(d=>d.id!==id));
-  renderDecisions();
+  showConfirm('Delete this decision?', true).then(ok=>{
+    if(!ok)return;
+    saveDecisions(getDecisions().filter(d=>d.id!==id));
+    renderDecisions();
+  });
 }
 
 // 
@@ -4409,24 +4808,18 @@ function renderSeparation(){
     </div>
   `:'<div style="color:var(--text3);font-size:13px;padding:16px 0;">No 2IC set yet. Assign someone — you cannot be the single point of failure.</div>';
 
-  // Toggles
-  const toggles=getSepToggles();
-  const checks=[
-    {key:'schedule',label:'Scheduling handled by someone else',context:'someone else owns availability tracking'},
-    {key:'budget',label:'Budget decisions go through you only',context:'no one spends or commits without you'},
-    {key:'creative',label:'Creative direction is yours',context:'community ops don\'t bleed into your creative work'},
-    {key:'crew',label:'Crew check-ins delegated to 2IC',context:'you\'re not the first call for every question'},
-    {key:'public',label:'Community comms have a separate voice',context:'community messages don\'t all sound like you'},
-  ];
-  document.getElementById('sepToggles').innerHTML=checks.map(c=>`
+  // 2IC Responsibilities
+  const resps=getIC2Responsibilities();
+  const ic2Name=ic2?ic2.name:'your 2IC';
+  document.getElementById('ic2Responsibilities').innerHTML=resps.length?resps.map(r=>`
     <div class="sep-item">
       <div>
-        <div class="sep-item-label">${c.label}</div>
-        <div class="sep-item-context">${c.context}</div>
+        <div class="sep-item-label">${esc(r.label)}</div>
+        ${r.context?`<div class="sep-item-context">${esc(r.context)}</div>`:''}
       </div>
-      <div class="sep-toggle ${toggles[c.key]?'on':''}" onclick="toggleSep('${c.key}')"></div>
+      <button onclick="deleteResponsibility('${r.id}')" style="font-size:10px;padding:3px 10px;background:var(--red-d);border:1px solid rgba(231,76,60,.2);border-radius:var(--r-sm);color:var(--red);cursor:pointer;flex-shrink:0;">Remove</button>
     </div>
-  `).join('');
+  `).join(''):`<div style="color:var(--text3);font-size:13px;padding:12px 0;">No responsibilities defined yet. Add what ${esc(ic2Name)} owns so it's clear to everyone.</div>`;
 
   // Personal / Community projects
   const personal=getPersonal();
@@ -4445,6 +4838,25 @@ function renderSeparation(){
   document.getElementById('communityProjects').innerHTML=projHTML(community);
 }
 
+function getIC2Responsibilities(){return lsGet('s343_ic2_resp')||[];}
+function saveIC2Responsibilities(arr){lsSave('s343_ic2_resp',arr);}
+function openAddResponsibility(){openModal('modalIC2Resp');}
+function saveResponsibility(){
+  const label=document.getElementById('ic2RespLabel').value.trim();
+  const context=document.getElementById('ic2RespContext').value.trim();
+  if(!label)return;
+  const arr=getIC2Responsibilities();
+  arr.push({id:uid(),label,context});
+  saveIC2Responsibilities(arr);
+  closeModal('modalIC2Resp');
+  document.getElementById('ic2RespLabel').value='';
+  document.getElementById('ic2RespContext').value='';
+  renderSeparation();
+}
+function deleteResponsibility(id){
+  saveIC2Responsibilities(getIC2Responsibilities().filter(r=>r.id!==id));
+  renderSeparation();
+}
 function toggleSep(key){
   const t=getSepToggles();t[key]=!t[key];saveSepToggles(t);renderSeparation();
 }
@@ -4727,10 +5139,12 @@ function saveCUChart(){
 }
 
 function resetCUChart(){
-  if(!confirm('Reset the point chart to defaults?'))return;
-  saveCUChart2(CU_DEFAULTS.map((r,i)=>({...r,id:i})));
-  renderCUChartEditor();
-  showToast('Chart reset to defaults.');
+  showConfirm('Reset the point chart to defaults?', false).then(ok=>{
+    if(!ok)return;
+    saveCUChart2(CU_DEFAULTS.map((r,i)=>({...r,id:i})));
+    renderCUChartEditor();
+    showToast('Chart reset to defaults.');
+  });
 }
 
 // Modal: log contribution
@@ -4794,9 +5208,11 @@ function saveLogCU(){
   }
 }
 function deleteCULog(id){
-  if(!confirm('Remove this contribution log?'))return;
-  saveCULogs(getCULogs().filter(l=>l.id!==id));
-  renderCULog();
+  showConfirm('Remove this contribution log?', true).then(ok=>{
+    if(!ok)return;
+    saveCULogs(getCULogs().filter(l=>l.id!==id));
+    renderCULog();
+  });
 }
 const ACCENT_COLORS=['#1A56DB','#E55733','#FF2D55','#FF9500','#34D399','#0A84FF','#BF5AF2','#F59E0B'];
 const COMP_COLORS  =['#00C9A7','#1AC7FF','#34D399','#FF6B6B','#A78BFA','#30D158','#E879F9','#FFD60A'];
@@ -4825,15 +5241,19 @@ let _calTimelineTab='events';    // 'events'|'productions'|'members'|'onboarding
 let _calTimelineCursor=new Date();// start of displayed 2-week window
 
 const BAR_COLORS={
-  event:    {bg:'#E8F4FD',border:'#4285F4',text:'#1a56db'},
-  vacation: {bg:'#D4EDDA',border:'#34A853',text:'#1e7e34'},
-  sick:     {bg:'#FFF3CD',border:'#FBBC04',text:'#856404'},
-  paid:     {bg:'#EDE7F6',border:'#9C27B0',text:'#6a1b9a'},
-  production:{bg:'#FFF8E1',border:'#F5A623',text:'#8a5e00'},
-  meeting:  {bg:'#E3F2FD',border:'#2196F3',text:'#0d47a1'},
-  deadline: {bg:'#FFEBEE',border:'#F44336',text:'#b71c1c'},
-  onboarding:{bg:'#E8F5E9',border:'#4CAF50',text:'#1b5e20'},
-  default:  {bg:'#F3F4F6',border:'#9CA3AF',text:'#374151'},
+  event:      {bg:'#E8F4FD',border:'#4285F4',text:'#1a56db'},
+  vacation:   {bg:'#D4EDDA',border:'#34A853',text:'#1e7e34'},
+  sick:       {bg:'#FFF3CD',border:'#FBBC04',text:'#856404'},
+  paid:       {bg:'#EDE7F6',border:'#9C27B0',text:'#6a1b9a'},
+  production: {bg:'#FFF8E1',border:'#F5A623',text:'#8a5e00'},
+  meeting:    {bg:'#E3F2FD',border:'#2196F3',text:'#0d47a1'},
+  deadline:   {bg:'#FFEBEE',border:'#F44336',text:'#b71c1c'},
+  onboarding: {bg:'#E8F5E9',border:'#4CAF50',text:'#1b5e20'},
+  // Member timeline specific
+  blocked:    {bg:'#FFEBEE',border:'#E53935',text:'#b71c1c'},    // RED — unavailable
+  commitment: {bg:'#E3F2FD',border:'#1976D2',text:'#0d47a1'},    // BLUE — 343 commitment
+  member_meeting:{bg:'#F3E5F5',border:'#8E24AA',text:'#6a1b9a'}, // PURPLE — meeting
+  default:    {bg:'#F3F4F6',border:'#9CA3AF',text:'#374151'},
 };
 
 const STATUS_COLORS={
@@ -4890,6 +5310,8 @@ function calSetTimelineTab(tab){
     const b=document.getElementById('caltab-'+t);
     if(b) b.classList.toggle('active',t===tab);
   });
+  const legend=document.getElementById('calMembersLegend');
+  if(legend) legend.style.display=tab==='members'?'flex':'none';
   _renderTimelineRows();
 }
 
@@ -4898,6 +5320,8 @@ function _renderTimeline(){
   _updateTimelineLabel();
   _renderTimelineRows();
   _renderBottomPanels();
+  const legend=document.getElementById('calMembersLegend');
+  if(legend) legend.style.display=_calTimelineTab==='members'?'flex':'none';
 }
 
 function _updateTimelineLabel(){
@@ -4951,8 +5375,8 @@ function _renderTimelineRows(){
   if(!rows.length){
     const allRows=_getTimelineRows(new Date(0), new Date(9999,0));
     const msg=allRows.length
-      ? `No ${_calTimelineTab} scheduled in this window. Navigate to find them, or add a new event.`
-      : `No ${_calTimelineTab} added yet. Use the + Add Event button to get started.`;
+      ? `No ${_calTimelineTab} scheduled in this window — click any cell to add one, or navigate to find existing events.`
+      : `No ${_calTimelineTab} yet — click any cell in the grid to create one, or use the + Add Event button.`;
     html+=`<div style="padding:48px 24px;text-align:center;color:var(--text3);font-size:13px;">${msg}</div>`;
   } else {
     rows.forEach(row=>{
@@ -4962,28 +5386,50 @@ function _renderTimelineRows(){
         <div class="cal-tl-avatar" style="background:${row.color||'var(--bg3)'}20;color:${row.color||'var(--c1)'};">${row.initials||'?'}</div>
         <div style="min-width:0;">
           <div class="cal-tl-label-inner">${esc(row.name)}</div>
-          <div class="cal-tl-sub">${esc(row.sub||'')}</div>
+          <div class="cal-tl-sub">${esc(row.sub||'')}${row.bars&&!row.bars.length?'<span style="color:var(--text3);font-size:9px;font-style:italic;margin-left:4px;">no events</span>':''}</div>
         </div>
       </div>`;
       // Day cells
       days.forEach((d,i)=>{
         const isT=d.toDateString()===today.toDateString();
         const isWE=d.getDay()===0||d.getDay()===6;
-        html+=`<div style="border-left:1px solid var(--border);height:56px;position:relative;background:${isT?'rgba(var(--c1-rgb),.04)':isWE?'rgba(0,0,0,.015)':''};">`;
+        const dateStr=d.toISOString().split('T')[0];
+        const rowMemberId=row.memberId||'';
+        const clickAction=rowMemberId
+          ? `_memberCellClick(event,'${dateStr}','${rowMemberId}')`
+          : `openAddCalEventOnDate('${dateStr}','')`;
+        html+=`<div class="cal-day-cell-click" style="border-left:1px solid var(--border);height:56px;position:relative;background:${isT?'rgba(var(--c1-rgb),.04)':isWE?'rgba(0,0,0,.015)':''};"
+          onclick="${clickAction}"
+          oncontextmenu="_showCalCtx(event,null,'${dateStr}','${rowMemberId}')"
+          ondragover="event.preventDefault();this.classList.add('cal-drag-over')"
+          ondragleave="this.classList.remove('cal-drag-over')"
+          ondrop="_calDayDrop(event,this,'${dateStr}')"
+          title="Click to add event or block${rowMemberId?' for '+esc(row.name):''}">`;
         // Draw today line
-        if(isT) html+=`<div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--c1);opacity:.4;z-index:1;"></div>`;
+        if(isT) html+=`<div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--c1);opacity:.4;z-index:1;pointer-events:none;"></div>`;
         // Draw bars for events that start on this day
         row.bars&&row.bars.forEach(bar=>{
           const bs=new Date(bar.start); bs.setHours(0,0,0,0);
           const be=new Date(bar.end||bar.start); be.setHours(0,0,0,0);
           if(bs.toDateString()!==d.toDateString()) return;
-          // Calculate width in days
           const spanDays=Math.max(1,Math.round((be-bs)/(1000*60*60*24))+1);
           const clampedSpan=Math.min(spanDays, DAYS-i);
           const pct=(clampedSpan/DAYS)*100;
           const colors=BAR_COLORS[bar.type]||BAR_COLORS.default;
           const statusStyle=bar.status&&STATUS_COLORS[bar.status]?`margin-left:6px;font-size:9px;padding:1px 5px;border-radius:8px;background:${STATUS_COLORS[bar.status].bg};color:${STATUS_COLORS[bar.status].text};`:'display:none;';
-          html+=`<div class="cal-tl-bar" style="left:2px;width:calc(${pct*DAYS}% - 4px);background:${colors.bg};border:1px solid ${colors.border};color:${colors.text};" title="${esc(bar.label)}">
+          const isBlock=bar.id&&bar.id.startsWith('blk:');
+          const isDraggable=bar.id&&!isBlock;
+          const dragAttrs=isDraggable
+            ? `draggable="true" id="cal-bar-${bar.id}"
+               ondragstart="event.stopPropagation();_calBarDragStart(event,'${bar.id}','${bar.start}','${bar.end||bar.start}')"
+               ondragend="event.stopPropagation();_calBarDragEnd('${bar.id}')"`
+            : '';
+          const editAttr=bar.id
+            ? isBlock
+              ? `onclick="event.stopPropagation();_deleteBlock('${bar.blockId}')" oncontextmenu="event.stopPropagation();_showCalCtx(event,'${bar.id}','${dateStr}','${rowMemberId}')"`
+              : `onclick="event.stopPropagation();openEditCalEvent('${bar.id}')" oncontextmenu="event.stopPropagation();_showCalCtx(event,'${bar.id}','${dateStr}','${rowMemberId}')"`
+            : '';
+          html+=`<div class="cal-tl-bar${bar.id?' cal-bar-click':''}" ${editAttr} ${dragAttrs} style="left:2px;width:calc(${pct*DAYS}% - 4px);background:${colors.bg};border:1px solid ${colors.border};color:${colors.text};" title="${esc(bar.label)}${isDraggable?' — drag to move, click to edit':''}">
             ${esc(bar.label.substring(0,20)+(bar.label.length>20?'…':''))}
             ${bar.status?`<span style="${statusStyle}">${bar.status}</span>`:''}
           </div>`;
@@ -4996,6 +5442,46 @@ function _renderTimelineRows(){
 
   html+='</div>';
   grid.innerHTML=html;
+}
+
+// ── Timeline drag-to-move ─────────────────────────────────────────────────────
+let _dragEvtId   = null;
+let _dragEvtDur  = 0;  // duration in days (0 = single-day)
+
+function _calBarDragStart(e, evtId, startStr, endStr) {
+  _dragEvtId  = evtId;
+  const s  = new Date(startStr); s.setHours(0,0,0,0);
+  const en = new Date(endStr||startStr); en.setHours(0,0,0,0);
+  _dragEvtDur = Math.max(0, Math.round((en - s) / 86400000));
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', evtId);
+  const el = document.getElementById('cal-bar-' + evtId);
+  if (el) el.classList.add('dragging');
+}
+
+function _calBarDragEnd(evtId) {
+  const el = document.getElementById('cal-bar-' + evtId);
+  if (el) el.classList.remove('dragging');
+  document.querySelectorAll('.cal-drag-over').forEach(c => c.classList.remove('cal-drag-over'));
+}
+
+function _calDayDrop(e, cell, dateStr) {
+  e.preventDefault();
+  e.stopPropagation();
+  cell.classList.remove('cal-drag-over');
+  if (!_dragEvtId) return;
+  const evts = getCalEvents();
+  const evt  = evts.find(ev => ev.id === _dragEvtId);
+  if (!evt) { _dragEvtId = null; return; }
+  const newStart = new Date(dateStr + 'T00:00:00');
+  const newEnd   = new Date(newStart);
+  newEnd.setDate(newEnd.getDate() + _dragEvtDur);
+  evt.start = newStart.toISOString().split('T')[0];
+  evt.end   = newEnd.toISOString().split('T')[0];
+  saveCalEvents(evts);
+  _dragEvtId = null;
+  showToast('Event moved to ' + newStart.toLocaleDateString('en-US',{month:'short',day:'numeric'}));
+  _renderTimeline();
 }
 
 function _getTimelineRows(winStart, winEnd){
@@ -5033,7 +5519,7 @@ function _buildEventRows(winStart, winEnd){
     sub:e.type||'event',
     initials:(e.title||e.name||'E').charAt(0).toUpperCase(),
     color:'#4285F4',
-    bars:[{label:e.title||e.name||'Event',start:e.start,end:e.end,type:e.type||'event',status:e.status}],
+    bars:[{id:e.id,label:e.title||e.name||'Event',start:e.start,end:e.end,type:e.type||'event',status:e.status}],
   }));
 }
 
@@ -5068,20 +5554,51 @@ function _buildProductionRows(winStart, winEnd){
 function _buildMemberRows(winStart, winEnd){
   const members=getMembers();
   const calEvs=getCalEvents();
+  const blocks=getMemberBlocks();
   if(!members.length) return [];
 
-  // Only include members who have at least one event in the window
-  return members.slice(0,12).map(m=>{
-    const memberBars=calEvs
-      .filter(e=>(e.memberId===m.id||e.members?.includes(m.id))&&_overlapsWindow(e.start,e.end,winStart,winEnd))
-      .map(e=>({label:e.title||e.name,start:e.start,end:e.end,type:e.type||'event',status:e.status}));
-    if(!memberBars.length) return null; // don't show members with nothing in window
+  return members.map(m=>{
+    const bars=[];
+
+    // 1. BLOCKED — manual unavailability blocks (RED)
+    blocks
+      .filter(b=>b.memberId===m.id && _overlapsWindow(b.start,b.end,winStart,winEnd))
+      .forEach(b=>bars.push({
+        id:'blk:'+b.id, label:'🚫 '+(b.note||'Unavailable'),
+        start:b.start, end:b.end, type:'blocked', deletable:true, blockId:b.id
+      }));
+
+    // 2. 343 COMMITMENTS — events/productions this member is attached to (BLUE)
+    calEvs
+      .filter(e=>e.type!=='meeting' && (e.members?.includes(m.id)||e.memberId===m.id) && _overlapsWindow(e.start,e.end,winStart,winEnd))
+      .forEach(e=>bars.push({
+        id:e.id, label:'◆ '+(e.title||'Commitment'),
+        start:e.start, end:e.end||e.start, type:'commitment', status:e.status
+      }));
+
+    // 3. MEETINGS — events typed as 'meeting' where member is listed OR their name appears in title (PURPLE)
+    calEvs
+      .filter(e=>{
+        if(e.type!=='meeting') return false;
+        if(!_overlapsWindow(e.start,e.end,winStart,winEnd)) return false;
+        const nameMatch=(e.title||'').toLowerCase().includes(m.name.toLowerCase());
+        const idMatch=e.members?.includes(m.id)||e.memberId===m.id;
+        return nameMatch||idMatch;
+      })
+      .forEach(e=>bars.push({
+        id:e.id, label:'● '+(e.title||'Meeting'),
+        start:e.start, end:e.end||e.start, type:'member_meeting', status:e.status
+      }));
+
     return {
-      name:m.name,sub:m.role||tierLabel(m.tier),
-      initials:m.name.charAt(0).toUpperCase(),color:'var(--c1)',
-      bars:memberBars,
+      name:m.name,
+      sub:m.role||tierLabel(m.tier),
+      initials:m.name.charAt(0).toUpperCase(),
+      color:'var(--c1)',
+      memberId:m.id,
+      bars,
     };
-  }).filter(Boolean);
+  });
 }
 
 function _buildOnboardingRows(winStart, winEnd){
@@ -5236,8 +5753,12 @@ function _renderMonth(){
   for(let d=1;d<=daysInMonth;d++){
     const isToday=d===today.getDate()&&mo===today.getMonth()&&y===today.getFullYear();
     const evs=_eventsOnDay(y,mo,d);
-    html+=`<div class="gcal-cell${isToday?' today':''}"><div class="gcal-day-num">${d}</div>`;
-    evs.slice(0,3).forEach(e=>html+=`<div class="gcal-event">${esc((e.summary||e.title||'Event').substring(0,20))}</div>`);
+    const dateStr=`${y}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    html+=`<div class="gcal-cell${isToday?' today':''} gcal-cell-interactive" onclick="openAddCalEventOnDate('${dateStr}')" oncontextmenu="_showCalCtx(event,null,'${dateStr}')"><div class="gcal-day-num">${d}</div>`;
+    evs.slice(0,3).forEach(e=>{
+      const localId=e.id&&!e.summary?e.id:null;
+      html+=`<div class="gcal-event${localId?' gcal-event-interactive':''}" title="${esc((e.summary||e.title||'Event')+(localId?' — click to edit, right-click for options':''))} " ${localId?`onclick="event.stopPropagation();openEditCalEvent('${localId}')" oncontextmenu="event.stopPropagation();_showCalCtx(event,'${localId}','${dateStr}')"`:''}>${esc((e.summary||e.title||'Event').substring(0,20))}</div>`;
+    });
     if(evs.length>3) html+=`<div class="gcal-more">+${evs.length-3}</div>`;
     html+='</div>';
   }
@@ -5259,16 +5780,30 @@ function gcalGoToday(){_gcalCursor=new Date();if(_gcalView==='month')_renderMont
 
 // ── Local event CRUD ──
 function openAddCalEvent(){
+  openAddCalEventOnDate(null, null);
+}
+function openAddCalEventOnDate(date, memberId){
+  _ceSelectedMembers=memberId?[memberId]:[];
   document.getElementById('ceTitle').dataset.editId='';
-  ['ceTitle','ceNotes'].forEach(id=>document.getElementById(id).value='');
-  const today=new Date().toISOString().split('T')[0];
-  document.getElementById('ceStart').value=today;
-  document.getElementById('ceEnd').value=today;
+  document.getElementById('ceTitle').value='';
+  document.getElementById('ceNotes').value='';
+  const d=date||new Date().toISOString().split('T')[0];
+  document.getElementById('ceStart').value=d;
+  document.getElementById('ceEnd').value=d;
+  document.getElementById('ceType').value=
+    _calTimelineTab==='productions'?'production':
+    _calTimelineTab==='onboarding'?'onboarding':'event';
+  document.getElementById('ceStatus').value='confirmed';
+  document.getElementById('ceModalTitle').textContent='Add Event';
+  document.getElementById('ceModalSub').textContent='Add to the community calendar';
+  document.getElementById('ceConfirmBtn').textContent='Add Event';
+  _renderCeMembers();
   openModal('modalCalEvent');
 }
 function openEditCalEvent(id){
   const e=getCalEvents().find(e=>e.id===id);
-  if(!e)return;
+  if(!e) return;
+  _ceSelectedMembers=e.members||[];
   document.getElementById('ceTitle').value=e.title||'';
   document.getElementById('ceTitle').dataset.editId=id;
   document.getElementById('ceType').value=e.type||'event';
@@ -5276,13 +5811,20 @@ function openEditCalEvent(id){
   document.getElementById('ceEnd').value=e.end||'';
   document.getElementById('ceStatus').value=e.status||'confirmed';
   document.getElementById('ceNotes').value=e.notes||'';
+  document.getElementById('ceModalTitle').textContent='Edit Event';
+  document.getElementById('ceModalSub').textContent='Update this calendar event';
+  document.getElementById('ceConfirmBtn').textContent='Save Changes';
+  _renderCeMembers();
   openModal('modalCalEvent');
 }
 function deleteCalEvent(id){
-  if(!confirm('Delete this event?'))return;
-  saveCalEvents(getCalEvents().filter(e=>e.id!==id));
-  showToast('Event deleted.');
-  _renderTimeline();
+  showConfirm('Delete this event?', true).then(ok=>{
+    if(!ok)return;
+    saveCalEvents(getCalEvents().filter(e=>e.id!==id));
+    showToast('Event deleted.');
+    _renderTimeline();
+    if(_gcalView==='month') _renderMonth();
+  });
 }
 function saveCalEvent(){
   const editId=document.getElementById('ceTitle').dataset.editId||'';
@@ -5294,6 +5836,7 @@ function saveCalEvent(){
     end:document.getElementById('ceEnd').value,
     status:document.getElementById('ceStatus').value,
     notes:document.getElementById('ceNotes').value.trim(),
+    members:[..._ceSelectedMembers],
   };
   if(!e.title||!e.start)return;
   const arr=getCalEvents();
@@ -5303,8 +5846,10 @@ function saveCalEvent(){
   closeModal('modalCalEvent');
   document.getElementById('ceTitle').dataset.editId='';
   ['ceTitle','ceNotes'].forEach(id=>document.getElementById(id).value='');
+  _ceSelectedMembers=[];
   showToast(editId?'Event updated.':'Event added to calendar.');
   _renderTimeline();
+  if(_gcalView==='month') _renderMonth();
 }
 function calOpenSetup(){
   document.getElementById('gcalSetupPanel').style.display='block';
@@ -5334,15 +5879,17 @@ function gcalRefresh(){
   _loadGoogleApi(c,null);
 }
 function gcalDisconnect(){
-  if(!confirm('Disconnect Google Calendar?'))return;
-  lsSave('s343_gcal_connected',false);
-  localStorage.removeItem('s343_gcal_events');
-  _gcalEvents=[];
-  document.getElementById('gcalConnBar').style.display='none';
-  document.getElementById('gcalNudge').style.display='block';
-  document.getElementById('gcalSetupPanel').style.display='none';
-  showToast('Calendar disconnected.');
-  _renderTimeline();
+  showConfirm('Disconnect Google Calendar?', false).then(ok=>{
+    if(!ok)return;
+    lsSave('s343_gcal_connected',false);
+    try{localStorage.removeItem('s343_gcal_events');}catch(e){}
+    _gcalEvents=[];
+    document.getElementById('gcalConnBar').style.display='none';
+    document.getElementById('gcalNudge').style.display='block';
+    document.getElementById('gcalSetupPanel').style.display='none';
+    showToast('Calendar disconnected.');
+    _renderTimeline();
+  });
 }
 function _loadGoogleApi(c,statusEl){
   // Load both gapi (for Calendar API calls) and GIS (for OAuth token)
@@ -5648,26 +6195,30 @@ function importData(e){
 }
 
 function resetSettings(){
-  if(!confirm('Reset all appearance settings to defaults?'))return;
-  ['s343_theme','s343_radius','s343_accent','s343_comp','s343_font'].forEach(k=>localStorage.removeItem(k));
-  document.documentElement.removeAttribute('style');
-  document.body.removeAttribute('style');
-  document.documentElement.dataset.theme='light';
-  renderSettings();
-  showToast('Settings reset.');
+  showConfirm('Reset all appearance settings to defaults?', false).then(ok=>{
+    if(!ok)return;
+    ['s343_theme','s343_radius','s343_accent','s343_comp','s343_font'].forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
+    document.documentElement.removeAttribute('style');
+    document.body.removeAttribute('style');
+    document.documentElement.dataset.theme='light';
+    renderSettings();
+    showToast('Settings reset.');
+  });
 }
 
 function clearAllData(){
-  if(!confirm('Delete ALL data permanently? This cannot be undone.'))return;
-  [
-    's343_members','s343_decisions','s343_pipeline','s343_barters','s343_productions',
-    's343_outreach','s343_templates','s343_activity','s343_2ic','s343_sep',
-    's343_personal','s343_community','s343_cu_logs','s343_cu_chart',
-    's343_cal_events','s343_gcal_events','s343_gcal_connected',
-    's343_sent_emails','s343_drafts','s343_gmail_connected',
-  ].forEach(k=>localStorage.removeItem(k));
-  showToast('All data cleared.');
-  renderHome();
+  showConfirm('Delete ALL data permanently? This cannot be undone.', true).then(ok=>{
+    if(!ok)return;
+    [
+      's343_members','s343_decisions','s343_pipeline','s343_barters','s343_productions',
+      's343_outreach','s343_templates','s343_activity','s343_2ic','s343_sep',
+      's343_personal','s343_community','s343_cu_logs','s343_cu_chart',
+      's343_cal_events','s343_gcal_events','s343_gcal_connected',
+      's343_sent_emails','s343_drafts','s343_gmail_connected',
+    ].forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
+    showToast('All data cleared.');
+    renderHome();
+  });
 }
 
 function hexToRgb(hex){
@@ -5906,12 +6457,14 @@ function ctxRemove() {
   const m = getMembers().find(m => m.id === _ctxMemberId);
   if (!m) return;
   _hideCtx();
-  if (!confirm(`Remove ${m.name} from the community?`)) return;
-  saveMembers(getMembers().filter(x => x.id !== m.id));
-  logActivity(`${m.name} removed`, 'member');
-  const active = document.querySelector('.page.active');
-  if (active) renderPage(active.id.replace('page-',''));
-  showToast(`${m.name} removed.`);
+  showConfirm(`Remove ${m.name} from the community?`, true).then(ok=>{
+    if(!ok)return;
+    saveMembers(getMembers().filter(x => x.id !== m.id));
+    logActivity(`${m.name} removed`, 'member');
+    const active = document.querySelector('.page.active');
+    if (active) renderPage(active.id.replace('page-',''));
+    showToast(`${m.name} removed.`);
+  });
 }
 
 // ── Store rename's pending id in the modal ──
@@ -5944,5 +6497,548 @@ function attachMemberCtx() {
   });
 }
 </script>
+
+<!-- MEMBER BLOCK (UNAVAILABILITY) -->
+<div class="modal-backdrop" id="modalMemberBlock">
+  <div class="modal">
+    <div class="modal-title">Mark Unavailable</div>
+    <div class="modal-sub"><span id="blockMemberName">Member</span> will be blocked on the calendar</div>
+    <div class="modal-field"><label>Start Date</label><input class="input" id="blockStart" type="date"></div>
+    <div class="modal-field"><label>End Date</label><input class="input" id="blockEnd" type="date"></div>
+    <div class="modal-field"><label>Reason (optional)</label><input class="input" id="blockNote" placeholder="e.g. Out of town, Personal, Not available"></div>
+    <div class="modal-row">
+      <button class="modal-cancel" onclick="closeModal('modalMemberBlock')">Cancel</button>
+      <button class="modal-confirm" style="background:#E53935;" onclick="saveMemberBlock()">Save Block</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAL CONTEXT MENU -->
+<div id="calCtxMenu" style="display:none;position:fixed;z-index:9000;background:var(--panel);border:1px solid var(--border2);border-radius:var(--r-sm);box-shadow:0 8px 28px rgba(0,0,0,.18);padding:4px;min-width:160px;">
+  <div id="calCtxEdit" onclick="_calCtxEdit()" style="display:none;padding:8px 12px;font-size:13px;cursor:pointer;border-radius:4px;color:var(--text);" onmouseover="this.style.background='var(--hover)'" onmouseout="this.style.background=''">✏️ Edit event</div>
+  <div id="calCtxDelete" onclick="_calCtxDelete()" style="display:none;padding:8px 12px;font-size:13px;cursor:pointer;border-radius:4px;color:var(--red);" onmouseover="this.style.background='var(--red-d)'" onmouseout="this.style.background=''">🗑 Delete event</div>
+  <div id="calCtxAdd" onclick="_calCtxAdd()" style="display:none;padding:8px 12px;font-size:13px;cursor:pointer;border-radius:4px;color:var(--text);" onmouseover="this.style.background='var(--hover)'" onmouseout="this.style.background=''">＋ Add event here</div>
+</div>
+
+<style>
+.cal-day-cell-click{cursor:pointer;}
+.cal-day-cell-click:hover{background:var(--c1-d) !important;}
+.cal-bar-click{cursor:pointer;}
+.cal-bar-click:hover{opacity:.82 !important;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+.gcal-cell-interactive{cursor:pointer;}
+.gcal-cell-interactive:hover{background:var(--bg3);}
+.gcal-event-interactive{cursor:pointer;}
+
+/* ── ONBOARDING BOARD ── */
+.ob-col{
+  flex:0 0 220px;min-width:220px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:12px;
+  display:flex;flex-direction:column;gap:10px;
+  min-height:480px;
+}
+.ob-col-title{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text3);font-family:var(--mono);
+  padding-bottom:8px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.ob-bubble{
+  width:90px;height:90px;border-radius:50%;
+  border:2px solid var(--border2);
+  background:var(--panel);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;position:relative;
+  transition:box-shadow .15s,transform .12s,border-color .15s;
+  font-size:22px;font-weight:800;color:var(--c1-l);
+  overflow:hidden;flex-shrink:0;align-self:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
+  user-select:none;
+}
+.ob-bubble:hover{transform:scale(1.05);box-shadow:0 4px 18px rgba(0,0,0,.12);border-color:var(--c1-l);}
+.ob-bubble img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.ob-card{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:var(--r);padding:12px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  text-align:center;position:relative;
+}
+.ob-card-name{font-size:13px;font-weight:700;color:var(--text);}
+.ob-card-sub{font-size:10px;color:var(--text3);font-family:var(--mono);}
+.ob-card-actions{display:flex;flex-direction:column;gap:5px;width:100%;margin-top:4px;}
+.ob-btn{
+  width:100%;padding:6px 10px;border-radius:var(--r-sm);
+  font-size:11px;font-weight:600;cursor:pointer;border:none;
+  transition:opacity .12s,transform .1s;font-family:var(--font);
+}
+.ob-btn:active{transform:scale(.97);}
+.ob-btn-primary{background:var(--c1-l);color:#fff;}
+.ob-btn-primary:hover{opacity:.88;}
+.ob-btn-ghost{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);}
+.ob-btn-ghost:hover{background:var(--bg4);}
+.ob-btn-warn{background:rgba(255,159,10,.15);color:#b35900;border:1px solid rgba(255,159,10,.3);}
+.ob-btn-warn:hover{background:rgba(255,159,10,.25);}
+.ob-btn-danger{background:rgba(255,59,48,.1);color:var(--red);border:1px solid rgba(255,59,48,.25);}
+.ob-btn-danger:hover{background:rgba(255,59,48,.18);}
+.ob-btn-green{background:rgba(52,199,89,.15);color:#1a7a3a;border:1px solid rgba(52,199,89,.3);}
+.ob-btn-green:hover{background:rgba(52,199,89,.25);}
+.ob-check-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;color:var(--text2);cursor:pointer;}
+.ob-check-row input{width:14px;height:14px;accent-color:var(--c1);cursor:pointer;}
+.ob-meet-input{
+  width:100%;padding:6px 8px;border-radius:var(--r-sm);
+  border:1px solid var(--border2);background:var(--bg3);
+  color:var(--text);font-size:11px;outline:none;font-family:var(--mono);
+  transition:border-color .15s;
+}
+.ob-meet-input:focus{border-color:var(--c1);}
+.ob-info-row{font-size:11px;color:var(--text3);line-height:1.5;text-align:left;width:100%;}
+.ob-info-row strong{color:var(--text2);}
+.ob-remove-btn{
+  position:absolute;top:6px;right:6px;
+  background:none;border:none;cursor:pointer;
+  color:var(--text3);font-size:14px;opacity:.4;
+  line-height:1;padding:2px 4px;border-radius:4px;
+}
+.ob-remove-btn:hover{opacity:1;color:var(--red);}
+</style>
+
+<script>
+// ── Calendar Context Menu ──
+let _calCtxEventId=null, _calCtxDate=null, _calCtxMemberId=null;
+
+// Member cell click — show mini popup: Block or Add Event
+let _memberCellPickerEl=null;
+function _memberCellClick(e, date, memberId){
+  e.stopPropagation();
+  // Remove any existing picker
+  if(_memberCellPickerEl){ _memberCellPickerEl.remove(); _memberCellPickerEl=null; return; }
+  const member=getMembers().find(m=>m.id===memberId);
+  const name=member?member.name:'member';
+  const picker=document.createElement('div');
+  picker.style.cssText=`position:fixed;z-index:8500;background:var(--panel);border:1px solid var(--border2);border-radius:var(--r-sm);box-shadow:0 8px 28px rgba(0,0,0,.18);padding:4px;min-width:200px;`;
+  picker.innerHTML=`
+    <div style="padding:6px 10px 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);">${esc(name)} · ${date}</div>
+    <div onclick="_memberCellPickerChoice('block','${date}','${memberId}')" style="display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:13px;cursor:pointer;border-radius:4px;color:#b71c1c;" onmouseover="this.style.background='#FFEBEE'" onmouseout="this.style.background=''">
+      <span style="width:10px;height:10px;border-radius:2px;background:#E53935;flex-shrink:0;display:inline-block;"></span>Mark Unavailable
+    </div>
+    <div onclick="_memberCellPickerChoice('event','${date}','${memberId}')" style="display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:13px;cursor:pointer;border-radius:4px;color:#0d47a1;" onmouseover="this.style.background='#E3F2FD'" onmouseout="this.style.background=''">
+      <span style="width:10px;height:10px;border-radius:2px;background:#1976D2;flex-shrink:0;display:inline-block;"></span>Add 343 Commitment
+    </div>
+    <div onclick="_memberCellPickerChoice('meeting','${date}','${memberId}')" style="display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:13px;cursor:pointer;border-radius:4px;color:#6a1b9a;" onmouseover="this.style.background='#F3E5F5'" onmouseout="this.style.background=''">
+      <span style="width:10px;height:10px;border-radius:2px;background:#8E24AA;flex-shrink:0;display:inline-block;"></span>Add Meeting
+    </div>`;
+  const vw=window.innerWidth, vh=window.innerHeight;
+  let x=e.clientX, y=e.clientY;
+  document.body.appendChild(picker);
+  if(x+210>vw) x=vw-218; if(y+140>vh) y=vh-148;
+  picker.style.left=x+'px'; picker.style.top=y+'px';
+  _memberCellPickerEl=picker;
+  setTimeout(()=>document.addEventListener('click',_closeMemberPicker,{once:true}),0);
+}
+function _closeMemberPicker(){ if(_memberCellPickerEl){_memberCellPickerEl.remove();_memberCellPickerEl=null;} }
+function _memberCellPickerChoice(type, date, memberId){
+  _closeMemberPicker();
+  if(type==='block'){
+    openAddBlockModal(memberId, date);
+  } else {
+    const evType=type==='meeting'?'meeting':'event';
+    openAddCalEventOnDate(date, memberId);
+    setTimeout(()=>{ const sel=document.getElementById('ceType'); if(sel) sel.value=evType; },50);
+  }
+}
+
+// ── Member Block (unavailability) CRUD ──
+let _blockModalMemberId=null;
+function openAddBlockModal(memberId, date){
+  _blockModalMemberId=memberId;
+  const member=getMembers().find(m=>m.id===memberId);
+  document.getElementById('blockMemberName').textContent=member?member.name:'Member';
+  document.getElementById('blockStart').value=date||new Date().toISOString().split('T')[0];
+  document.getElementById('blockEnd').value=date||new Date().toISOString().split('T')[0];
+  document.getElementById('blockNote').value='';
+  openModal('modalMemberBlock');
+}
+function saveMemberBlock(){
+  const start=document.getElementById('blockStart').value;
+  const end=document.getElementById('blockEnd').value;
+  const note=document.getElementById('blockNote').value.trim();
+  if(!start||!_blockModalMemberId) return;
+  const blocks=getMemberBlocks();
+  blocks.push({id:uid(), memberId:_blockModalMemberId, start, end:end||start, note});
+  saveMemberBlocks(blocks);
+  closeModal('modalMemberBlock');
+  showToast('Unavailability block saved.');
+  _renderTimeline();
+}
+function _deleteBlock(blockId){
+  showConfirm('Remove this unavailability block?', true).then(ok=>{
+    if(!ok)return;
+    saveMemberBlocks(getMemberBlocks().filter(b=>b.id!==blockId));
+    showToast('Block removed.');
+    _renderTimeline();
+  });
+}
+
+function _showCalCtx(e, eventId, date, memberId){
+  e.preventDefault(); e.stopPropagation();
+  _calCtxEventId=eventId||null;
+  _calCtxDate=date||null;
+  _calCtxMemberId=memberId||null;
+  const menu=document.getElementById('calCtxMenu');
+  document.getElementById('calCtxEdit').style.display=eventId?'block':'none';
+  document.getElementById('calCtxDelete').style.display=eventId?'block':'none';
+  document.getElementById('calCtxAdd').style.display='block';
+  const vw=window.innerWidth, vh=window.innerHeight;
+  let x=e.clientX, y=e.clientY;
+  menu.style.display='block';
+  if(x+180>vw) x=vw-188;
+  if(y+120>vh) y=vh-128;
+  menu.style.left=x+'px'; menu.style.top=y+'px';
+}
+function _calCtxEdit(){ _hideCalCtx(); if(_calCtxEventId) openEditCalEvent(_calCtxEventId); }
+function _calCtxDelete(){ _hideCalCtx(); if(_calCtxEventId) deleteCalEvent(_calCtxEventId); }
+function _calCtxAdd(){ _hideCalCtx(); openAddCalEventOnDate(_calCtxDate, _calCtxMemberId); }
+function _hideCalCtx(){ document.getElementById('calCtxMenu').style.display='none'; }
+document.addEventListener('click', _hideCalCtx);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') _hideCalCtx(); });
+
+// ── Member chip toggling for calendar modal ──
+let _ceSelectedMembers=[];
+function _renderCeMembers(preselect){
+  if(preselect!==undefined) _ceSelectedMembers=preselect?[preselect]:[];
+  const members=getMembers();
+  const wrap=document.getElementById('ceMembersWrap');
+  if(!wrap) return;
+  if(!members.length){ wrap.innerHTML='<span style="font-size:11px;color:var(--text3);">No members yet</span>'; return; }
+  wrap.innerHTML=members.map(m=>{
+    const sel=_ceSelectedMembers.includes(m.id);
+    return `<span onclick="_toggleCeMember('${m.id}')" style="padding:3px 10px;border-radius:var(--r-pill);font-size:11px;font-weight:600;cursor:pointer;border:1px solid ${sel?'rgba(var(--c1-rgb),.4)':'var(--border2)'};background:${sel?'var(--c1-d)':'var(--bg)'};color:${sel?'var(--c1-l)':'var(--text3)'};">${esc(m.name)}</span>`;
+  }).join('');
+}
+function _toggleCeMember(id){
+  const i=_ceSelectedMembers.indexOf(id);
+  if(i>=0) _ceSelectedMembers.splice(i,1); else _ceSelectedMembers.push(id);
+  _renderCeMembers();
+}
+
+/* ════════════════════════════════════════════════════════
+   ONBOARDING BOARD
+   Columns: contact → meeting → onboarded
+   Max 20 prospects total.
+════════════════════════════════════════════════════════ */
+function getObProspects(){return lsGet('s343_ob')||[];}
+function saveObProspects(d){lsSave('s343_ob',d);}
+
+const OB_ICONS=[
+  // art / film / people — 20 SVG paths
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><polygon points="23 7 16 12 23 17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M2 20h20M4 20V8l8-6 8 6v12"/><rect x="9" y="12" width="6" height="8"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="15" x2="12" y2="15"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>`,
+];
+
+function obRender(){
+  const prospects=getObProspects();
+  const total=prospects.length;
+  const badge=document.getElementById('ob-count-badge');
+  if(badge) badge.textContent=`${total} / 20`;
+
+  const cols={contact:[],meeting:[],onboarded:[]};
+  prospects.forEach(p=>{ if(cols[p.stage]) cols[p.stage].push(p); });
+
+  const colDefs=[
+    {id:'contact',   label:'Contact',   count:cols.contact.length},
+    {id:'meeting',   label:'Meeting',   count:cols.meeting.length},
+    {id:'onboarded', label:'Onboarded', count:cols.onboarded.length},
+  ];
+
+  const board=document.getElementById('obBoard');
+  board.innerHTML=colDefs.map(col=>`
+    <div class="ob-col" id="ob-col-${col.id}">
+      <div class="ob-col-title">
+        <span>${col.label}</span>
+        <span style="font-size:10px;color:var(--text4);">${col.count}</span>
+      </div>
+      ${cols[col.id].map(p=>obCardHTML(p)).join('')}
+    </div>
+  `).join('');
+}
+
+function obCardHTML(p){
+  const initials=(p.name||'?').charAt(0).toUpperCase();
+  const bubbleInner=p.image
+    ? `<img src="${p.image}" alt="${esc(p.name)}">`
+    : p.iconIdx!=null
+      ? OB_ICONS[p.iconIdx]||initials
+      : initials;
+
+  if(p.stage==='contact'){
+    return `<div class="ob-card" id="ob-card-${p.id}" oncontextmenu="event.preventDefault();obEditOpen('${p.id}')">
+      <button class="ob-remove-btn" onclick="obRemove('${p.id}')" title="Remove">×</button>
+      <div class="ob-bubble" onclick="obEditOpen('${p.id}')" title="Click to edit, right-click for options" style="color:var(--c1-l)">${bubbleInner}</div>
+      <div class="ob-card-name">${esc(p.name||'New Contact')}</div>
+      ${p.focus?`<div class="ob-card-sub">${esc(p.focus)}</div>`:''}
+      <div class="ob-card-actions">
+        <button class="ob-btn ob-btn-primary" onclick="obMoveTo('${p.id}','meeting')">Ready for Meeting</button>
+        <button class="ob-btn ob-btn-ghost" onclick="obEditOpen('${p.id}')">Edit Info</button>
+      </div>
+    </div>`;
+  }
+
+  if(p.stage==='meeting'){
+    const infoHTML=`<div class="ob-info-row" id="ob-info-${p.id}" style="display:none;">
+      ${p.focus?`<div><strong>Focus:</strong> ${esc(p.focus)}</div>`:''}
+      ${p.goal?`<div><strong>Goal:</strong> ${esc(p.goal)}</div>`:''}
+    </div>`;
+    return `<div class="ob-card" id="ob-card-${p.id}" oncontextmenu="event.preventDefault();obEditOpen('${p.id}')">
+      <button class="ob-remove-btn" onclick="obRemove('${p.id}')" title="Remove">×</button>
+      <div class="ob-bubble" onclick="obEditOpen('${p.id}')" style="color:var(--c2)">${bubbleInner}</div>
+      <div class="ob-card-name">${esc(p.name||'Contact')}</div>
+      <input class="ob-meet-input" placeholder="Paste Google Meet URL..." value="${esc(p.meetUrl||'')}"
+        onblur="obSaveMeet('${p.id}',this.value)" style="width:100%;margin-top:4px;">
+      <button class="ob-btn ob-btn-ghost" style="margin-top:2px;" onclick="document.getElementById('ob-info-${p.id}').style.display=document.getElementById('ob-info-${p.id}').style.display==='none'?'block':'none'">Info</button>
+      ${infoHTML}
+      <div class="ob-card-actions" style="margin-top:6px;">
+        <button class="ob-btn ob-btn-green" onclick="obMoveTo('${p.id}','onboarded')">Ready to Onboard</button>
+        <button class="ob-btn ob-btn-ghost" onclick="obMoveTo('${p.id}','contact')">Finished Meeting</button>
+        <button class="ob-btn ob-btn-warn" onclick="obMissedMeeting('${p.id}')">Missed Meeting</button>
+      </div>
+    </div>`;
+  }
+
+  if(p.stage==='onboarded'){
+    const appDone=p.checks?.application||false;
+    const agrDone=p.checks?.agreements||false;
+    return `<div class="ob-card" id="ob-card-${p.id}" oncontextmenu="event.preventDefault();obEditOpen('${p.id}')">
+      <button class="ob-remove-btn" onclick="obRemove('${p.id}')" title="Remove">×</button>
+      <div class="ob-bubble" onclick="obEditOpen('${p.id}')" style="color:#34c759">${bubbleInner}</div>
+      <div class="ob-card-name">${esc(p.name||'Contact')}</div>
+      ${p.focus?`<div class="ob-card-sub">${esc(p.focus)}</div>`:''}
+      <label class="ob-check-row"><input type="checkbox" ${appDone?'checked':''} onchange="obToggleCheck('${p.id}','application',this.checked)"> Application</label>
+      <label class="ob-check-row"><input type="checkbox" ${agrDone?'checked':''} onchange="obToggleCheck('${p.id}','agreements',this.checked)"> Agreements</label>
+      <div class="ob-card-actions" style="margin-top:4px;">
+        <button class="ob-btn ob-btn-green" onclick="obFinalise('${p.id}')">Onboard Member</button>
+      </div>
+    </div>`;
+  }
+  return '';
+}
+
+function obAddContact(){
+  const prospects=getObProspects();
+  if(prospects.length>=20){showToast('Max 20 prospects reached.');return;}
+  const p={id:uid(),stage:'contact',name:'',focus:'',goal:'',image:'',iconIdx:null,meetUrl:'',checks:{},created:Date.now()};
+  prospects.unshift(p);
+  saveObProspects(prospects);
+  obRender();
+  // Immediately open editor for the new card
+  setTimeout(()=>obEditOpen(p.id),80);
+}
+
+function obRemove(id){
+  showConfirm('Remove this prospect?',true).then(ok=>{
+    if(!ok)return;
+    saveObProspects(getObProspects().filter(p=>p.id!==id));
+    obRender();
+  });
+}
+
+function obMoveTo(id,stage){
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===id);
+  if(!p)return;
+  p.stage=stage;
+  saveObProspects(prospects);
+  obRender();
+}
+
+function obSaveMeet(id,val){
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===id);
+  if(!p)return;
+  p.meetUrl=val.trim();
+  saveObProspects(prospects);
+}
+
+function obMissedMeeting(id){
+  // Keep in meeting column but clear meet URL so they can paste rescheduled
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===id);
+  if(!p)return;
+  p.meetUrl='';
+  saveObProspects(prospects);
+  showToast('URL cleared — paste rescheduled meeting link.');
+  obRender();
+}
+
+function obToggleCheck(id,key,val){
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===id);
+  if(!p)return;
+  if(!p.checks)p.checks={};
+  p.checks[key]=val;
+  saveObProspects(prospects);
+}
+
+function obFinalise(id){
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===id);
+  if(!p)return;
+  if(!p.name){showToast('Add a name before onboarding.');return;}
+  // Add to Members
+  const members=getMembers();
+  if(members.find(m=>m.name.toLowerCase()===p.name.toLowerCase())){
+    showToast(`${p.name} is already a member.`);return;
+  }
+  members.push({
+    id:uid(), name:p.name,
+    role:p.focus||'', email:'', phone:'', tier:'community',
+    status:'available', offers:'', needs:p.goal||'', notes:'',
+  });
+  saveMembers(members);
+  logActivity(`${p.name} onboarded as member`,'member');
+  saveObProspects(prospects.filter(x=>x.id!==id));
+  obRender();
+  showToast(`${p.name} added to Members!`);
+}
+
+// ── Edit modal for prospects ──────────────────────────────────────────────────
+let _obEditId=null;
+
+function obEditOpen(id){
+  _obEditId=id;
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===id);
+  if(!p)return;
+  document.getElementById('ob-edit-name').value=p.name||'';
+  document.getElementById('ob-edit-focus').value=p.focus||'';
+  document.getElementById('ob-edit-goal').value=p.goal||'';
+  document.getElementById('ob-edit-image').value=p.image||'';
+  // Render icon grid
+  const grid=document.getElementById('ob-icon-grid');
+  grid.innerHTML=OB_ICONS.map((svg,i)=>`
+    <div onclick="obSelectIcon(${i})" title="Icon ${i+1}"
+      style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+             cursor:pointer;border:2px solid ${p.iconIdx===i?'var(--c1)':'var(--border)'};
+             background:${p.iconIdx===i?'var(--c1-d)':'var(--bg3)'};color:${p.iconIdx===i?'var(--c1-l)':'var(--text2)'};
+             transition:all .12s;" id="ob-icon-${i}">
+      ${svg}
+    </div>`).join('');
+  document.getElementById('ob-edit-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('ob-edit-name').focus(),60);
+}
+
+function obSelectIcon(idx){
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===_obEditId);
+  if(!p)return;
+  p.iconIdx=p.iconIdx===idx?null:idx; // toggle off if same
+  p.image=''; // clear image if icon chosen
+  saveObProspects(prospects);
+  obEditOpen(_obEditId); // re-render modal
+}
+
+function obEditSave(){
+  const prospects=getObProspects();
+  const p=prospects.find(x=>x.id===_obEditId);
+  if(!p)return;
+  p.name=document.getElementById('ob-edit-name').value.trim()||'New Contact';
+  p.focus=document.getElementById('ob-edit-focus').value.trim();
+  p.goal=document.getElementById('ob-edit-goal').value.trim();
+  const imgVal=document.getElementById('ob-edit-image').value.trim();
+  if(imgVal){p.image=imgVal;p.iconIdx=null;}
+  saveObProspects(prospects);
+  document.getElementById('ob-edit-modal').classList.remove('open');
+  _obEditId=null;
+  obRender();
+}
+
+/* ── CONFIRM MODAL ── replaces browser confirm() which is blocked in iframes ── */
+let _confirmResolve = null;
+function showConfirm(msg, danger) {
+  return new Promise(resolve => {
+    _confirmResolve = resolve;
+    const msgEl  = document.getElementById('_confirmMsg');
+    const btnEl  = document.getElementById('_confirmOk');
+    if (msgEl) msgEl.textContent = msg;
+    if (btnEl) {
+      btnEl.textContent = danger ? 'Delete' : 'Confirm';
+      btnEl.style.background = danger
+        ? 'linear-gradient(135deg,#ff3b30,#c0392b)'
+        : 'linear-gradient(135deg,var(--c1),color-mix(in srgb,var(--c1) 70%,var(--c2)))';
+    }
+    document.getElementById('_confirmBackdrop').classList.add('open');
+  });
+}
+function _confirmYes() {
+  document.getElementById('_confirmBackdrop').classList.remove('open');
+  if (_confirmResolve) { _confirmResolve(true); _confirmResolve = null; }
+}
+function _confirmNo() {
+  document.getElementById('_confirmBackdrop').classList.remove('open');
+  if (_confirmResolve) { _confirmResolve(false); _confirmResolve = null; }
+}
+</script>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-backdrop" id="_confirmBackdrop" onclick="if(event.target===this)_confirmNo()">
+  <div class="modal" style="width:360px">
+    <div class="modal-title" style="font-size:17px;padding:20px 24px 0">Are you sure?</div>
+    <div class="modal-sub" style="padding:6px 24px 0" id="_confirmMsg"></div>
+    <div class="modal-row" style="padding:0 24px 22px;margin-top:18px">
+      <button class="modal-cancel" onclick="_confirmNo()">Cancel</button>
+      <button class="modal-confirm" id="_confirmOk" onclick="_confirmYes()">Confirm</button>
+    </div>
+  </div>
+</div>
+<!-- ONBOARDING EDIT MODAL -->
+<div class="modal-backdrop" id="ob-edit-modal" onclick="if(event.target===this)document.getElementById('ob-edit-modal').classList.remove('open')">
+  <div class="modal" style="width:440px">
+    <div class="modal-title">Edit Contact</div>
+    <div class="modal-field">
+      <label>First Name</label>
+      <input class="input" id="ob-edit-name" placeholder="Name" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('ob-edit-focus').focus();}">
+    </div>
+    <div class="modal-field">
+      <label>Passion / Focus</label>
+      <input class="input" id="ob-edit-focus" placeholder="e.g. Cinematography, Acting, Writing">
+    </div>
+    <div class="modal-field">
+      <label>Goal</label>
+      <input class="input" id="ob-edit-goal" placeholder="What do they want to achieve?">
+    </div>
+    <div class="modal-field">
+      <label>Photo URL (optional)</label>
+      <input class="input" id="ob-edit-image" placeholder="https://..." style="font-family:var(--mono);font-size:12px;">
+    </div>
+    <div style="padding:0 28px 16px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1-l);margin-bottom:10px;display:flex;align-items:center;gap:5px;">
+        <span style="width:3px;height:3px;border-radius:50%;background:var(--c1);display:inline-block;flex-shrink:0;"></span>Icon
+      </div>
+      <div id="ob-icon-grid" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+    </div>
+    <div class="modal-row">
+      <button class="modal-cancel" onclick="document.getElementById('ob-edit-modal').classList.remove('open')">Cancel</button>
+      <button class="modal-confirm" onclick="obEditSave()">Save</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
