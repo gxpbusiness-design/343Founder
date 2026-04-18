@@ -1193,11 +1193,8 @@ select.input{cursor:pointer;}
 .cal-tl-cell.today-col{background:rgba(var(--c1-rgb),.05);}
 .cal-tl-today-line{position:absolute;top:0;bottom:0;width:2px;background:var(--c1);z-index:2;pointer-events:none;}
 .cal-tl-today-line::before{content:'';position:absolute;top:-4px;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--c1);}
-.cal-tl-bar{position:absolute;top:50%;transform:translateY(-50%);height:26px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1;cursor:grab;transition:opacity .12s,box-shadow .12s;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.cal-tl-bar{position:absolute;top:50%;transform:translateY(-50%);height:26px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1;cursor:pointer;transition:opacity .12s;box-shadow:0 1px 4px rgba(0,0,0,.1);}
 .cal-tl-bar:hover{opacity:.85;}
-.cal-tl-bar.dragging{opacity:.35;cursor:grabbing;}
-.cal-tl-bar:active{cursor:grabbing;}
-.cal-day-cell-click.cal-drag-over{background:rgba(var(--c1-rgb),.13)!important;outline:2px solid rgba(var(--c1-rgb),.4);outline-offset:-1px;}
 .cal-tl-bar .bar-status{font-size:9px;font-weight:700;padding:1px 5px;border-radius:10px;background:rgba(255,255,255,.3);margin-left:6px;flex-shrink:0;}
 .cal-tl-day-num{font-size:10px;font-weight:700;color:var(--text3);text-align:center;padding:6px 2px 4px;}
 .cal-tl-day-num.today{color:var(--c1);font-weight:800;}
@@ -1441,11 +1438,6 @@ select.input{cursor:pointer;}
     <div class="nav-item" onclick="nav('productions')" id="nav-productions">
       <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 3l-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11l4 2.5-4 2.5V11z" fill="currentColor"/></svg>
       Productions
-    </div>
-
-    <div class="nav-item" onclick="nav('onboarding')" id="nav-onboarding">
-      <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="14 14 16 16 20 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Onboarding
     </div>
 
     <div class="nav-item" onclick="nav('calendar')" id="nav-calendar">
@@ -2281,21 +2273,6 @@ select.input{cursor:pointer;}
 
     </div><!-- /settings -->
 
-    <!-- ONBOARDING PAGE -->
-    <div class="page" id="page-onboarding">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Onboarding</div>
-          <div class="page-sub">Track prospects from first contact to full member — max 20 at a time</div>
-        </div>
-        <div class="page-actions">
-          <span id="ob-count-badge" style="font-family:var(--mono);font-size:11px;color:var(--text3);padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:100px;">0 / 20</span>
-          <button class="btn btn-blue" onclick="obAddContact()">+ Add Contact</button>
-        </div>
-      </div>
-      <div id="obBoard" style="display:flex;gap:16px;align-items:flex-start;overflow-x:auto;padding-bottom:20px;min-height:500px;"></div>
-    </div>
-
   </main>
 </div>
 
@@ -2406,11 +2383,11 @@ select.input{cursor:pointer;}
     <div id="modalAddLeadBody">
       <div class="modal-field">
         <label>Member</label>
-        <select class="input" id="leadMemberSelect_static"></select>
+        <select class="input" id="leadMemberSelect"></select>
       </div>
       <div class="modal-field">
         <label>Role / Area</label>
-        <input class="input" id="leadRole_static" placeholder="e.g. Production Lead, Community Lead">
+        <input class="input" id="leadRole" placeholder="e.g. Production Lead, Community Lead">
       </div>
     </div>
     <div class="modal-row">
@@ -3054,7 +3031,6 @@ function renderPage(id){
   else if(id==='decisions')renderDecisions();
   else if(id==='separation')renderSeparation();
   else if(id==='settings')renderSettings();
-  else if(id==='onboarding')obRender();
 }
 
 // 
@@ -3523,11 +3499,9 @@ function openAddMember(){
   openModal('modalMember');
 }
 function deleteMember(id){
-  showConfirm('Remove this member?', true).then(ok=>{
-    if(!ok)return;
-    saveMembers(getMembers().filter(m=>m.id!==id));
-    renderMembers();
-  });
+  if(!confirm('Remove this member?'))return;
+  saveMembers(getMembers().filter(m=>m.id!==id));
+  renderMembers();
 }
 function addMemberAsLead(memberId){
   const member=getMembers().find(m=>m.id===memberId);
@@ -3607,7 +3581,7 @@ function importCSV(e){
     saveMembers(members);
     closeModal('modalNotion');
     renderMembers();
-    showToast(`Imported ${lines.length-1} members.`);
+    alert(`Imported ${lines.length-1} members.`);
   };
   reader.readAsText(file);
 }
@@ -3852,11 +3826,9 @@ function movePipeline(id,stage){
   if(item){item.stage=stage;savePipeline2(arr);renderPipeline();}
 }
 function deletePipelineItem(id){
-  showConfirm('Remove this opportunity?', true).then(ok=>{
-    if(!ok)return;
-    savePipeline2(getPipeline().filter(i=>i.id!==id));
-    renderPipeline();
-  });
+  if(!confirm('Remove this opportunity?'))return;
+  savePipeline2(getPipeline().filter(i=>i.id!==id));
+  renderPipeline();
 }
 
 // 
@@ -3905,11 +3877,9 @@ function renderBarter(){
   document.getElementById('barterDone').innerHTML=barterHTML(done,true);
 }
 function deleteBarter(id){
-  showConfirm('Remove this barter exchange?', true).then(ok=>{
-    if(!ok)return;
-    saveBarters(getBarters().filter(b=>b.id!==id));
-    renderBarter();
-  });
+  if(!confirm('Remove this barter exchange?'))return;
+  saveBarters(getBarters().filter(b=>b.id!==id));
+  renderBarter();
 }
 function openAddBarter(){
   document.getElementById('baA').dataset.editId='';
@@ -4040,11 +4010,9 @@ function saveProduction(){
   if(disp) disp.textContent='0';
 }
 function deleteProduction(id){
-  showConfirm('Remove this production?', true).then(ok=>{
-    if(!ok)return;
-    saveProductions(getProductions().filter(p=>p.id!==id));
-    renderProductions();
-  });
+  if(!confirm('Remove this production?'))return;
+  saveProductions(getProductions().filter(p=>p.id!==id));
+  renderProductions();
 }
 
 // ═══════════════════════════════════════
@@ -4370,11 +4338,9 @@ async function _gmailSend(to,subject,body){
 }
 
 function deleteSentEmail(id){
-  showConfirm('Remove from sent?', true).then(ok=>{
-    if(!ok)return;
-    saveSentEmails(getSentEmails().filter(e=>e.id!==id));
-    _emailSelected=null;_renderEmailList();_renderEmailReader(null);
-  });
+  if(!confirm("Remove from sent?"))return;
+  saveSentEmails(getSentEmails().filter(e=>e.id!==id));
+  _emailSelected=null;_renderEmailList();_renderEmailReader(null);
 }
 
 function openAddTemplate(){
@@ -4411,11 +4377,9 @@ function copyTemplateText(id){
   if(t)navigator.clipboard.writeText(t.body).then(()=>showToast("Copied to clipboard."));
 }
 function deleteTemplate(id){
-  showConfirm('Delete this template?', true).then(ok=>{
-    if(!ok)return;
-    saveTemplates(getTemplates().filter(t=>t.id!==id));
-    _emailSelected=null;_renderTemplateList();_renderEmailReader(null);
-  });
+  if(!confirm("Delete this template?"))return;
+  saveTemplates(getTemplates().filter(t=>t.id!==id));
+  _emailSelected=null;_renderTemplateList();_renderEmailReader(null);
 }
 function copyTemplate(id){copyTemplateText(id);}
 function openAddOutreach(){openCompose();}
@@ -4464,45 +4428,13 @@ function renderLeads(){
     el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><div class="empty-title">No leads yet</div><div class="empty-sub">Add a lead to start tracking their tasks, deliverables and outreach.</div></div>`;
     return;
   }
-
-  // ── Dashboard summary ──
-  const allTasks=leads.flatMap(l=>l.tasks||[]);
-  const allDelivs=leads.flatMap(l=>l.deliverables||[]);
-  const allOutreach=leads.flatMap(l=>l.outreach||[]);
-  const doneTasks=allTasks.filter(t=>t.done).length;
-  const doneDelivs=allDelivs.filter(d=>d.done).length;
-  const outreachResponded=allOutreach.filter(o=>o.status==='responded'||o.status==='closed').length;
-  const taskPct=allTasks.length?Math.round(doneTasks/allTasks.length*100):0;
-  const delivPct=allDelivs.length?Math.round(doneDelivs/allDelivs.length*100):0;
-
-  const dash=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;">
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Leads</div>
-      <div style="font-size:26px;font-weight:800;color:var(--text);">${leads.length}</div>
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Tasks</div>
-      <div style="font-size:26px;font-weight:800;color:var(--c1-l);">${doneTasks}<span style="font-size:13px;font-weight:500;color:var(--text3);">/${allTasks.length}</span></div>
-      <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="height:100%;width:${taskPct}%;background:var(--c1-l);border-radius:2px;transition:width .5s;"></div></div>
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Deliverables</div>
-      <div style="font-size:26px;font-weight:800;color:var(--c2);">${doneDelivs}<span style="font-size:13px;font-weight:500;color:var(--text3);">/${allDelivs.length}</span></div>
-      <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="height:100%;width:${delivPct}%;background:var(--c2);border-radius:2px;transition:width .5s;"></div></div>
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;font-family:var(--mono);">Outreach</div>
-      <div style="font-size:26px;font-weight:800;color:var(--gold);">${allOutreach.length}<span style="font-size:12px;font-weight:500;color:var(--text3);margin-left:6px;">${outreachResponded} responded</span></div>
-    </div>
-  </div>`;
-
-  el.innerHTML = dash + leads.map(lead=>{
+  el.innerHTML=leads.map(lead=>{
     const tasks=lead.tasks||[];
     const deliverables=lead.deliverables||[];
     const outreach=lead.outreach||[];
     const doneTasks=tasks.filter(t=>t.done).length;
     const doneDelivs=deliverables.filter(d=>d.done).length;
-    const isOpen=_leadExpanded[lead.id]===true; // default collapsed
+    const isOpen=_leadExpanded[lead.id]!==false; // default open
     return `
     <div class="lead-card" id="lc-${lead.id}">
       <div class="lead-card-header" onclick="toggleLeadCard('${lead.id}')">
@@ -4596,7 +4528,7 @@ function renderLeads(){
 }
 
 function toggleLeadCard(id){
-  _leadExpanded[id]=_leadExpanded[id]===true?false:true;
+  _leadExpanded[id]=_leadExpanded[id]===false?true:false;
   renderLeads();
 }
 
@@ -4656,11 +4588,9 @@ function saveLead(){
 }
 
 function deleteLead(id){
-  showConfirm('Remove this lead?', true).then(ok=>{
-    if(!ok)return;
-    saveLeads(getLeads().filter(l=>l.id!==id));
-    renderLeads();
-  });
+  if(!confirm('Remove this lead?'))return;
+  saveLeads(getLeads().filter(l=>l.id!==id));
+  renderLeads();
 }
 
 function addLeadItem(leadId,col){
@@ -4782,11 +4712,9 @@ function saveDecision(){
   ['dTitle','dWhy'].forEach(id=>document.getElementById(id).value='');
 }
 function deleteDecision(id){
-  showConfirm('Delete this decision?', true).then(ok=>{
-    if(!ok)return;
-    saveDecisions(getDecisions().filter(d=>d.id!==id));
-    renderDecisions();
-  });
+  if(!confirm('Delete this decision?'))return;
+  saveDecisions(getDecisions().filter(d=>d.id!==id));
+  renderDecisions();
 }
 
 // 
@@ -4838,8 +4766,8 @@ function renderSeparation(){
   document.getElementById('communityProjects').innerHTML=projHTML(community);
 }
 
-function getIC2Responsibilities(){return lsGet('s343_ic2_resp')||[];}
-function saveIC2Responsibilities(arr){lsSave('s343_ic2_resp',arr);}
+function getIC2Responsibilities(){return JSON.parse(localStorage.getItem('s343_ic2_resp')||'[]');}
+function saveIC2Responsibilities(arr){localStorage.setItem('s343_ic2_resp',JSON.stringify(arr));}
 function openAddResponsibility(){openModal('modalIC2Resp');}
 function saveResponsibility(){
   const label=document.getElementById('ic2RespLabel').value.trim();
@@ -5139,12 +5067,10 @@ function saveCUChart(){
 }
 
 function resetCUChart(){
-  showConfirm('Reset the point chart to defaults?', false).then(ok=>{
-    if(!ok)return;
-    saveCUChart2(CU_DEFAULTS.map((r,i)=>({...r,id:i})));
-    renderCUChartEditor();
-    showToast('Chart reset to defaults.');
-  });
+  if(!confirm('Reset the point chart to defaults?'))return;
+  saveCUChart2(CU_DEFAULTS.map((r,i)=>({...r,id:i})));
+  renderCUChartEditor();
+  showToast('Chart reset to defaults.');
 }
 
 // Modal: log contribution
@@ -5208,11 +5134,9 @@ function saveLogCU(){
   }
 }
 function deleteCULog(id){
-  showConfirm('Remove this contribution log?', true).then(ok=>{
-    if(!ok)return;
-    saveCULogs(getCULogs().filter(l=>l.id!==id));
-    renderCULog();
-  });
+  if(!confirm('Remove this contribution log?'))return;
+  saveCULogs(getCULogs().filter(l=>l.id!==id));
+  renderCULog();
 }
 const ACCENT_COLORS=['#1A56DB','#E55733','#FF2D55','#FF9500','#34D399','#0A84FF','#BF5AF2','#F59E0B'];
 const COMP_COLORS  =['#00C9A7','#1AC7FF','#34D399','#FF6B6B','#A78BFA','#30D158','#E879F9','#FFD60A'];
@@ -5401,9 +5325,6 @@ function _renderTimelineRows(){
         html+=`<div class="cal-day-cell-click" style="border-left:1px solid var(--border);height:56px;position:relative;background:${isT?'rgba(var(--c1-rgb),.04)':isWE?'rgba(0,0,0,.015)':''};"
           onclick="${clickAction}"
           oncontextmenu="_showCalCtx(event,null,'${dateStr}','${rowMemberId}')"
-          ondragover="event.preventDefault();this.classList.add('cal-drag-over')"
-          ondragleave="this.classList.remove('cal-drag-over')"
-          ondrop="_calDayDrop(event,this,'${dateStr}')"
           title="Click to add event or block${rowMemberId?' for '+esc(row.name):''}">`;
         // Draw today line
         if(isT) html+=`<div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--c1);opacity:.4;z-index:1;pointer-events:none;"></div>`;
@@ -5418,18 +5339,12 @@ function _renderTimelineRows(){
           const colors=BAR_COLORS[bar.type]||BAR_COLORS.default;
           const statusStyle=bar.status&&STATUS_COLORS[bar.status]?`margin-left:6px;font-size:9px;padding:1px 5px;border-radius:8px;background:${STATUS_COLORS[bar.status].bg};color:${STATUS_COLORS[bar.status].text};`:'display:none;';
           const isBlock=bar.id&&bar.id.startsWith('blk:');
-          const isDraggable=bar.id&&!isBlock;
-          const dragAttrs=isDraggable
-            ? `draggable="true" id="cal-bar-${bar.id}"
-               ondragstart="event.stopPropagation();_calBarDragStart(event,'${bar.id}','${bar.start}','${bar.end||bar.start}')"
-               ondragend="event.stopPropagation();_calBarDragEnd('${bar.id}')"`
-            : '';
           const editAttr=bar.id
             ? isBlock
               ? `onclick="event.stopPropagation();_deleteBlock('${bar.blockId}')" oncontextmenu="event.stopPropagation();_showCalCtx(event,'${bar.id}','${dateStr}','${rowMemberId}')"`
               : `onclick="event.stopPropagation();openEditCalEvent('${bar.id}')" oncontextmenu="event.stopPropagation();_showCalCtx(event,'${bar.id}','${dateStr}','${rowMemberId}')"`
             : '';
-          html+=`<div class="cal-tl-bar${bar.id?' cal-bar-click':''}" ${editAttr} ${dragAttrs} style="left:2px;width:calc(${pct*DAYS}% - 4px);background:${colors.bg};border:1px solid ${colors.border};color:${colors.text};" title="${esc(bar.label)}${isDraggable?' — drag to move, click to edit':''}">
+          html+=`<div class="cal-tl-bar${bar.id?' cal-bar-click':''}" ${editAttr} style="left:2px;width:calc(${pct*DAYS}% - 4px);background:${colors.bg};border:1px solid ${colors.border};color:${colors.text};" title="${esc(bar.label)}${bar.id?' — click to edit':''}">
             ${esc(bar.label.substring(0,20)+(bar.label.length>20?'…':''))}
             ${bar.status?`<span style="${statusStyle}">${bar.status}</span>`:''}
           </div>`;
@@ -5442,46 +5357,6 @@ function _renderTimelineRows(){
 
   html+='</div>';
   grid.innerHTML=html;
-}
-
-// ── Timeline drag-to-move ─────────────────────────────────────────────────────
-let _dragEvtId   = null;
-let _dragEvtDur  = 0;  // duration in days (0 = single-day)
-
-function _calBarDragStart(e, evtId, startStr, endStr) {
-  _dragEvtId  = evtId;
-  const s  = new Date(startStr); s.setHours(0,0,0,0);
-  const en = new Date(endStr||startStr); en.setHours(0,0,0,0);
-  _dragEvtDur = Math.max(0, Math.round((en - s) / 86400000));
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', evtId);
-  const el = document.getElementById('cal-bar-' + evtId);
-  if (el) el.classList.add('dragging');
-}
-
-function _calBarDragEnd(evtId) {
-  const el = document.getElementById('cal-bar-' + evtId);
-  if (el) el.classList.remove('dragging');
-  document.querySelectorAll('.cal-drag-over').forEach(c => c.classList.remove('cal-drag-over'));
-}
-
-function _calDayDrop(e, cell, dateStr) {
-  e.preventDefault();
-  e.stopPropagation();
-  cell.classList.remove('cal-drag-over');
-  if (!_dragEvtId) return;
-  const evts = getCalEvents();
-  const evt  = evts.find(ev => ev.id === _dragEvtId);
-  if (!evt) { _dragEvtId = null; return; }
-  const newStart = new Date(dateStr + 'T00:00:00');
-  const newEnd   = new Date(newStart);
-  newEnd.setDate(newEnd.getDate() + _dragEvtDur);
-  evt.start = newStart.toISOString().split('T')[0];
-  evt.end   = newEnd.toISOString().split('T')[0];
-  saveCalEvents(evts);
-  _dragEvtId = null;
-  showToast('Event moved to ' + newStart.toLocaleDateString('en-US',{month:'short',day:'numeric'}));
-  _renderTimeline();
 }
 
 function _getTimelineRows(winStart, winEnd){
@@ -5818,13 +5693,11 @@ function openEditCalEvent(id){
   openModal('modalCalEvent');
 }
 function deleteCalEvent(id){
-  showConfirm('Delete this event?', true).then(ok=>{
-    if(!ok)return;
-    saveCalEvents(getCalEvents().filter(e=>e.id!==id));
-    showToast('Event deleted.');
-    _renderTimeline();
-    if(_gcalView==='month') _renderMonth();
-  });
+  if(!confirm('Delete this event?'))return;
+  saveCalEvents(getCalEvents().filter(e=>e.id!==id));
+  showToast('Event deleted.');
+  _renderTimeline();
+  if(_gcalView==='month') _renderMonth();
 }
 function saveCalEvent(){
   const editId=document.getElementById('ceTitle').dataset.editId||'';
@@ -5879,17 +5752,15 @@ function gcalRefresh(){
   _loadGoogleApi(c,null);
 }
 function gcalDisconnect(){
-  showConfirm('Disconnect Google Calendar?', false).then(ok=>{
-    if(!ok)return;
-    lsSave('s343_gcal_connected',false);
-    try{localStorage.removeItem('s343_gcal_events');}catch(e){}
-    _gcalEvents=[];
-    document.getElementById('gcalConnBar').style.display='none';
-    document.getElementById('gcalNudge').style.display='block';
-    document.getElementById('gcalSetupPanel').style.display='none';
-    showToast('Calendar disconnected.');
-    _renderTimeline();
-  });
+  if(!confirm('Disconnect Google Calendar?'))return;
+  lsSave('s343_gcal_connected',false);
+  localStorage.removeItem('s343_gcal_events');
+  _gcalEvents=[];
+  document.getElementById('gcalConnBar').style.display='none';
+  document.getElementById('gcalNudge').style.display='block';
+  document.getElementById('gcalSetupPanel').style.display='none';
+  showToast('Calendar disconnected.');
+  _renderTimeline();
 }
 function _loadGoogleApi(c,statusEl){
   // Load both gapi (for Calendar API calls) and GIS (for OAuth token)
@@ -6195,30 +6066,26 @@ function importData(e){
 }
 
 function resetSettings(){
-  showConfirm('Reset all appearance settings to defaults?', false).then(ok=>{
-    if(!ok)return;
-    ['s343_theme','s343_radius','s343_accent','s343_comp','s343_font'].forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
-    document.documentElement.removeAttribute('style');
-    document.body.removeAttribute('style');
-    document.documentElement.dataset.theme='light';
-    renderSettings();
-    showToast('Settings reset.');
-  });
+  if(!confirm('Reset all appearance settings to defaults?'))return;
+  ['s343_theme','s343_radius','s343_accent','s343_comp','s343_font'].forEach(k=>localStorage.removeItem(k));
+  document.documentElement.removeAttribute('style');
+  document.body.removeAttribute('style');
+  document.documentElement.dataset.theme='light';
+  renderSettings();
+  showToast('Settings reset.');
 }
 
 function clearAllData(){
-  showConfirm('Delete ALL data permanently? This cannot be undone.', true).then(ok=>{
-    if(!ok)return;
-    [
-      's343_members','s343_decisions','s343_pipeline','s343_barters','s343_productions',
-      's343_outreach','s343_templates','s343_activity','s343_2ic','s343_sep',
-      's343_personal','s343_community','s343_cu_logs','s343_cu_chart',
-      's343_cal_events','s343_gcal_events','s343_gcal_connected',
-      's343_sent_emails','s343_drafts','s343_gmail_connected',
-    ].forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
-    showToast('All data cleared.');
-    renderHome();
-  });
+  if(!confirm('Delete ALL data permanently? This cannot be undone.'))return;
+  [
+    's343_members','s343_decisions','s343_pipeline','s343_barters','s343_productions',
+    's343_outreach','s343_templates','s343_activity','s343_2ic','s343_sep',
+    's343_personal','s343_community','s343_cu_logs','s343_cu_chart',
+    's343_cal_events','s343_gcal_events','s343_gcal_connected',
+    's343_sent_emails','s343_drafts','s343_gmail_connected',
+  ].forEach(k=>localStorage.removeItem(k));
+  showToast('All data cleared.');
+  renderHome();
 }
 
 function hexToRgb(hex){
@@ -6457,14 +6324,12 @@ function ctxRemove() {
   const m = getMembers().find(m => m.id === _ctxMemberId);
   if (!m) return;
   _hideCtx();
-  showConfirm(`Remove ${m.name} from the community?`, true).then(ok=>{
-    if(!ok)return;
-    saveMembers(getMembers().filter(x => x.id !== m.id));
-    logActivity(`${m.name} removed`, 'member');
-    const active = document.querySelector('.page.active');
-    if (active) renderPage(active.id.replace('page-',''));
-    showToast(`${m.name} removed.`);
-  });
+  if (!confirm(`Remove ${m.name} from the community?`)) return;
+  saveMembers(getMembers().filter(x => x.id !== m.id));
+  logActivity(`${m.name} removed`, 'member');
+  const active = document.querySelector('.page.active');
+  if (active) renderPage(active.id.replace('page-',''));
+  showToast(`${m.name} removed.`);
 }
 
 // ── Store rename's pending id in the modal ──
@@ -6528,78 +6393,6 @@ function attachMemberCtx() {
 .gcal-cell-interactive{cursor:pointer;}
 .gcal-cell-interactive:hover{background:var(--bg3);}
 .gcal-event-interactive{cursor:pointer;}
-
-/* ── ONBOARDING BOARD ── */
-.ob-col{
-  flex:0 0 220px;min-width:220px;
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);padding:12px;
-  display:flex;flex-direction:column;gap:10px;
-  min-height:480px;
-}
-.ob-col-title{
-  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--text3);font-family:var(--mono);
-  padding-bottom:8px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.ob-bubble{
-  width:90px;height:90px;border-radius:50%;
-  border:2px solid var(--border2);
-  background:var(--panel);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;position:relative;
-  transition:box-shadow .15s,transform .12s,border-color .15s;
-  font-size:22px;font-weight:800;color:var(--c1-l);
-  overflow:hidden;flex-shrink:0;align-self:center;
-  box-shadow:0 2px 10px rgba(0,0,0,.07);
-  user-select:none;
-}
-.ob-bubble:hover{transform:scale(1.05);box-shadow:0 4px 18px rgba(0,0,0,.12);border-color:var(--c1-l);}
-.ob-bubble img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-.ob-card{
-  background:var(--panel);border:1px solid var(--border);
-  border-radius:var(--r);padding:12px;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  text-align:center;position:relative;
-}
-.ob-card-name{font-size:13px;font-weight:700;color:var(--text);}
-.ob-card-sub{font-size:10px;color:var(--text3);font-family:var(--mono);}
-.ob-card-actions{display:flex;flex-direction:column;gap:5px;width:100%;margin-top:4px;}
-.ob-btn{
-  width:100%;padding:6px 10px;border-radius:var(--r-sm);
-  font-size:11px;font-weight:600;cursor:pointer;border:none;
-  transition:opacity .12s,transform .1s;font-family:var(--font);
-}
-.ob-btn:active{transform:scale(.97);}
-.ob-btn-primary{background:var(--c1-l);color:#fff;}
-.ob-btn-primary:hover{opacity:.88;}
-.ob-btn-ghost{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);}
-.ob-btn-ghost:hover{background:var(--bg4);}
-.ob-btn-warn{background:rgba(255,159,10,.15);color:#b35900;border:1px solid rgba(255,159,10,.3);}
-.ob-btn-warn:hover{background:rgba(255,159,10,.25);}
-.ob-btn-danger{background:rgba(255,59,48,.1);color:var(--red);border:1px solid rgba(255,59,48,.25);}
-.ob-btn-danger:hover{background:rgba(255,59,48,.18);}
-.ob-btn-green{background:rgba(52,199,89,.15);color:#1a7a3a;border:1px solid rgba(52,199,89,.3);}
-.ob-btn-green:hover{background:rgba(52,199,89,.25);}
-.ob-check-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;color:var(--text2);cursor:pointer;}
-.ob-check-row input{width:14px;height:14px;accent-color:var(--c1);cursor:pointer;}
-.ob-meet-input{
-  width:100%;padding:6px 8px;border-radius:var(--r-sm);
-  border:1px solid var(--border2);background:var(--bg3);
-  color:var(--text);font-size:11px;outline:none;font-family:var(--mono);
-  transition:border-color .15s;
-}
-.ob-meet-input:focus{border-color:var(--c1);}
-.ob-info-row{font-size:11px;color:var(--text3);line-height:1.5;text-align:left;width:100%;}
-.ob-info-row strong{color:var(--text2);}
-.ob-remove-btn{
-  position:absolute;top:6px;right:6px;
-  background:none;border:none;cursor:pointer;
-  color:var(--text3);font-size:14px;opacity:.4;
-  line-height:1;padding:2px 4px;border-radius:4px;
-}
-.ob-remove-btn:hover{opacity:1;color:var(--red);}
 </style>
 
 <script>
@@ -6671,12 +6464,10 @@ function saveMemberBlock(){
   _renderTimeline();
 }
 function _deleteBlock(blockId){
-  showConfirm('Remove this unavailability block?', true).then(ok=>{
-    if(!ok)return;
-    saveMemberBlocks(getMemberBlocks().filter(b=>b.id!==blockId));
-    showToast('Block removed.');
-    _renderTimeline();
-  });
+  if(!confirm('Remove this unavailability block?')) return;
+  saveMemberBlocks(getMemberBlocks().filter(b=>b.id!==blockId));
+  showToast('Block removed.');
+  _renderTimeline();
 }
 
 function _showCalCtx(e, eventId, date, memberId){
@@ -6720,325 +6511,6 @@ function _toggleCeMember(id){
   if(i>=0) _ceSelectedMembers.splice(i,1); else _ceSelectedMembers.push(id);
   _renderCeMembers();
 }
-
-/* ════════════════════════════════════════════════════════
-   ONBOARDING BOARD
-   Columns: contact → meeting → onboarded
-   Max 20 prospects total.
-════════════════════════════════════════════════════════ */
-function getObProspects(){return lsGet('s343_ob')||[];}
-function saveObProspects(d){lsSave('s343_ob',d);}
-
-const OB_ICONS=[
-  // art / film / people — 20 SVG paths
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><polygon points="23 7 16 12 23 17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M2 20h20M4 20V8l8-6 8 6v12"/><rect x="9" y="12" width="6" height="8"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="15" x2="12" y2="15"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>`,
-];
-
-function obRender(){
-  const prospects=getObProspects();
-  const total=prospects.length;
-  const badge=document.getElementById('ob-count-badge');
-  if(badge) badge.textContent=`${total} / 20`;
-
-  const cols={contact:[],meeting:[],onboarded:[]};
-  prospects.forEach(p=>{ if(cols[p.stage]) cols[p.stage].push(p); });
-
-  const colDefs=[
-    {id:'contact',   label:'Contact',   count:cols.contact.length},
-    {id:'meeting',   label:'Meeting',   count:cols.meeting.length},
-    {id:'onboarded', label:'Onboarded', count:cols.onboarded.length},
-  ];
-
-  const board=document.getElementById('obBoard');
-  board.innerHTML=colDefs.map(col=>`
-    <div class="ob-col" id="ob-col-${col.id}">
-      <div class="ob-col-title">
-        <span>${col.label}</span>
-        <span style="font-size:10px;color:var(--text4);">${col.count}</span>
-      </div>
-      ${cols[col.id].map(p=>obCardHTML(p)).join('')}
-    </div>
-  `).join('');
-}
-
-function obCardHTML(p){
-  const initials=(p.name||'?').charAt(0).toUpperCase();
-  const bubbleInner=p.image
-    ? `<img src="${p.image}" alt="${esc(p.name)}">`
-    : p.iconIdx!=null
-      ? OB_ICONS[p.iconIdx]||initials
-      : initials;
-
-  if(p.stage==='contact'){
-    return `<div class="ob-card" id="ob-card-${p.id}" oncontextmenu="event.preventDefault();obEditOpen('${p.id}')">
-      <button class="ob-remove-btn" onclick="obRemove('${p.id}')" title="Remove">×</button>
-      <div class="ob-bubble" onclick="obEditOpen('${p.id}')" title="Click to edit, right-click for options" style="color:var(--c1-l)">${bubbleInner}</div>
-      <div class="ob-card-name">${esc(p.name||'New Contact')}</div>
-      ${p.focus?`<div class="ob-card-sub">${esc(p.focus)}</div>`:''}
-      <div class="ob-card-actions">
-        <button class="ob-btn ob-btn-primary" onclick="obMoveTo('${p.id}','meeting')">Ready for Meeting</button>
-        <button class="ob-btn ob-btn-ghost" onclick="obEditOpen('${p.id}')">Edit Info</button>
-      </div>
-    </div>`;
-  }
-
-  if(p.stage==='meeting'){
-    const infoHTML=`<div class="ob-info-row" id="ob-info-${p.id}" style="display:none;">
-      ${p.focus?`<div><strong>Focus:</strong> ${esc(p.focus)}</div>`:''}
-      ${p.goal?`<div><strong>Goal:</strong> ${esc(p.goal)}</div>`:''}
-    </div>`;
-    return `<div class="ob-card" id="ob-card-${p.id}" oncontextmenu="event.preventDefault();obEditOpen('${p.id}')">
-      <button class="ob-remove-btn" onclick="obRemove('${p.id}')" title="Remove">×</button>
-      <div class="ob-bubble" onclick="obEditOpen('${p.id}')" style="color:var(--c2)">${bubbleInner}</div>
-      <div class="ob-card-name">${esc(p.name||'Contact')}</div>
-      <input class="ob-meet-input" placeholder="Paste Google Meet URL..." value="${esc(p.meetUrl||'')}"
-        onblur="obSaveMeet('${p.id}',this.value)" style="width:100%;margin-top:4px;">
-      <button class="ob-btn ob-btn-ghost" style="margin-top:2px;" onclick="document.getElementById('ob-info-${p.id}').style.display=document.getElementById('ob-info-${p.id}').style.display==='none'?'block':'none'">Info</button>
-      ${infoHTML}
-      <div class="ob-card-actions" style="margin-top:6px;">
-        <button class="ob-btn ob-btn-green" onclick="obMoveTo('${p.id}','onboarded')">Ready to Onboard</button>
-        <button class="ob-btn ob-btn-ghost" onclick="obMoveTo('${p.id}','contact')">Finished Meeting</button>
-        <button class="ob-btn ob-btn-warn" onclick="obMissedMeeting('${p.id}')">Missed Meeting</button>
-      </div>
-    </div>`;
-  }
-
-  if(p.stage==='onboarded'){
-    const appDone=p.checks?.application||false;
-    const agrDone=p.checks?.agreements||false;
-    return `<div class="ob-card" id="ob-card-${p.id}" oncontextmenu="event.preventDefault();obEditOpen('${p.id}')">
-      <button class="ob-remove-btn" onclick="obRemove('${p.id}')" title="Remove">×</button>
-      <div class="ob-bubble" onclick="obEditOpen('${p.id}')" style="color:#34c759">${bubbleInner}</div>
-      <div class="ob-card-name">${esc(p.name||'Contact')}</div>
-      ${p.focus?`<div class="ob-card-sub">${esc(p.focus)}</div>`:''}
-      <label class="ob-check-row"><input type="checkbox" ${appDone?'checked':''} onchange="obToggleCheck('${p.id}','application',this.checked)"> Application</label>
-      <label class="ob-check-row"><input type="checkbox" ${agrDone?'checked':''} onchange="obToggleCheck('${p.id}','agreements',this.checked)"> Agreements</label>
-      <div class="ob-card-actions" style="margin-top:4px;">
-        <button class="ob-btn ob-btn-green" onclick="obFinalise('${p.id}')">Onboard Member</button>
-      </div>
-    </div>`;
-  }
-  return '';
-}
-
-function obAddContact(){
-  const prospects=getObProspects();
-  if(prospects.length>=20){showToast('Max 20 prospects reached.');return;}
-  const p={id:uid(),stage:'contact',name:'',focus:'',goal:'',image:'',iconIdx:null,meetUrl:'',checks:{},created:Date.now()};
-  prospects.unshift(p);
-  saveObProspects(prospects);
-  obRender();
-  // Immediately open editor for the new card
-  setTimeout(()=>obEditOpen(p.id),80);
-}
-
-function obRemove(id){
-  showConfirm('Remove this prospect?',true).then(ok=>{
-    if(!ok)return;
-    saveObProspects(getObProspects().filter(p=>p.id!==id));
-    obRender();
-  });
-}
-
-function obMoveTo(id,stage){
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===id);
-  if(!p)return;
-  p.stage=stage;
-  saveObProspects(prospects);
-  obRender();
-}
-
-function obSaveMeet(id,val){
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===id);
-  if(!p)return;
-  p.meetUrl=val.trim();
-  saveObProspects(prospects);
-}
-
-function obMissedMeeting(id){
-  // Keep in meeting column but clear meet URL so they can paste rescheduled
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===id);
-  if(!p)return;
-  p.meetUrl='';
-  saveObProspects(prospects);
-  showToast('URL cleared — paste rescheduled meeting link.');
-  obRender();
-}
-
-function obToggleCheck(id,key,val){
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===id);
-  if(!p)return;
-  if(!p.checks)p.checks={};
-  p.checks[key]=val;
-  saveObProspects(prospects);
-}
-
-function obFinalise(id){
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===id);
-  if(!p)return;
-  if(!p.name){showToast('Add a name before onboarding.');return;}
-  // Add to Members
-  const members=getMembers();
-  if(members.find(m=>m.name.toLowerCase()===p.name.toLowerCase())){
-    showToast(`${p.name} is already a member.`);return;
-  }
-  members.push({
-    id:uid(), name:p.name,
-    role:p.focus||'', email:'', phone:'', tier:'community',
-    status:'available', offers:'', needs:p.goal||'', notes:'',
-  });
-  saveMembers(members);
-  logActivity(`${p.name} onboarded as member`,'member');
-  saveObProspects(prospects.filter(x=>x.id!==id));
-  obRender();
-  showToast(`${p.name} added to Members!`);
-}
-
-// ── Edit modal for prospects ──────────────────────────────────────────────────
-let _obEditId=null;
-
-function obEditOpen(id){
-  _obEditId=id;
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===id);
-  if(!p)return;
-  document.getElementById('ob-edit-name').value=p.name||'';
-  document.getElementById('ob-edit-focus').value=p.focus||'';
-  document.getElementById('ob-edit-goal').value=p.goal||'';
-  document.getElementById('ob-edit-image').value=p.image||'';
-  // Render icon grid
-  const grid=document.getElementById('ob-icon-grid');
-  grid.innerHTML=OB_ICONS.map((svg,i)=>`
-    <div onclick="obSelectIcon(${i})" title="Icon ${i+1}"
-      style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-             cursor:pointer;border:2px solid ${p.iconIdx===i?'var(--c1)':'var(--border)'};
-             background:${p.iconIdx===i?'var(--c1-d)':'var(--bg3)'};color:${p.iconIdx===i?'var(--c1-l)':'var(--text2)'};
-             transition:all .12s;" id="ob-icon-${i}">
-      ${svg}
-    </div>`).join('');
-  document.getElementById('ob-edit-modal').classList.add('open');
-  setTimeout(()=>document.getElementById('ob-edit-name').focus(),60);
-}
-
-function obSelectIcon(idx){
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===_obEditId);
-  if(!p)return;
-  p.iconIdx=p.iconIdx===idx?null:idx; // toggle off if same
-  p.image=''; // clear image if icon chosen
-  saveObProspects(prospects);
-  obEditOpen(_obEditId); // re-render modal
-}
-
-function obEditSave(){
-  const prospects=getObProspects();
-  const p=prospects.find(x=>x.id===_obEditId);
-  if(!p)return;
-  p.name=document.getElementById('ob-edit-name').value.trim()||'New Contact';
-  p.focus=document.getElementById('ob-edit-focus').value.trim();
-  p.goal=document.getElementById('ob-edit-goal').value.trim();
-  const imgVal=document.getElementById('ob-edit-image').value.trim();
-  if(imgVal){p.image=imgVal;p.iconIdx=null;}
-  saveObProspects(prospects);
-  document.getElementById('ob-edit-modal').classList.remove('open');
-  _obEditId=null;
-  obRender();
-}
-
-/* ── CONFIRM MODAL ── replaces browser confirm() which is blocked in iframes ── */
-let _confirmResolve = null;
-function showConfirm(msg, danger) {
-  return new Promise(resolve => {
-    _confirmResolve = resolve;
-    const msgEl  = document.getElementById('_confirmMsg');
-    const btnEl  = document.getElementById('_confirmOk');
-    if (msgEl) msgEl.textContent = msg;
-    if (btnEl) {
-      btnEl.textContent = danger ? 'Delete' : 'Confirm';
-      btnEl.style.background = danger
-        ? 'linear-gradient(135deg,#ff3b30,#c0392b)'
-        : 'linear-gradient(135deg,var(--c1),color-mix(in srgb,var(--c1) 70%,var(--c2)))';
-    }
-    document.getElementById('_confirmBackdrop').classList.add('open');
-  });
-}
-function _confirmYes() {
-  document.getElementById('_confirmBackdrop').classList.remove('open');
-  if (_confirmResolve) { _confirmResolve(true); _confirmResolve = null; }
-}
-function _confirmNo() {
-  document.getElementById('_confirmBackdrop').classList.remove('open');
-  if (_confirmResolve) { _confirmResolve(false); _confirmResolve = null; }
-}
 </script>
-
-<!-- CONFIRM MODAL -->
-<div class="modal-backdrop" id="_confirmBackdrop" onclick="if(event.target===this)_confirmNo()">
-  <div class="modal" style="width:360px">
-    <div class="modal-title" style="font-size:17px;padding:20px 24px 0">Are you sure?</div>
-    <div class="modal-sub" style="padding:6px 24px 0" id="_confirmMsg"></div>
-    <div class="modal-row" style="padding:0 24px 22px;margin-top:18px">
-      <button class="modal-cancel" onclick="_confirmNo()">Cancel</button>
-      <button class="modal-confirm" id="_confirmOk" onclick="_confirmYes()">Confirm</button>
-    </div>
-  </div>
-</div>
-<!-- ONBOARDING EDIT MODAL -->
-<div class="modal-backdrop" id="ob-edit-modal" onclick="if(event.target===this)document.getElementById('ob-edit-modal').classList.remove('open')">
-  <div class="modal" style="width:440px">
-    <div class="modal-title">Edit Contact</div>
-    <div class="modal-field">
-      <label>First Name</label>
-      <input class="input" id="ob-edit-name" placeholder="Name" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('ob-edit-focus').focus();}">
-    </div>
-    <div class="modal-field">
-      <label>Passion / Focus</label>
-      <input class="input" id="ob-edit-focus" placeholder="e.g. Cinematography, Acting, Writing">
-    </div>
-    <div class="modal-field">
-      <label>Goal</label>
-      <input class="input" id="ob-edit-goal" placeholder="What do they want to achieve?">
-    </div>
-    <div class="modal-field">
-      <label>Photo URL (optional)</label>
-      <input class="input" id="ob-edit-image" placeholder="https://..." style="font-family:var(--mono);font-size:12px;">
-    </div>
-    <div style="padding:0 28px 16px">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1-l);margin-bottom:10px;display:flex;align-items:center;gap:5px;">
-        <span style="width:3px;height:3px;border-radius:50%;background:var(--c1);display:inline-block;flex-shrink:0;"></span>Icon
-      </div>
-      <div id="ob-icon-grid" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-    </div>
-    <div class="modal-row">
-      <button class="modal-cancel" onclick="document.getElementById('ob-edit-modal').classList.remove('open')">Cancel</button>
-      <button class="modal-confirm" onclick="obEditSave()">Save</button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
